@@ -6,23 +6,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class LoginPage extends AppCompatActivity {
+import java.util.Set;
+
+public class HomePage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.activity_home_page);
 
-        Button enterApp = (Button) findViewById(R.id.enterApp);
-
-        enterApp.setOnClickListener(new View.OnClickListener() {
+        Button settingsButton = (Button) findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginPage.this, HomePage.class);
+                Intent intent = new Intent(HomePage.this, SettingsPage.class);
                 startActivity(intent);
             }
         });
+
+
+
+
 
     }
 }

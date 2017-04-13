@@ -19,7 +19,9 @@
         <activity android:name=".LoginPage" />
         <activity android:name=".CreateAccount" />
         <activity android:name=".SettingsPage" />
-        <activity android:name=".HomePage"></activity>
+        <activity android:name=".HomePage" />
+        <activity android:name=".LightControls" />
+        <activity android:name=".MusicControls"></activity>
     </application>
 
 </manifest>

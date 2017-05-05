@@ -1,12 +1,10 @@
-package com.example.jamesharrison.smartlighthub;
+package com.example.seniordesign.smartlighthub;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.Set;
 
 public class HomePage extends AppCompatActivity {
 

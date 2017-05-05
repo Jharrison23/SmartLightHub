@@ -1,13 +1,13 @@
-package com.example.jamesharrison.smartlighthub;
+package com.example.seniordesign.smartlighthub;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class LightControls extends AppCompatActivity {
+public class CreateAccount extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_light_controls);
+        setContentView(R.layout.activity_create_account);
     }
 }

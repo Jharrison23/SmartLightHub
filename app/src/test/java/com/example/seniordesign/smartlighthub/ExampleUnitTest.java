@@ -1,4 +1,4 @@
-package com.example.jamesharrison.smartlighthub;
+package com.example.seniordesign.smartlighthub;
 
 import org.junit.Test;
 

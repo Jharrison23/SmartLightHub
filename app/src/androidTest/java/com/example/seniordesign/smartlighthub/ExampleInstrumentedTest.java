@@ -1,4 +1,4 @@
-package com.example.jamesharrison.smartlighthub;
+package com.example.seniordesign.smartlighthub;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

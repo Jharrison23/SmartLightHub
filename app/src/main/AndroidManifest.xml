@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jamesharrison.smartlighthub">
+    package="com.example.seniordesign.smartlighthub">
 
     <application
         android:allowBackup="true"
@@ -9,19 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.seniordesign.smartlighthub.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginPage" />
-        <activity android:name=".CreateAccount" />
-        <activity android:name=".SettingsPage" />
-        <activity android:name=".HomePage" />
-        <activity android:name=".LightControls" />
-        <activity android:name=".MusicControls"></activity>
+        <activity android:name="com.example.seniordesign.smartlighthub.LoginPage" />
+        <activity android:name="com.example.seniordesign.smartlighthub.CreateAccount" />
+        <activity android:name="com.example.seniordesign.smartlighthub.SettingsPage" />
+        <activity android:name="com.example.seniordesign.smartlighthub.HomePage" />
+        <activity android:name="com.example.seniordesign.smartlighthub.LightControls" />
+        <activity android:name="com.example.seniordesign.smartlighthub.MusicControls"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.jamesharrison.smartlighthub;
+package com.example.seniordesign.smartlighthub;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

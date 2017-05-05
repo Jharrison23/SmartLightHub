@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "246926115483",
+    "firebase_url": "https://smart-light-hub.firebaseio.com",
+    "project_id": "smart-light-hub",
+    "storage_bucket": "smart-light-hub.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246926115483:android:43ae2dcfe7798528",
+        "android_client_info": {
+          "package_name": "com.example.jamesharrison.smartlighthub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246926115483-0opsls0rg9qkfh2tme78j8mnbfmrpu43.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jamesharrison.smartlighthub",
+            "certificate_hash": "1ad97bb33120a1e92a3bddef2072040aea21eff2"
+          }
+        },
+        {
+          "client_id": "246926115483-p4hicavau01m3gn2m5bsv62kblknvptv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmoqHmoHSQ8AM8zGgST-2T3hvAnC0QiJg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246926115483-p4hicavau01m3gn2m5bsv62kblknvptv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

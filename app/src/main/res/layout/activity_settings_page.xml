@@ -7,7 +7,7 @@
     tools:context="com.example.seniordesign.smartlighthub.LoginPage">
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/fullNameField"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -19,12 +19,12 @@
         android:text="James Harrison"
         android:textAlignment="center"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="@+id/editText4"
-        app:layout_constraintRight_toRightOf="@+id/editText4"
+        app:layout_constraintLeft_toLeftOf="@+id/userNameField"
+        app:layout_constraintRight_toRightOf="@+id/userNameField"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/userNameField"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -37,11 +37,11 @@
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText1" />
+        app:layout_constraintTop_toBottomOf="@+id/fullNameField" />
 
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/emailField"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -53,12 +53,12 @@
         android:text="Harrison@email.com"
         android:textAlignment="center"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="@+id/editText3"
-        app:layout_constraintRight_toRightOf="@+id/editText3"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintLeft_toLeftOf="@+id/passwordField"
+        app:layout_constraintRight_toRightOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/userNameField" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/passwordField"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -71,7 +71,7 @@
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/emailField" />
 
     <TextView
         android:id="@+id/textView3"
@@ -98,7 +98,7 @@
         android:text="Edit"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
     <Button
         android:id="@+id/saveButton"
@@ -111,8 +111,8 @@
         android:text="Save"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/editText3"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintRight_toRightOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
     <Button
         android:id="@+id/cancelButton"
@@ -122,7 +122,7 @@
         android:layout_marginTop="42dp"
         android:background="@android:color/holo_red_light"
         android:text="Button"
-        app:layout_constraintLeft_toLeftOf="@+id/editText3"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintLeft_toLeftOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
 </android.support.constraint.ConstraintLayout>

@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -69,34 +72,80 @@ public class CreateAccount extends AppCompatActivity {
         password = (EditText) findViewById(R.id.passwordField);
         confirmPassword = (EditText) findViewById(R.id.confirmPasswordField);
 
+//        createAccount.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                String emailAddress = email.getText().toString();
+//
+//                String pass = password.getText().toString();
+//
+//                if (!emailAddress.equals("") && !pass.equals(""))
+//                {
+//                    mAuth.createUserWithEmailAndPassword(emailAddress, pass);
+//                    Toast.makeText(CreateAccount.this, "user Signed in", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                else
+//                {
+//                    Toast.makeText(CreateAccount.this, "Fill out email and password", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+
+
+
         createAccount.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
+
                 String emailAddress = email.getText().toString();
 
                 String pass = password.getText().toString();
 
                 if (!emailAddress.equals("") && !pass.equals(""))
                 {
-                    mAuth.createUserWithEmailAndPassword(emailAddress, pass);
-                    Toast.makeText(CreateAccount.this, "user Signed in", Toast.LENGTH_SHORT).show();
+
+                    mAuth.createUserWithEmailAndPassword(emailAddress, pass)
+                            .addOnCompleteListener(CreateAccount.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task)
+                        {
+                            if (task.isSuccessful())
+                            {
+
+                                Log.d(TAG, "Create user successful");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Toast.makeText(CreateAccount.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
+                            }
+
+                            else {
+                                Log.w(TAG, "Create user : Not Successful ");
+                                Toast.makeText(CreateAccount.this, "User not created", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
                 }
 
                 else
                 {
-                    Toast.makeText(CreateAccount.this, "Fill out email and password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccount.this, "Please fill out the Email and password Field", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
 
     @Override
     public void onStart()
     {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        mAuth.addAuthStateListener(mAuthListener);
 
     }
 

@@ -133,7 +133,7 @@ public class CreateAccount extends AppCompatActivity {
 
                 else
                 {
-                    Toast.makeText(CreateAccount.this, "Please fill out the Email and Password Field", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccount.this, "Please fill out the Email and password Field", Toast.LENGTH_SHORT).show();
                 }
             }
         });

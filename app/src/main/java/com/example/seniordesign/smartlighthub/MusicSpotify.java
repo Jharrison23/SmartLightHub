@@ -1,8 +1,5 @@
 package com.example.seniordesign.smartlighthub;
 
-
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -27,13 +24,11 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 import com.spotify.sdk.android.player.PlayerEvent;
 
-public class MusicSpotify extends AppCompatActivity implements ConnectionStateCallback,  Player.NotificationCallback
+public class MusicSpotify extends AppCompatActivity implements ConnectionStateCallback, Player.NotificationCallback
 {
 
     /**
-
-    Constant Section
-
+     Constant Section
      **/
 
 
@@ -140,6 +135,4 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
     public void onConnectionMessage(String message) {
         Log.d("MusicSpotify", "Received connection message: " + message);
     }
-
-
 }

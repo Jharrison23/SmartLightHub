@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class LoginPage extends AppCompatActivity {
 
     private Button enterApp;
 
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -35,7 +37,7 @@ public class LoginPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-
+        progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
 
         email = (EditText) findViewById(R.id.emailField);
@@ -54,6 +56,9 @@ public class LoginPage extends AppCompatActivity {
 
                 if (!emailAddress.equals("") && !password.equals(""))
                 {
+                    progressDialog.setMessage("Signing in please wait....");
+                    progressDialog.show();
+
                     mAuth.signInWithEmailAndPassword(emailAddress, password)
                             .addOnCompleteListener(LoginPage.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -66,12 +71,14 @@ public class LoginPage extends AppCompatActivity {
 
                                         Intent intent = new Intent(LoginPage.this, HomePage.class);
                                         startActivity(intent);
+                                        progressDialog.cancel();
                                     }
 
                                     else
                                     {
                                         Log.w(TAG, "Sign in unsuccessful");
                                         Toast.makeText(LoginPage.this, "Signin Failed", Toast.LENGTH_SHORT).show();
+                                        progressDialog.cancel();
                                     }
                                 }
                             });

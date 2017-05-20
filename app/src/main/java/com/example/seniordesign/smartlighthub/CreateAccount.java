@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class CreateAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
-
+    private ProgressDialog progressDialog;
     private Button createAccount;
     private EditText fullName, userName, email, password, confirmPassword;
 
@@ -36,6 +37,7 @@ public class CreateAccount extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        progressDialog = new ProgressDialog(this);
 
         init();
     }
@@ -108,7 +110,8 @@ public class CreateAccount extends AppCompatActivity {
 
                 if (!emailAddress.equals("") && !pass.equals(""))
                 {
-
+                    progressDialog.setMessage("Registering in please wait....");
+                    progressDialog.show();
                     mAuth.createUserWithEmailAndPassword(emailAddress, pass)
                             .addOnCompleteListener(CreateAccount.this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -120,11 +123,14 @@ public class CreateAccount extends AppCompatActivity {
                                 Log.d(TAG, "Create user successful");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(CreateAccount.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
+                                progressDialog.cancel();
                             }
 
-                            else {
+                            else
+                            {
                                 Log.w(TAG, "Create user : Not Successful ");
                                 Toast.makeText(CreateAccount.this, "User not created", Toast.LENGTH_SHORT).show();
+                                progressDialog.cancel();
 
                             }
                         }

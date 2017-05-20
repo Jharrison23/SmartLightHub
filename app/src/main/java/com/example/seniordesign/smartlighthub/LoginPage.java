@@ -25,7 +25,7 @@ public class LoginPage extends AppCompatActivity {
 
     private EditText email;
 
-    private EditText pass;
+    private EditText password;
 
     private Button enterApp;
 
@@ -42,7 +42,7 @@ public class LoginPage extends AppCompatActivity {
 
         email = (EditText) findViewById(R.id.emailField);
 
-        pass = (EditText) findViewById(R.id.passwordField);
+        password = (EditText) findViewById(R.id.passwordField);
 
         enterApp = (Button) findViewById(R.id.enterApp);
 
@@ -50,16 +50,16 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String emailAddress = email.getText().toString();
+                String emailAddress = email.getText().toString();
 
-                String password = pass.getText().toString();
+                String passwordString = password.getText().toString();
 
-                if (!emailAddress.equals("") && !password.equals(""))
+                if (!emailAddress.equals("") && !passwordString.equals(""))
                 {
                     progressDialog.setMessage("Signing in please wait....");
                     progressDialog.show();
 
-                    mAuth.signInWithEmailAndPassword(emailAddress, password)
+                    mAuth.signInWithEmailAndPassword(emailAddress, passwordString)
                             .addOnCompleteListener(LoginPage.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -67,7 +67,7 @@ public class LoginPage extends AppCompatActivity {
                                     if (task.isSuccessful())
                                     {
                                         Log.d(TAG, "Sign in successful");
-                                        Toast.makeText(LoginPage.this, "Signin Successful " + emailAddress, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginPage.this, "Signin Successful", Toast.LENGTH_SHORT).show();
 
                                         Intent intent = new Intent(LoginPage.this, HomePage.class);
                                         startActivity(intent);

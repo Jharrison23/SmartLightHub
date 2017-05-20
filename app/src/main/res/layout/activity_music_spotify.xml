@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteX="0dp">
 
     <EditText
-        android:id="@+id/Search_Track"
+        android:id="@+id/searchTrack"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -20,7 +20,7 @@
         android:ems="10"
         android:hint="Search Track Name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/Track_list"
+        app:layout_constraintBottom_toTopOf="@+id/trackList"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
     </EditText>
 
     <ListView
-        android:id="@+id/Track_list"
+        android:id="@+id/trackList"
         android:layout_width="356dp"
         android:layout_height="342dp"
         android:layout_marginEnd="8dp"
@@ -41,7 +41,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="85dp"
-        app:layout_constraintTop_toTopOf="@+id/Search_Track"
+        app:layout_constraintTop_toTopOf="@+id/searchTrack"
         android:layout_marginTop="8dp" />
 
     <Button
@@ -78,7 +78,7 @@
         android:layout_marginTop="8dp"
         android:text="Resume"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Track_list"
+        app:layout_constraintTop_toBottomOf="@+id/trackList"
         app:layout_constraintVertical_bias="0.509"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"

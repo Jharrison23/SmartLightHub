@@ -9,9 +9,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
@@ -25,7 +30,10 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 import com.spotify.sdk.android.player.PlayerEvent;
 
-public class MusicSpotify extends AppCompatActivity implements ConnectionStateCallback, Player.NotificationCallback, View.OnClickListener
+import java.util.List;
+
+public class MusicSpotify extends AppCompatActivity implements ConnectionStateCallback, Player.NotificationCallback,
+        View.OnClickListener
 {
 
     /**
@@ -49,6 +57,16 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
     private Button pause;
 
     private Button resume;
+
+    private ListView trackList;
+
+    private String selectedSong = "";
+
+    String [] songList = {"Despacito" , "Sacrifices" , "Passionfruit", "HUMBLE", "No Role Modelz", "Neighbors"};
+
+    String[] songsURIList = {"spotify:track:7CUYHcu0RnbOnMz4RuN07w", "spotify:track:0XpEoWpZqlQpGFYZXDU2Hj",
+            "spotify:track:5mCPDVBb16L4XQwDdbRUpz", "spotify:track:7KXjTSCq5nL1LoYtL7XAwS",
+            "spotify:track:62vpWI1CHwFy7tMIcSStl8", "spotify:track:0utlOiJy2weVl9WTkcEWHy"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,6 +97,20 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
         resume.setOnClickListener(this);
         resume.setVisibility(View.INVISIBLE);
 
+        ListAdapter songsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, songList);
+
+        trackList = (ListView) findViewById(R.id.trackList);
+
+        trackList.setAdapter(songsAdapter);
+
+        trackList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                selectedSong = songsURIList[position];
+            }
+        });
 
     }
 
@@ -169,7 +201,16 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
         switch (v.getId())
         {
             case R.id.playButton:
-                mPlayer.playUri(null, "spotify:track:0XpEoWpZqlQpGFYZXDU2Hj", 0, 0);
+                if (!selectedSong.equals(""))
+                {
+                    mPlayer.playUri(null, selectedSong, 0, 0);
+
+                }
+
+                else
+                {
+                    Toast.makeText(this, "Please select a song from the list", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.pauseButton:

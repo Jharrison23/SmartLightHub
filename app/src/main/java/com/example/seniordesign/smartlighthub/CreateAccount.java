@@ -1,6 +1,7 @@
 package com.example.seniordesign.smartlighthub;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -104,15 +105,15 @@ public class CreateAccount extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                String emailAddress = email.getText().toString();
+                String emailString = email.getText().toString();
 
                 String pass = password.getText().toString();
 
-                if (!emailAddress.equals("") && !pass.equals(""))
+                if (!emailString.equals("") && !pass.equals(""))
                 {
                     progressDialog.setMessage("Registering in please wait....");
                     progressDialog.show();
-                    mAuth.createUserWithEmailAndPassword(emailAddress, pass)
+                    mAuth.createUserWithEmailAndPassword(emailString, pass)
                             .addOnCompleteListener(CreateAccount.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task)
@@ -124,6 +125,8 @@ public class CreateAccount extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(CreateAccount.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
                                 progressDialog.cancel();
+                                Intent intent = new Intent(CreateAccount.this, MainActivity.class);
+                                startActivity(intent);
                             }
 
                             else

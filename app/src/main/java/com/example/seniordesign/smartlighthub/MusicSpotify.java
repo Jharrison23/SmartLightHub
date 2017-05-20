@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -24,7 +25,7 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 import com.spotify.sdk.android.player.PlayerEvent;
 
-public class MusicSpotify extends AppCompatActivity implements ConnectionStateCallback, Player.NotificationCallback
+public class MusicSpotify extends AppCompatActivity implements ConnectionStateCallback, Player.NotificationCallback, View.OnClickListener
 {
 
     /**
@@ -32,18 +33,26 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
      **/
 
 
-    //
+
     private static final String CLIENT_ID = "eed47028bf274baba3e689d68fb1a4ca";
 
     private static final String REDIRECT_URI = "seniordesign://callback";
 
     private static final int REQUEST_CODE = 8763;
 
-    public static final String TAG = "SmartLightHub";
+    private static final String TAG = "MusicSpotify";
+
     private Player mPlayer;
 
+    private Button play;
+
+    private Button pause;
+
+    private Button resume;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_spotify);
 
@@ -54,6 +63,23 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
         AuthenticationRequest request = builder.build();
 
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        init();
+    }
+
+    public void init()
+    {
+        play = (Button) findViewById(R.id.playButton);
+        play.setOnClickListener(this);
+
+        pause = (Button) findViewById(R.id.pauseButton);
+        pause.setOnClickListener(this);
+
+        resume = (Button) findViewById(R.id.resumeButton);
+        resume.setOnClickListener(this);
+        resume.setVisibility(View.INVISIBLE);
+
+
     }
 
     @Override
@@ -75,7 +101,7 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
 
                     @Override
                     public void onError(Throwable throwable) {
-                        Log.e("MusicSpotify", "Could not initialize player: " + throwable.getMessage());
+                        Log.e(TAG, "Could not initialize player: " + throwable.getMessage());
                     }
                 });
             }
@@ -91,7 +117,7 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
 
     @Override
     public void onPlaybackEvent(PlayerEvent playerEvent) {
-        Log.d("MusicSpotify", "Playback event received: " + playerEvent.name());
+        Log.d(TAG, "Playback event received: " + playerEvent.name());
         switch (playerEvent) {
             // Handle event type as necessary
             default:
@@ -101,7 +127,7 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
     }
     @Override
     public void onPlaybackError(Error error) {
-        Log.d("MusicSpotify", "Playback error received: " + error.name());
+        Log.d(TAG, "Playback error received: " + error.name());
         switch (error) {
             // Handle error type as necessary
             default:
@@ -111,28 +137,54 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
 
     @Override
     public void onLoggedIn() {
-        Log.d("MusicSpotify", "User logged in");
+        Log.d(TAG, "User logged in");
 
-        mPlayer.playUri(null, "spotify:track:0XpEoWpZqlQpGFYZXDU2Hj", 0, 0);
+
+//        mPlayer.playUri(null, "spotify:track:0XpEoWpZqlQpGFYZXDU2Hj", 0, 0);
     }
     @Override
     public void onLoggedOut() {
-        Log.d("MusicSpotify", "User logged out");
+        Log.d(TAG, "User logged out");
     }
 
     @Override
     public void onLoginFailed(Error error ){
-        Log.d("MusicSpotify", "Login failed");
+        Log.d(TAG, "Login failed");
     }
 
     @Override
     public void onTemporaryError() {
-        Log.d("MusicSpotify", "Temporary error occurred");
+        Log.d(TAG, "Temporary error occurred");
     }
 
 
     @Override
     public void onConnectionMessage(String message) {
-        Log.d("MusicSpotify", "Received connection message: " + message);
+        Log.d(TAG, "Received connection message: " + message);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.playButton:
+                mPlayer.playUri(null, "spotify:track:0XpEoWpZqlQpGFYZXDU2Hj", 0, 0);
+                break;
+
+            case R.id.pauseButton:
+                mPlayer.pause(null);
+                play.setVisibility(View.INVISIBLE);
+                pause.setVisibility(View.INVISIBLE);
+                resume.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.resumeButton:
+                mPlayer.resume(null);
+                play.setVisibility(View.VISIBLE);
+                pause.setVisibility(View.VISIBLE);
+                resume.setVisibility(View.INVISIBLE);
+                break;
+        }
     }
 }

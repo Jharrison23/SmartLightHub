@@ -50,7 +50,7 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
 
     private static final String TAG = "MusicSpotify";
 
-    private Player mPlayer;
+    public Player mPlayer;
 
     private Button play;
 
@@ -60,7 +60,7 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
 
     private ListView trackList;
 
-    private String selectedSong = "";
+    public String selectedSong = "";
 
     String [] songList = {"Despacito" , "Sacrifices" , "Passionfruit", "HUMBLE", "No Role Modelz", "Neighbors"};
 
@@ -93,10 +93,6 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
         pause = (Button) findViewById(R.id.pauseButton);
         pause.setOnClickListener(this);
 
-        resume = (Button) findViewById(R.id.resumeButton);
-        resume.setOnClickListener(this);
-        resume.setVisibility(View.INVISIBLE);
-
         ListAdapter songsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, songList);
 
         trackList = (ListView) findViewById(R.id.trackList);
@@ -108,7 +104,21 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+                Toast.makeText(MusicSpotify.this, "Selected " + songList[position], Toast.LENGTH_SHORT).show();
                 selectedSong = songsURIList[position];
+
+                if (!selectedSong.equals(""))
+                {
+                    mPlayer.playUri(null, selectedSong, 0, 0);
+
+                }
+
+                else
+                {
+                    Toast.makeText(MusicSpotify.this, "Please select a song from the list", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
@@ -171,8 +181,6 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
     public void onLoggedIn() {
         Log.d(TAG, "User logged in");
 
-
-//        mPlayer.playUri(null, "spotify:track:0XpEoWpZqlQpGFYZXDU2Hj", 0, 0);
     }
     @Override
     public void onLoggedOut() {
@@ -201,30 +209,11 @@ public class MusicSpotify extends AppCompatActivity implements ConnectionStateCa
         switch (v.getId())
         {
             case R.id.playButton:
-                if (!selectedSong.equals(""))
-                {
-                    mPlayer.playUri(null, selectedSong, 0, 0);
-
-                }
-
-                else
-                {
-                    Toast.makeText(this, "Please select a song from the list", Toast.LENGTH_SHORT).show();
-                }
+                mPlayer.resume(null);
                 break;
 
             case R.id.pauseButton:
                 mPlayer.pause(null);
-                play.setVisibility(View.INVISIBLE);
-                pause.setVisibility(View.INVISIBLE);
-                resume.setVisibility(View.VISIBLE);
-                break;
-
-            case R.id.resumeButton:
-                mPlayer.resume(null);
-                play.setVisibility(View.VISIBLE);
-                pause.setVisibility(View.VISIBLE);
-                resume.setVisibility(View.INVISIBLE);
                 break;
         }
     }

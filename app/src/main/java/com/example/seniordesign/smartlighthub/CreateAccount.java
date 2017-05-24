@@ -50,6 +50,8 @@ public class CreateAccount extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+
         mAuthListener = new FirebaseAuth.AuthStateListener()
         {
             @Override
@@ -135,11 +137,11 @@ public class CreateAccount extends AppCompatActivity {
 
     public void registerUser()
     {
-        String nameString = fullName.getText().toString();
-        String userNameString = userName.getText().toString();
-        String emailString = email.getText().toString();
-        String pass = password.getText().toString();
-        String confirmPassString = confirmPassword.getText().toString();
+        final String nameString = fullName.getText().toString().trim();
+        final String userNameString = userName.getText().toString().trim();
+        final String emailString = email.getText().toString().trim();
+        String pass = password.getText().toString().trim();
+        String confirmPassString = confirmPassword.getText().toString().trim();
 
 
         if (!emailString.equals("") && !pass.equals("") && !nameString.equals("") && !userNameString.equals("") && !confirmPassString.equals(""))
@@ -156,11 +158,21 @@ public class CreateAccount extends AppCompatActivity {
                     {
                         if (task.isSuccessful())
                         {
+                            String userID = mAuth.getCurrentUser().getUid();
+
+                            DatabaseReference currentUserDB = mDatabase.child(userID);
+
+                            currentUserDB.child("Name").setValue(nameString);
+                            currentUserDB.child("Username").setValue(userNameString);
+                            currentUserDB.child("Email").setValue(emailString);
 
                             Log.d(TAG, "Create user successful");
                             FirebaseUser user = mAuth.getCurrentUser();
+
                             Toast.makeText(CreateAccount.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
+
                             progressDialog.cancel();
+
                             Intent intent = new Intent(CreateAccount.this, MainActivity.class);
                             startActivity(intent);
                         }

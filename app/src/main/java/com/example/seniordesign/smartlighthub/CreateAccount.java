@@ -26,10 +26,12 @@ public class CreateAccount extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     private FirebaseAuth mAuth;
-
     private FirebaseAuth.AuthStateListener mAuthListener;
+
     private ProgressDialog progressDialog;
+
     private Button createAccount;
+
     private EditText fullName, userName, email, password, confirmPassword;
 
 
@@ -47,6 +49,8 @@ public class CreateAccount extends AppCompatActivity {
     {
 
         mAuth = FirebaseAuth.getInstance();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuthListener = new FirebaseAuth.AuthStateListener()
         {
@@ -104,46 +108,7 @@ public class CreateAccount extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-
-                String emailString = email.getText().toString();
-
-                String pass = password.getText().toString();
-
-                if (!emailString.equals("") && !pass.equals(""))
-                {
-                    progressDialog.setMessage("Registering in please wait....");
-                    progressDialog.show();
-                    mAuth.createUserWithEmailAndPassword(emailString, pass)
-                            .addOnCompleteListener(CreateAccount.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task)
-                        {
-                            if (task.isSuccessful())
-                            {
-
-                                Log.d(TAG, "Create user successful");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                Toast.makeText(CreateAccount.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
-                                progressDialog.cancel();
-                                Intent intent = new Intent(CreateAccount.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-
-                            else
-                            {
-                                Log.w(TAG, "Create user : Not Successful ");
-                                Toast.makeText(CreateAccount.this, "User not created", Toast.LENGTH_SHORT).show();
-                                progressDialog.cancel();
-
-                            }
-                        }
-                    });
-                }
-
-                else
-                {
-                    Toast.makeText(CreateAccount.this, "Please fill out the Email and password Field", Toast.LENGTH_SHORT).show();
-                }
+                registerUser();
             }
         });
 
@@ -154,7 +119,8 @@ public class CreateAccount extends AppCompatActivity {
     {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-//        mAuth.addAuthStateListener(mAuthListener);
+
+        mAuth.addAuthStateListener(mAuthListener);
 
     }
 
@@ -168,6 +134,73 @@ public class CreateAccount extends AppCompatActivity {
         }
     }
 
+
+    public void registerUser()
+    {
+        final String nameString = fullName.getText().toString().trim();
+        final String userNameString = userName.getText().toString().trim();
+        final String emailString = email.getText().toString().trim();
+        String pass = password.getText().toString().trim();
+        String confirmPassString = confirmPassword.getText().toString().trim();
+
+
+        if (!emailString.equals("") && !pass.equals("") && !nameString.equals("") && !userNameString.equals("") && !confirmPassString.equals(""))
+        {
+            if (pass.equals(confirmPassString))
+            {
+                progressDialog.setMessage("Registering in please wait....");
+                progressDialog.show();
+
+                mAuth.createUserWithEmailAndPassword(emailString, pass).addOnCompleteListener(CreateAccount.this, new OnCompleteListener<AuthResult>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            String userID = mAuth.getCurrentUser().getUid();
+
+                            DatabaseReference currentUserDB = mDatabase.child(userID);
+
+                            currentUserDB.child("Name").setValue(nameString);
+                            currentUserDB.child("Username").setValue(userNameString);
+                            currentUserDB.child("Email").setValue(emailString);
+
+                            Log.d(TAG, "Create user successful");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            Toast.makeText(CreateAccount.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
+
+                            progressDialog.cancel();
+
+                            Intent intent = new Intent(CreateAccount.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+
+                        else
+                        {
+                            Log.w(TAG, "Create user : Not Successful ");
+                            Toast.makeText(CreateAccount.this, "User not created", Toast.LENGTH_SHORT).show();
+                            progressDialog.cancel();
+
+                        }
+                    }
+                });
+            }
+
+            else
+            {
+                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+
+        else
+        {
+            Toast.makeText(CreateAccount.this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }

@@ -166,6 +166,24 @@ public class CreateAccount extends AppCompatActivity {
                             currentUserDB.child("Username").setValue(userNameString);
                             currentUserDB.child("Email").setValue(emailString);
 
+                            DatabaseReference lightDB = currentUserDB.child("Lights");
+
+                            DatabaseReference firstLightDB = lightDB.child("Light 1");
+                            firstLightDB.child("Color").setValue("#FFFFFF");
+                            firstLightDB.child("State").setValue("On");
+
+
+                            DatabaseReference secondLightDB = lightDB.child("Light 2");
+                            secondLightDB.child("Color").setValue("#123456");
+                            secondLightDB.child("State").setValue("On");
+
+
+                            DatabaseReference thirdLightDB = lightDB.child("Light 3");
+                            thirdLightDB.child("Color").setValue("#FF34EE");
+                            thirdLightDB.child("State").setValue("On");
+
+
+
                             Log.d(TAG, "Create user successful");
                             FirebaseUser user = mAuth.getCurrentUser();
 

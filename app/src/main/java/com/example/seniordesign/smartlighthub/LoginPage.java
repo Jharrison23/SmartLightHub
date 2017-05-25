@@ -16,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -38,6 +43,7 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
         progressDialog = new ProgressDialog(this);
+
         mAuth = FirebaseAuth.getInstance();
 
         email = (EditText) findViewById(R.id.emailField);
@@ -50,40 +56,7 @@ public class LoginPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String emailAddress = email.getText().toString();
-
-                String passwordString = password.getText().toString();
-
-                if (!emailAddress.equals("") && !passwordString.equals(""))
-                {
-                    progressDialog.setMessage("Signing in please wait....");
-                    progressDialog.show();
-
-                    mAuth.signInWithEmailAndPassword(emailAddress, passwordString)
-                            .addOnCompleteListener(LoginPage.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                    if (task.isSuccessful())
-                                    {
-                                        Log.d(TAG, "Sign in successful");
-                                        Toast.makeText(LoginPage.this, "Signin Successful", Toast.LENGTH_SHORT).show();
-
-                                        Intent intent = new Intent(LoginPage.this, HomePage.class);
-                                        startActivity(intent);
-                                        progressDialog.cancel();
-                                    }
-
-                                    else
-                                    {
-                                        Log.w(TAG, "Sign in unsuccessful");
-                                        Toast.makeText(LoginPage.this, "Signin Failed", Toast.LENGTH_SHORT).show();
-                                        progressDialog.cancel();
-                                    }
-                                }
-                            });
-
-                }
+                login();
 
             }
         });
@@ -94,8 +67,46 @@ public class LoginPage extends AppCompatActivity {
     {
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-
     }
+
+    public void login()
+    {
+        String emailAddress = email.getText().toString().trim();
+
+        String passwordString = password.getText().toString().trim();
+
+        if (!emailAddress.equals("") && !passwordString.equals(""))
+        {
+            progressDialog.setMessage("Signing in please wait....");
+            progressDialog.show();
+
+            mAuth.signInWithEmailAndPassword(emailAddress, passwordString).addOnCompleteListener(LoginPage.this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    if (task.isSuccessful())
+                    {
+
+                        Log.d(TAG, "Sign in successful");
+                        Toast.makeText(LoginPage.this, "Sign in Successful", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(LoginPage.this, HomePage.class);
+                        startActivity(intent);
+                        progressDialog.cancel();
+
+                    }
+
+                    else
+                    {
+                        Log.w(TAG, "Sign in unsuccessful");
+                        Toast.makeText(LoginPage.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+                        progressDialog.cancel();
+                    }
+                }
+            });
+
+        }
+    }
+
+
 }

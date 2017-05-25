@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +21,11 @@ public class HomePage extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    private RecyclerView lightsRecyclerView;
 
-    Button lightControls;
+    private Button lightControls;
 
-    Button musicControls;
+    private Button musicControls;
 
 
 
@@ -31,6 +34,10 @@ public class HomePage extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
+        lightsRecyclerView.setHasFixedSize(true);
+        lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         mAuth = FirebaseAuth.getInstance();

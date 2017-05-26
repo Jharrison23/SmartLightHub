@@ -2,6 +2,7 @@ package com.example.seniordesign.smartlighthub;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 public class SettingsPage extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "SettingsPage";
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -47,6 +49,7 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
     public void init()
     {
 
+        showData();
 
         fullnameField = (EditText) findViewById(R.id.fullNameField);
         userNameField = (EditText) findViewById(R.id.userNameField);
@@ -65,24 +68,25 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
 
         notEditable();
 
-
-
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
-
-                fullnameField.setText(userData.get("Name").toString());
-                emailField.setText(userData.get("Email").toString());
-                userNameField.setText(userData.get("Username").toString());
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//
+//        userRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+//
+//                fullnameField.setText(userData.get("Name").toString());
+//                emailField.setText(userData.get("Email").toString());
+//                userNameField.setText(userData.get("Username").toString());
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//                // Getting Post failed
+//                Log.w(TAG, "Loading User data failed :onCancelled", databaseError.toException());
+//            }
+//        });
 
 
     }
@@ -145,5 +149,26 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
                 notEditable();
                 break;
         }
+    }
+
+    public void showData()
+    {
+        ValueEventListener userEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+
+                fullnameField.setText(userData.get("Name").toString());
+                emailField.setText(userData.get("Email").toString());
+                userNameField.setText(userData.get("Username").toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        userRef.addValueEventListener(userEventListener);
     }
 }

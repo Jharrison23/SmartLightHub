@@ -7,26 +7,26 @@ package com.example.seniordesign.smartlighthub.models;
 public class Light {
 
 
-    private String lightNumber;
+    private String lightName;
     private String lightColor;
     private boolean lightState;
 
     public Light() {
     }
 
-    public Light(String lightNumber, String lightColor, boolean lightState)
+    public Light(String lightName, String lightColor, boolean lightState)
     {
-        this.lightNumber = lightNumber;
+        this.lightName = lightName;
         this.lightColor = lightColor;
         this.lightState = lightState;
     }
 
-    public String getLightNumber() {
-        return lightNumber;
+    public String getlightName() {
+        return lightName;
     }
 
-    public void setLightNumber(String lightNumber) {
-        this.lightNumber = lightNumber;
+    public void setlightName(String lightName) {
+        this.lightName = lightName;
     }
 
     public String getLightColor() {

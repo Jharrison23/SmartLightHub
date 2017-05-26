@@ -51,7 +51,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         Light light = lightsList.get(position);
 
-        holder.lightnumber.setText(light.getLightNumber());
+        holder.lightName.setText(light.getlightName());
 
         holder.lightColor.setBackgroundColor(Color.parseColor(light.getLightColor()));
 
@@ -72,7 +72,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
 
         private View container;
-        private TextView lightnumber;
+        private TextView lightName;
         private ImageView lightColor;
         private Switch lightState;
 
@@ -83,7 +83,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
             super(itemView);
 
 
-            lightnumber = (TextView) itemView.findViewById(R.id.lightNumber);
+            lightName = (TextView) itemView.findViewById(R.id.lightName);
 
             lightColor = (ImageView) itemView.findViewById(R.id.lightColor);
 

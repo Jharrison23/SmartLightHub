@@ -142,7 +142,7 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         ValueEventListener userEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+
                 User user = dataSnapshot.getValue(User.class);
 
                 fullnameField.setText(user.Name);

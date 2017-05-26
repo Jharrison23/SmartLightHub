@@ -2,6 +2,7 @@ package com.example.seniordesign.smartlighthub;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,12 @@ public class HomePage extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
 
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
         //lightsRecyclerView.setHasFixedSize(true);
@@ -123,4 +130,8 @@ public class HomePage extends AppCompatActivity {
         startActivity(new Intent(HomePage.this, MainActivity.class));
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "You must log out of the application to go back", Toast.LENGTH_SHORT).show();
+    }
 }

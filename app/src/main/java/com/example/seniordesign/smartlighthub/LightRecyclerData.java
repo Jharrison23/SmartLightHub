@@ -14,7 +14,7 @@ import java.util.List;
 
 public class LightRecyclerData {
 
-    private static final String[] lightNumbers = {"Light 1", "Light 2", "Light 3"};
+    private static final String[] lightNames = {"Light 1", "Light 2", "Light 3"};
 
     private static final String[] lightColors = {"#FFFFFF", "#EEEEEE", "#BBBBBB"};
 
@@ -25,11 +25,11 @@ public class LightRecyclerData {
     {
         List<Light> data = new ArrayList<>();
 
-        for (int i = 0; i < lightNumbers.length; i++)
+        for (int i = 0; i < lightNames.length; i++)
         {
             Light light = new Light();
 
-            light.setLightNumber(lightNumbers[i]);
+            light.setlightName(lightNames[i]);
 
             light.setLightColor(lightColors[i]);
 

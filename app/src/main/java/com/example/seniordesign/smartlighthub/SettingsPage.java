@@ -45,10 +45,16 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
        init();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        showData();
+
+    }
+
     public void init()
     {
 
-        showData();
 
         fullnameField = (EditText) findViewById(R.id.fullNameField);
         userNameField = (EditText) findViewById(R.id.userNameField);
@@ -116,6 +122,7 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         switch (v.getId())
         {
             case R.id.saveButton:
+                updateInfo();
                 notEditable();
                 break;
 
@@ -124,6 +131,7 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.cancelButton:
+                showData();
                 notEditable();
                 break;
         }
@@ -152,4 +160,19 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
 
         userRef.addValueEventListener(userEventListener);
     }
+
+
+    public void updateInfo()
+    {
+
+        userRef.child("Name").setValue(fullnameField.getText().toString());
+        userRef.child("Email").setValue(emailField.getText().toString());
+        userRef.child("Username").setValue(userNameField.getText().toString());
+
+    }
+
+
+
+
+
 }

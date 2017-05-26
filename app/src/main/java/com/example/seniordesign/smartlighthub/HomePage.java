@@ -23,6 +23,8 @@ public class HomePage extends AppCompatActivity {
 
     private RecyclerView lightsRecyclerView;
 
+    private LightsAdapter lightsAdapter;
+
     private Button lightControls;
 
     private Button musicControls;
@@ -36,8 +38,13 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
-        lightsRecyclerView.setHasFixedSize(true);
+        //lightsRecyclerView.setHasFixedSize(true);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        lightsAdapter = new LightsAdapter(LightRecyclerData.getListData(), this);
+
+        lightsRecyclerView.setAdapter(lightsAdapter);
 
 
         mAuth = FirebaseAuth.getInstance();

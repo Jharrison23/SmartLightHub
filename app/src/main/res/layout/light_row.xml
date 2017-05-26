@@ -5,20 +5,22 @@
     android:orientation="horizontal"
     android:paddingLeft="16dp"
     android:id="@+id/lightsContainer"
+    android:weightSum="99"
     android:gravity="center_vertical|left"
     >
 
-    <ImageView
-        android:id="@+id/lightIcon"
-        android:layout_width="50dp"
-        android:src="@drawable/ic_lightbulb_outline"
-        android:layout_height="50dp"
-        android:tint="@color/colorPrimary"
-        android:layout_marginRight="16dp"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/lightIcon"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:src="@drawable/ic_lightbulb_outline"-->
+        <!--android:tint="@color/colorPrimary" />-->
 
     <TextView
         android:id="@+id/lightNumber"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
+        android:layout_weight="33"
         android:layout_height="match_parent"
         android:gravity="center"
         android:paddingLeft="8dp"
@@ -29,7 +31,8 @@
 
     <ImageView
         android:id="@+id/lightColor"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
+        android:layout_weight="33"
         android:layout_height="80dp"
         android:background="@android:color/holo_blue_light"
         android:layout_marginRight="16dp"
@@ -37,7 +40,8 @@
 
     <Switch
         android:id="@+id/lightState"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
+        android:layout_weight="20"
         android:layout_height="wrap_content"
         android:gravity="center|end"
         />

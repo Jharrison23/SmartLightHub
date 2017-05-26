@@ -5,9 +5,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Map;
 
 public class SettingsPage extends AppCompatActivity implements View.OnClickListener {
 
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid());
 
     private EditText fullnameField;
     private EditText userNameField;
@@ -47,6 +64,26 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         editButton.setOnClickListener(this);
 
         notEditable();
+
+
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+
+                fullnameField.setText(userData.get("Name").toString());
+                emailField.setText(userData.get("Email").toString());
+                userNameField.setText(userData.get("Username").toString());
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 

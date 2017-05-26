@@ -185,8 +185,6 @@ public class CreateAccount extends AppCompatActivity {
 
 
                             Log.d(TAG, "Create user successful");
-                            FirebaseUser user = mAuth.getCurrentUser();
-
                             Toast.makeText(CreateAccount.this, "User Successfully Created", Toast.LENGTH_SHORT).show();
 
                             progressDialog.cancel();

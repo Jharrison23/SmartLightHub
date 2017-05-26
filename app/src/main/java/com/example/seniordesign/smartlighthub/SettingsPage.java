@@ -2,12 +2,30 @@ package com.example.seniordesign.smartlighthub;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.seniordesign.smartlighthub.models.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SettingsPage extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "SettingsPage";
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid());
 
     private EditText fullnameField;
     private EditText userNameField;
@@ -25,6 +43,13 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_settings_page);
 
        init();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        showData();
+
     }
 
     public void init()
@@ -97,6 +122,7 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         switch (v.getId())
         {
             case R.id.saveButton:
+                updateInfo();
                 notEditable();
                 break;
 
@@ -105,8 +131,48 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.cancelButton:
+                showData();
                 notEditable();
                 break;
         }
     }
+
+    public void showData()
+    {
+        ValueEventListener userEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+                User user = dataSnapshot.getValue(User.class);
+
+                fullnameField.setText(user.Name);
+                emailField.setText(user.Email);
+                userNameField.setText(user.Username);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed
+                Log.w(TAG, "Loading User data failed :onCancelled", databaseError.toException());
+
+            }
+        };
+
+        userRef.addValueEventListener(userEventListener);
+    }
+
+
+    public void updateInfo()
+    {
+
+        userRef.child("Name").setValue(fullnameField.getText().toString());
+        userRef.child("Email").setValue(emailField.getText().toString());
+        userRef.child("Username").setValue(userNameField.getText().toString());
+
+    }
+
+
+
+
+
 }

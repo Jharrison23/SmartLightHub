@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.seniordesign.smartlighthub.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -15,8 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Map;
 
 public class SettingsPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -67,27 +66,6 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         editButton.setOnClickListener(this);
 
         notEditable();
-
-//
-//        userRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
-//
-//                fullnameField.setText(userData.get("Name").toString());
-//                emailField.setText(userData.get("Email").toString());
-//                userNameField.setText(userData.get("Username").toString());
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//                // Getting Post failed
-//                Log.w(TAG, "Loading User data failed :onCancelled", databaseError.toException());
-//            }
-//        });
-
 
     }
 
@@ -156,15 +134,18 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         ValueEventListener userEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+                //Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+                User user = dataSnapshot.getValue(User.class);
 
-                fullnameField.setText(userData.get("Name").toString());
-                emailField.setText(userData.get("Email").toString());
-                userNameField.setText(userData.get("Username").toString());
+                fullnameField.setText(user.Name);
+                emailField.setText(user.Email);
+                userNameField.setText(user.Username);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed
+                Log.w(TAG, "Loading User data failed :onCancelled", databaseError.toException());
 
             }
         };

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
         return lightsList.size();
     }
 
-    class LightsHolder extends RecyclerView.ViewHolder
+    class LightsHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
 
@@ -82,6 +83,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
         public LightsHolder(View itemView) {
             super(itemView);
 
+            itemView.setOnClickListener(this);
 
             lightName = (TextView) itemView.findViewById(R.id.lightName);
 
@@ -92,17 +94,13 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
             container = itemView.findViewById(R.id.lightsContainer);
 
 
-
-
-
-
         }
 
 
-
-
-
-
+        @Override
+        public void onClick(View v) {
+            Log.d("LightsAdapter", "Clicked " + getAdapterPosition());
+        }
     }
 
 

@@ -51,11 +51,11 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         Light light = lightsList.get(position);
 
-        holder.lightName.setText(light.getlightName());
+        holder.lightName.setText(light.getName());
 
-        holder.lightColor.setBackgroundColor(Color.parseColor(light.getLightColor()));
+        holder.lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
 
-        holder.lightState.setChecked(light.getLightState());
+        holder.lightState.setChecked(light.isState());
 
 
     }

@@ -70,18 +70,15 @@
         app:layout_constraintTop_toBottomOf="@+id/emailField" />
 
     <Button
-        android:id="@+id/createAccountButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="99dp"
+        android:id="@+id/doneButton"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginRight="50dp"
         android:background="@android:color/holo_green_light"
-        android:text="Create Account"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordField" />
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
         android:id="@+id/confirmPasswordField"
@@ -98,5 +95,115 @@
         app:layout_constraintLeft_toLeftOf="@+id/passwordField"
         app:layout_constraintRight_toRightOf="@+id/passwordField"
         app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+
+    <EditText
+        android:id="@+id/light1Label"
+        android:layout_width="104dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="114dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Light 1"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:clickable="false"/>
+
+    <EditText
+        android:id="@+id/light1Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:ems="10"
+        android:hint="Enter Light Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/light1Label"
+        app:layout_constraintLeft_toRightOf="@+id/light1Label" />
+
+
+    <EditText
+        android:id="@+id/light2Label"
+        android:layout_width="104dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="114dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Light 2"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/light1Label"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:clickable="false"/>
+
+    <EditText
+        android:id="@+id/light2Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:ems="10"
+        android:hint="Enter Light Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/light2Label"
+        app:layout_constraintLeft_toRightOf="@+id/light2Label" />
+
+
+    <EditText
+        android:id="@+id/light3Label"
+        android:layout_width="104dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="114dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Light 3"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/light2Label"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:clickable="false"/>
+
+    <EditText
+        android:id="@+id/light3Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:ems="10"
+        android:hint="Enter Light Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/light3Label"
+        app:layout_constraintLeft_toRightOf="@+id/light3Label" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="45dp"
+        android:background="@android:color/holo_red_light"
+        android:text="Button"
+        app:layout_constraintBaseline_toBaselineOf="@+id/doneButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="Back" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:color/holo_green_light"
+        android:text="Next"
+        app:layout_constraintBaseline_toBaselineOf="@+id/doneButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

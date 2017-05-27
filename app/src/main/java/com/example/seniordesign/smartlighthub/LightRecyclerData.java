@@ -4,6 +4,7 @@ import android.media.Image;
 import android.widget.ImageView;
 
 import com.example.seniordesign.smartlighthub.models.Light;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 
 public class LightRecyclerData {
+
 
     private static final String[] lightNames = {"Light 1", "Light 2", "Light 3"};
 
@@ -29,11 +31,11 @@ public class LightRecyclerData {
         {
             Light light = new Light();
 
-            light.setlightName(lightNames[i]);
+            light.setName(lightNames[i]);
 
-            light.setLightColor(lightColors[i]);
+            light.setColor(lightColors[i]);
 
-            light.setLightState(lightStates[i]);
+            light.setState(lightStates[i]);
 
             data.add(light);
 

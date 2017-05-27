@@ -21,11 +21,11 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "SettingsPage";
 
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid());
+    private DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid());
 
     private EditText fullnameField;
     private EditText userNameField;

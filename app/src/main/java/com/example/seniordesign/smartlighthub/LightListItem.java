@@ -7,7 +7,7 @@ package com.example.seniordesign.smartlighthub;
 public class LightListItem
 {
 
-    private String lightNumber;
+    private String lightName;
 
     private String lightColor;
 

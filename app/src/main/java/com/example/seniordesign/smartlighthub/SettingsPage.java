@@ -21,11 +21,11 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
 
     private static final String TAG = "SettingsPage";
 
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid());
+    private DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid());
 
     private EditText fullnameField;
     private EditText userNameField;
@@ -142,7 +142,7 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         ValueEventListener userEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Map<String, Object> userData = (Map<String, Object>) dataSnapshot.getValue();
+
                 User user = dataSnapshot.getValue(User.class);
 
                 fullnameField.setText(user.Name);

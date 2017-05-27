@@ -7,42 +7,40 @@ package com.example.seniordesign.smartlighthub.models;
 public class Light {
 
 
-    private String lightNumber;
-    private String lightColor;
-    private boolean lightState;
+    private String Name;
+    private String Color;
+    private boolean State;
 
     public Light() {
     }
 
-    public Light(String lightNumber, String lightColor, boolean lightState)
-    {
-        this.lightNumber = lightNumber;
-        this.lightColor = lightColor;
-        this.lightState = lightState;
+    public Light(String name, String color, boolean state) {
+        Name = name;
+        Color = color;
+        State = state;
     }
 
-    public String getLightNumber() {
-        return lightNumber;
+    public String getName() {
+        return Name;
     }
 
-    public void setLightNumber(String lightNumber) {
-        this.lightNumber = lightNumber;
+    public void setName(String name) {
+        Name = name;
     }
 
-    public String getLightColor() {
-        return lightColor;
+    public String getColor() {
+        return Color;
     }
 
-    public void setLightColor(String lightColor) {
-        this.lightColor = lightColor;
+    public void setColor(String color) {
+        Color = color;
     }
 
-    public boolean getLightState() {
-        return lightState;
+    public boolean isState() {
+        return State;
     }
 
-    public void setLightState(boolean lightState) {
-        this.lightState = lightState;
+    public void setState(boolean state) {
+        State = state;
     }
-
 }

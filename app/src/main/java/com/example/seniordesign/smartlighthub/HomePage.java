@@ -1,7 +1,9 @@
 package com.example.seniordesign.smartlighthub;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,13 +15,32 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.seniordesign.smartlighthub.models.Light;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class HomePage extends AppCompatActivity {
+
 
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    private DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Lights");
 
     private RecyclerView lightsRecyclerView;
 
@@ -37,12 +58,20 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        View decorView = getWindow().getDecorView();
+
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+
+
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
-        //lightsRecyclerView.setHasFixedSize(true);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        lightsAdapter = new LightsAdapter(LightRecyclerData.getListData(), this);
+//        lightsAdapter = new LightsAdapter(LightRecyclerData.getListData(), this);
+
+        lightsAdapter = new LightsAdapter(createLightList(), this);
+
 
         lightsRecyclerView.setAdapter(lightsAdapter);
 
@@ -123,4 +152,40 @@ public class HomePage extends AppCompatActivity {
         startActivity(new Intent(HomePage.this, MainActivity.class));
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "You must log out of the application to go back", Toast.LENGTH_SHORT).show();
+    }
+
+    public List<Light> createLightList()
+    {
+
+
+        final List<Light> lightList = new ArrayList<>();
+
+        ValueEventListener lightEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child : children) {
+
+                    Light newLight = child.getValue(Light.class);
+
+                    lightList.add(newLight);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        userRef.addValueEventListener(lightEventListener);
+
+        return lightList;
+    }
 }

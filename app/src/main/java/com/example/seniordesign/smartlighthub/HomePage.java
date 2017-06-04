@@ -67,9 +67,6 @@ public class HomePage extends AppCompatActivity {
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-//        lightsAdapter = new LightsAdapter(LightRecyclerData.getListData(), this);
-
         lightsAdapter = new LightsAdapter(createLightList(), this);
 
 

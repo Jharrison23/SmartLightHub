@@ -11,9 +11,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.models.Light;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,6 +108,38 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         @Override
         public void onClick(View v) {
+
+
+            final List<Light> lightList = new ArrayList<>();
+
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+            DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Lights");
+
+            userRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                    for (DataSnapshot child : children) {
+
+                        Light newLight = child.getValue(Light.class);
+
+                        lightList.add(newLight);
+
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+            Toast.makeText(v.getContext(),lightsList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
+
+
             Log.d("LightsAdapter", "Clicked " + getAdapterPosition());
         }
     }

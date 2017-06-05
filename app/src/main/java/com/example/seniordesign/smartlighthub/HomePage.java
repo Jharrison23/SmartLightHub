@@ -59,16 +59,13 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         View decorView = getWindow().getDecorView();
-
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-
 
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         lightsAdapter = new LightsAdapter(createLightList(), this);
-
 
         lightsRecyclerView.setAdapter(lightsAdapter);
 
@@ -182,7 +179,6 @@ public class HomePage extends AppCompatActivity {
         };
 
         userRef.addValueEventListener(lightEventListener);
-
         return lightList;
     }
 }

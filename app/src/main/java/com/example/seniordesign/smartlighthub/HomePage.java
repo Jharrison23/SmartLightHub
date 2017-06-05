@@ -67,7 +67,6 @@ public class HomePage extends AppCompatActivity {
 
         lightsAdapter = new LightsAdapter(createLightList(), this);
 
-
         lightsRecyclerView.setAdapter(lightsAdapter);
 
 
@@ -180,7 +179,6 @@ public class HomePage extends AppCompatActivity {
         };
 
         userRef.addValueEventListener(lightEventListener);
-
         return lightList;
     }
 }

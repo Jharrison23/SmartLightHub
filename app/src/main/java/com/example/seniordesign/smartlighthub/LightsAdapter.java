@@ -1,6 +1,7 @@
 package com.example.seniordesign.smartlighthub;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -139,6 +140,11 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
             Toast.makeText(v.getContext(),lightsList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
 
+            Intent lightInfoIntent = new Intent(v.getContext(), LightInfo.class);
+
+            lightInfoIntent.putExtra("pos", getAdapterPosition());
+
+            v.getContext().startActivity(lightInfoIntent);
 
             Log.d("LightsAdapter", "Clicked " + getAdapterPosition());
         }

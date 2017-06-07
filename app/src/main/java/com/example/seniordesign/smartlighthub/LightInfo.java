@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -56,13 +57,7 @@ public class LightInfo extends AppCompatActivity {
 
     private int position;
 
-    private boolean dataLoaded = false;
-
-    private Button editButton;
-
-    private Button saveButton;
-
-    private Button cancelButton;
+    private Button updateButton;
 
     private String lightNameString = "";
 
@@ -80,8 +75,6 @@ public class LightInfo extends AppCompatActivity {
 
         if (extras != null) {
             position = extras.getInt("pos");
-
-//            Toast.makeText(this, "position is " + position, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -91,124 +84,53 @@ public class LightInfo extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    //Toast.makeText(LightInfo.this, "User logged in", Toast.LENGTH_SHORT).show();
+                    Log.w("LightInfo", "User Logged in " + firebaseAuth.getCurrentUser());
                 }
             }
         };
 
         lightList = new ArrayList<>();
 
-
-//        Toast.makeText(this, "before " + lightList.size(), Toast.LENGTH_SHORT).show();
-
-
-
         createLightList();
 
-//
-//        if (lightList.size() != 0)
-//        {
-//            Light light = lightList.get(position);
-//
-//            String name = light.getName();
-//
-//            Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
-//        }
-//
-
-//        Toast.makeText(this, "after " + lightList.size(), Toast.LENGTH_SHORT).show();
 
         lightName = (EditText) findViewById(R.id.lightName);
-
-        while(dataLoaded)
-        {
-
-
-            lightState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked)
-                    {
-                        Toast.makeText(LightInfo.this, "checked", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-
-//            lightName.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    lightName.addTextChangedListener(new TextWatcher() {
-//                        @Override
-//                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//                        }
-//
-//                        @Override
-//                        public void afterTextChanged(Editable s) {
-//
-//                            lightRef.child("Name").setValue(lightName.getText().toString());
-//                        }
-//                    });
-//                }
-//            });
-
-
-        }
-
         lightColor = (ImageView) findViewById(R.id.lightColor);
         lightState = (Switch) findViewById(R.id.lightState);
         lightColorText = (EditText) findViewById(R.id.lightColorText);
 
 
-        editButton = (Button) findViewById(R.id.editButton);
-        editButton.setOnClickListener(new View.OnClickListener() {
+        updateButton = (Button) findViewById(R.id.updateButton);
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveButton.setVisibility(View.VISIBLE);
-                saveButton.setClickable(true);
-                cancelButton.setVisibility(View.VISIBLE);
-                cancelButton.setClickable(true);
-                editButton.setVisibility(View.INVISIBLE);
-                editButton.setClickable(false);
+
+                if (lightNameString != "")
+                {
+                    DatabaseReference key = userRef.child("Light " + (position + 1));
+
+                    key.child("Name").setValue(lightName.getText().toString());
+//                    key.child("Color").setValue(lightColor.getBackground().toString());
 
 
+                    key.child("Color").setValue(lightColorText.getText().toString());
+                    lightColor.setBackgroundColor(Color.parseColor(lightColorText.getText().toString()));
 
+                    key.child("State").setValue(lightState.isChecked());
+
+                            finish();
+                            startActivity(getIntent());
+
+
+                }
+
+                else
+                {
+                    Toast.makeText(LightInfo.this, "No name", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
-
-        saveButton = (Button) findViewById(R.id.saveButton);
-
-
-
-        saveButton.setVisibility(View.INVISIBLE);
-        saveButton.setClickable(false);
-
-
-        cancelButton = (Button) findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveButton.setVisibility(View.INVISIBLE);
-                saveButton.setClickable(false);
-                cancelButton.setVisibility(View.INVISIBLE);
-                cancelButton.setClickable(false);
-                editButton.setVisibility(View.VISIBLE);
-                editButton.setClickable(true);
-
-            }
-        });
-        cancelButton.setVisibility(View.INVISIBLE);
-        cancelButton.setClickable(false);
-
-
-
 
 
     }
@@ -257,70 +179,7 @@ public class LightInfo extends AppCompatActivity {
 
                     lightRef = userRef.child(light.getName());
 
-
-
-//                    DatabaseReference key = userRef.child(light.getName());
-//
-//                    Toast.makeText(LightInfo.this, key.toString(), Toast.LENGTH_SHORT).show();
-////
-//                    key.child("Name").setValue(lightName.getText().toString());
-//                    key.child("Color").setValue(lightColor.getBackground().toString());
-//                    key.child("State").setValue(lightState.isChecked());
-
-                    dataLoaded = true;
-
-
-
-
-
                 }
-
-
-                saveButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        saveButton.setVisibility(View.INVISIBLE);
-                        saveButton.setClickable(false);
-                        cancelButton.setVisibility(View.INVISIBLE);
-                        cancelButton.setClickable(false);
-                        editButton.setVisibility(View.VISIBLE);
-                        editButton.setClickable(true);
-
-
-                        if (lightNameString != "")
-                        {
-                            DatabaseReference key = userRef.child("Light " + (position + 1));
-
-                            key.child("Name").setValue(lightName.getText().toString());
-//                    key.child("Color").setValue(lightColor.getBackground().toString());
-
-
-                            key.child("Color").setValue(lightColorText.getText().toString());
-                            lightColor.setBackgroundColor(Color.parseColor(lightColorText.getText().toString()));
-
-                            key.child("State").setValue(lightState.isChecked());
-
-                            finish();
-                            startActivity(getIntent());
-
-
-                        }
-
-                        else
-                        {
-                            Toast.makeText(LightInfo.this, "No name", Toast.LENGTH_SHORT).show();
-                        }
-
-
-
-
-
-
-                    }
-                });
-
-
             }
 
             @Override
@@ -333,4 +192,10 @@ public class LightInfo extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        Intent backHome = new Intent(LightInfo.this, HomePage.class);
+        startActivity(backHome);
+    }
 }

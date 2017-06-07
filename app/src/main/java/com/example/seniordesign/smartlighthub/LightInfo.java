@@ -4,7 +4,13 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,15 +45,25 @@ public class LightInfo extends AppCompatActivity {
 
     private DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Lights");
 
+    private DatabaseReference lightRef;
     private List<Light> lightList;
 
-    private TextView lightName;
+    private EditText lightName;
 
     private ImageView lightColor;
 
     private Switch lightState;
 
     private int position;
+
+    private boolean dataLoaded = false;
+
+    private Button editButton;
+
+    private Button saveButton;
+
+    private Button cancelButton;
+
 
 
 
@@ -61,7 +77,7 @@ public class LightInfo extends AppCompatActivity {
         if (extras != null) {
             position = extras.getInt("pos");
 
-            Toast.makeText(this, "position is " + position, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "position is " + position, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -79,7 +95,7 @@ public class LightInfo extends AppCompatActivity {
         lightList = new ArrayList<>();
 
 
-        Toast.makeText(this, "before " + lightList.size(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "before " + lightList.size(), Toast.LENGTH_SHORT).show();
 
 
 
@@ -96,15 +112,105 @@ public class LightInfo extends AppCompatActivity {
 //        }
 //
 
-        Toast.makeText(this, "after " + lightList.size(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "after " + lightList.size(), Toast.LENGTH_SHORT).show();
 
-        lightName = (TextView) findViewById(R.id.lightName);
+        lightName = (EditText) findViewById(R.id.lightName);
 
-        lightName.setText("wowo");
+        while(dataLoaded)
+        {
+
+
+            lightState.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked)
+                    {
+                        Toast.makeText(LightInfo.this, "checked", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+
+//            lightName.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    lightName.addTextChangedListener(new TextWatcher() {
+//                        @Override
+//                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//                        }
+//
+//                        @Override
+//                        public void afterTextChanged(Editable s) {
+//
+//                            lightRef.child("Name").setValue(lightName.getText().toString());
+//                        }
+//                    });
+//                }
+//            });
+
+
+        }
 
         lightColor = (ImageView) findViewById(R.id.lightColor);
-
         lightState = (Switch) findViewById(R.id.lightState);
+
+
+        editButton = (Button) findViewById(R.id.editButton);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveButton.setVisibility(View.VISIBLE);
+                saveButton.setClickable(true);
+                cancelButton.setVisibility(View.VISIBLE);
+                cancelButton.setClickable(true);
+                editButton.setVisibility(View.INVISIBLE);
+                editButton.setClickable(false);
+
+
+
+            }
+        });
+
+        saveButton = (Button) findViewById(R.id.saveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                saveButton.setVisibility(View.INVISIBLE);
+                saveButton.setClickable(false);
+                cancelButton.setVisibility(View.INVISIBLE);
+                cancelButton.setClickable(false);
+                editButton.setVisibility(View.VISIBLE);
+                editButton.setClickable(true);
+
+            }
+        });
+        saveButton.setVisibility(View.INVISIBLE);
+        saveButton.setClickable(false);
+
+        cancelButton = (Button) findViewById(R.id.cancelButton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveButton.setVisibility(View.INVISIBLE);
+                saveButton.setClickable(false);
+                cancelButton.setVisibility(View.INVISIBLE);
+                cancelButton.setClickable(false);
+                editButton.setVisibility(View.VISIBLE);
+                editButton.setClickable(true);
+
+            }
+        });
+        cancelButton.setVisibility(View.INVISIBLE);
+        cancelButton.setClickable(false);
+
 
 
 
@@ -140,22 +246,33 @@ public class LightInfo extends AppCompatActivity {
 
 
 
-        if (lightList.size() != 0)
-        {
-            Light light = lightList.get(position);
+                if (lightList.size() != 0)
+                {
+                    Light light = lightList.get(position);
 
-            lightName.setText(light.getName());
+                    lightName.setText(light.getName());
 
-            lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
+                    lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
 
-            lightState.setChecked(light.isState());
-            
-        }
+                    lightState.setChecked(light.isState());
+
+                    lightRef = userRef.child(light.getName());
+
+//                    DatabaseReference key = userRef.child(light.getName());
+//
+//                    Toast.makeText(LightInfo.this, key.toString(), Toast.LENGTH_SHORT).show();
+////
+//                    key.child("Name").setValue(lightName.getText().toString());
+//                    key.child("Color").setValue(lightColor.getBackground().toString());
+//                    key.child("State").setValue(lightState.isChecked());
+
+                    dataLoaded = true;
 
 
 
 
 
+                }
 
 
             }

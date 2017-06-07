@@ -91,4 +91,20 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp" />
 
+    <EditText
+        android:id="@+id/lightColorText"
+        android:layout_width="143dp"
+        android:layout_height="41dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="29dp"
+        android:ems="10"
+        android:hint="Enter Color"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintHorizontal_bias="0.611"
+        app:layout_constraintLeft_toLeftOf="@+id/lightName"
+        app:layout_constraintRight_toRightOf="@+id/lightName"
+        app:layout_constraintTop_toBottomOf="@+id/lightColor" />
+
 </android.support.constraint.ConstraintLayout>

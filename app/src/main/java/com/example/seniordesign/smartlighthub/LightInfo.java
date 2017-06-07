@@ -64,6 +64,10 @@ public class LightInfo extends AppCompatActivity {
 
     private Button cancelButton;
 
+    private String lightNameString = "";
+
+    private EditText lightColorText;
+
 
 
 
@@ -159,6 +163,7 @@ public class LightInfo extends AppCompatActivity {
 
         lightColor = (ImageView) findViewById(R.id.lightColor);
         lightState = (Switch) findViewById(R.id.lightState);
+        lightColorText = (EditText) findViewById(R.id.lightColorText);
 
 
         editButton = (Button) findViewById(R.id.editButton);
@@ -174,28 +179,19 @@ public class LightInfo extends AppCompatActivity {
 
 
 
+
             }
         });
 
         saveButton = (Button) findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                saveButton.setVisibility(View.INVISIBLE);
-                saveButton.setClickable(false);
-                cancelButton.setVisibility(View.INVISIBLE);
-                cancelButton.setClickable(false);
-                editButton.setVisibility(View.VISIBLE);
-                editButton.setClickable(true);
 
-            }
-        });
+
         saveButton.setVisibility(View.INVISIBLE);
         saveButton.setClickable(false);
 
-        cancelButton = (Button) findViewById(R.id.cancelButton);
 
+        cancelButton = (Button) findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,11 +248,16 @@ public class LightInfo extends AppCompatActivity {
 
                     lightName.setText(light.getName());
 
+                    lightNameString = light.getName();
+
                     lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
+                    lightColorText.setText(light.getColor());
 
                     lightState.setChecked(light.isState());
 
                     lightRef = userRef.child(light.getName());
+
+
 
 //                    DatabaseReference key = userRef.child(light.getName());
 //
@@ -273,6 +274,51 @@ public class LightInfo extends AppCompatActivity {
 
 
                 }
+
+
+                saveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        saveButton.setVisibility(View.INVISIBLE);
+                        saveButton.setClickable(false);
+                        cancelButton.setVisibility(View.INVISIBLE);
+                        cancelButton.setClickable(false);
+                        editButton.setVisibility(View.VISIBLE);
+                        editButton.setClickable(true);
+
+
+                        if (lightNameString != "")
+                        {
+                            DatabaseReference key = userRef.child("Light " + (position + 1));
+
+                            key.child("Name").setValue(lightName.getText().toString());
+//                    key.child("Color").setValue(lightColor.getBackground().toString());
+
+
+                            key.child("Color").setValue(lightColorText.getText().toString());
+                            lightColor.setBackgroundColor(Color.parseColor(lightColorText.getText().toString()));
+
+                            key.child("State").setValue(lightState.isChecked());
+
+                            finish();
+                            startActivity(getIntent());
+
+
+                        }
+
+                        else
+                        {
+                            Toast.makeText(LightInfo.this, "No name", Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+
+
+
+                    }
+                });
 
 
             }

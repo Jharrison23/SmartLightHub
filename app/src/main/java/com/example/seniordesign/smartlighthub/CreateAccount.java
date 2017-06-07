@@ -177,19 +177,19 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
                         DatabaseReference lightDB = currentUserDB.child("Lights");
 
-                        DatabaseReference firstLightDB = lightDB.child(firstLightString);
+                        DatabaseReference firstLightDB = lightDB.child("Light 1");
                         firstLightDB.child("Name").setValue(firstLightString);
                         firstLightDB.child("Color").setValue("#FFFFFF");
                         firstLightDB.child("State").setValue(true);
 
 
-                        DatabaseReference secondLightDB = lightDB.child(secondLightString);
+                        DatabaseReference secondLightDB = lightDB.child("Light 2");
                         secondLightDB.child("Name").setValue(secondLightString);
                         secondLightDB.child("Color").setValue("#123456");
                         secondLightDB.child("State").setValue(true);
 
 
-                        DatabaseReference thirdLightDB = lightDB.child(thirdLightString);
+                        DatabaseReference thirdLightDB = lightDB.child("Light 3");
                         thirdLightDB.child("Name").setValue(thirdLightString);
                         thirdLightDB.child("Color").setValue("#FF34EE");
                         thirdLightDB.child("State").setValue(false);

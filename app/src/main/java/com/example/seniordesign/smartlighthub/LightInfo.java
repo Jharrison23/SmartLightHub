@@ -2,6 +2,8 @@ package com.example.seniordesign.smartlighthub;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +35,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -69,6 +73,8 @@ public class LightInfo extends AppCompatActivity {
     private EditText lightColorText;
 
     private int defaultColor;
+
+    private Drawable currentColor;
 
 
 
@@ -142,14 +148,59 @@ public class LightInfo extends AppCompatActivity {
                     key.child("Name").setValue(lightName.getText().toString());
 //                    key.child("Color").setValue(lightColor.getBackground().toString());
 
+                    currentColor = (Drawable) lightColor.getBackground();
+///////////////
+                    int current = ((ColorDrawable) currentColor).getColor();
 
-                    key.child("Color").setValue(lightColorText.getText().toString());
-                    lightColor.setBackgroundColor(Color.parseColor(lightColorText.getText().toString()));
+                   // key.child("Color").setValue(current);
 
-                    key.child("State").setValue(lightState.isChecked());
+                    int red = Color.red(current);                                                                                                                                                        startActivity(getIntent());
+                    int green = Color.green(current);
+                    int blue = Color.blue(current);
 
-                            finish();
-                            startActivity(getIntent());
+                    String RGBcolor = red + ", " + green + ", " + blue;
+
+                    Toast.makeText(LightInfo.this, RGBcolor, Toast.LENGTH_SHORT).show();
+
+                    String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
+
+                    Pattern pattern = Pattern.compile(regex);
+
+                    Matcher matcher = pattern.matcher(RGBcolor);
+
+                    boolean colorExist = RGBcolor.matches(regex);
+
+                    //Toast.makeText(LightInfo.this, "" + colorExist, Toast.LENGTH_SHORT).show();
+
+                    Log.d("LightInfo", "Color Exist " + colorExist);
+
+                    if (matcher.find())
+                    {
+                        Log.d("LightInfo", "Match " + matcher);
+
+                        Log.d("LightInfo", "group 1 " + matcher.group(1));
+                        Log.d("LightInfo", "group 2 " + matcher.group(2));
+                        Log.d("LightInfo", "group 3 " + matcher.group(3));
+
+                        int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
+                        Log.d("LightInfo", "New Color = " + newColor);
+
+
+                    }
+
+                    else
+                    {
+                        Log.d("LightInfo", "No Match");
+                    }
+
+
+
+                    //int newColor = new Color(matcher.group(1), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
+
+                    Log.d("LightInfo", "Old Color = " + current);
+                    Log.d("LightInfo", "RGB Color = " + RGBcolor);
+                   // Log.d("LightInfo", "New Color = " + newColor);
+
 
 
                 }
@@ -239,6 +290,10 @@ public class LightInfo extends AppCompatActivity {
             public void onOk(AmbilWarnaDialog ambilWarnaDialog, int color) {
 
                 defaultColor = color;
+
+                lightColor.setBackgroundColor(color);
+
+
 
             }
 

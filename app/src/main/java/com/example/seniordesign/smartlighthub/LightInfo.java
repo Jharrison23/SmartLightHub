@@ -2,6 +2,9 @@ package com.example.seniordesign.smartlighthub;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,11 +28,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 
 public class LightInfo extends AppCompatActivity {
@@ -63,6 +72,9 @@ public class LightInfo extends AppCompatActivity {
 
     private EditText lightColorText;
 
+    private int defaultColor;
+
+    private Drawable currentColor;
 
 
 
@@ -70,6 +82,8 @@ public class LightInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_info);
+
+        final ColorPicker colorPicker = new ColorPicker(LightInfo.this, 0, 0, 0);
 
         Bundle extras = getIntent().getExtras();
 
@@ -96,6 +110,28 @@ public class LightInfo extends AppCompatActivity {
 
         lightName = (EditText) findViewById(R.id.lightName);
         lightColor = (ImageView) findViewById(R.id.lightColor);
+        lightColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // color picker 1 code
+//                colorPicker.show();
+//
+//                colorPicker.setCallback(new ColorPickerCallback() {
+//                    @Override
+//                    public void onColorChosen(@ColorInt int color) {
+//                        Toast.makeText(LightInfo.this, color + "", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+
+
+
+                // Color picker 2
+                openColorPickerDialog(false);
+
+
+            }
+        });
         lightState = (Switch) findViewById(R.id.lightState);
         lightColorText = (EditText) findViewById(R.id.lightColorText);
 
@@ -112,14 +148,60 @@ public class LightInfo extends AppCompatActivity {
                     key.child("Name").setValue(lightName.getText().toString());
 //                    key.child("Color").setValue(lightColor.getBackground().toString());
 
+                    currentColor = (Drawable) lightColor.getBackground();
+///////////////
+                    int current = ((ColorDrawable) currentColor).getColor();
 
-                    key.child("Color").setValue(lightColorText.getText().toString());
-                    lightColor.setBackgroundColor(Color.parseColor(lightColorText.getText().toString()));
+                   // key.child("Color").setValue(current);
 
-                    key.child("State").setValue(lightState.isChecked());
+                    int red = Color.red(current);                                                                                                                                                        startActivity(getIntent());
+                    int green = Color.green(current);
+                    int blue = Color.blue(current);
 
-                            finish();
-                            startActivity(getIntent());
+                    String RGBcolor = red + ", " + green + ", " + blue;
+
+                    key.child("Color").setValue(RGBcolor);
+
+                    Toast.makeText(LightInfo.this, RGBcolor, Toast.LENGTH_SHORT).show();
+
+                    String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
+
+                    Pattern pattern = Pattern.compile(regex);
+
+                    Matcher matcher = pattern.matcher(RGBcolor);
+
+                    boolean colorExist = RGBcolor.matches(regex);
+
+                    //Toast.makeText(LightInfo.this, "" + colorExist, Toast.LENGTH_SHORT).show();
+
+                    Log.d("LightInfo", "Color Exist " + colorExist);
+
+                    if (matcher.find())
+                    {
+                        Log.d("LightInfo", "Match " + matcher);
+
+                        Log.d("LightInfo", "group 1 " + matcher.group(1));
+                        Log.d("LightInfo", "group 2 " + matcher.group(2));
+                        Log.d("LightInfo", "group 3 " + matcher.group(3));
+
+                        int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
+                        Log.d("LightInfo", "New Color = " + newColor);
+
+                    }
+
+                    else
+                    {
+                        Log.d("LightInfo", "No Match");
+                    }
+
+
+
+                    //int newColor = new Color(matcher.group(1), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
+
+                    Log.d("LightInfo", "Old Color = " + current);
+                    Log.d("LightInfo", "RGB Color = " + RGBcolor);
+                   // Log.d("LightInfo", "New Color = " + newColor);
+
 
 
                 }
@@ -172,7 +254,37 @@ public class LightInfo extends AppCompatActivity {
 
                     lightNameString = light.getName();
 
-                    lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
+                    //lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
+                    //defaultColor = Color.parseColor(light.getColor());
+
+                    String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
+
+                    Pattern pattern = Pattern.compile(regex);
+
+                    Matcher matcher = pattern.matcher(light.getColor());
+
+                    if (matcher.find())
+                    {
+                        Log.d("LightInfo", "Match " + matcher);
+
+                        Log.d("LightInfo", "group 1 " + matcher.group(1));
+                        Log.d("LightInfo", "group 2 " + matcher.group(2));
+                        Log.d("LightInfo", "group 3 " + matcher.group(3));
+
+                        int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
+                        Log.d("LightInfo", "New Color = " + newColor);
+
+                        lightColor.setBackgroundColor(newColor);
+                        defaultColor = newColor;
+
+                    }
+
+                    else
+                    {
+                        Log.d("LightInfo", "No Match");
+                    }
+
+
                     lightColorText.setText(light.getColor());
 
                     lightState.setChecked(light.isState());
@@ -198,4 +310,33 @@ public class LightInfo extends AppCompatActivity {
         Intent backHome = new Intent(LightInfo.this, HomePage.class);
         startActivity(backHome);
     }
+
+
+    // Color picker 2
+    private void openColorPickerDialog(boolean AlphaSupport) {
+
+        AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(LightInfo.this, defaultColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog ambilWarnaDialog, int color) {
+
+                defaultColor = color;
+
+                lightColor.setBackgroundColor(color);
+
+
+
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
+
+                Toast.makeText(LightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ambilWarnaDialog.show();
+
+    }
+
+
+
 }

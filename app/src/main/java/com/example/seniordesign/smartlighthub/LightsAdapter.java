@@ -25,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by jamesharrison on 5/26/17.
@@ -64,7 +66,29 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         holder.lightName.setText(light.getName());
 
-        holder.lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
+
+        String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(light.getColor());
+
+        if (matcher.find())
+        {
+            int newColor = Color.rgb(Integer.valueOf(matcher.group(1)),
+                    Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
+
+            holder.lightColor.setBackgroundColor(newColor);
+
+        }
+
+        else
+        {
+            Log.d("LightAdapter", "No Match");
+
+            holder.lightColor.setBackgroundColor(Color.rgb(0,0,0));
+
+        }
 
         holder.lightState.setChecked(light.isState());
 
@@ -148,6 +172,8 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
             Log.d("LightsAdapter", "Clicked " + getAdapterPosition());
         }
+
+
     }
 
 

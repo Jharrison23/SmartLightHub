@@ -26,6 +26,7 @@ android {
 
 repositories {
 
+    // color picker 1 repo
     jcenter()
 
     mavenCentral()
@@ -51,7 +52,12 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
+
+    // Color picker 1 dependency
     compile 'com.pes.materialcolorpicker:library:1.1.+'
+
+    // Color picker 2 dependency
+    compile 'com.github.yukuku:ambilwarna:2.0.1'
 
     testCompile 'junit:junit:4.12'
 }

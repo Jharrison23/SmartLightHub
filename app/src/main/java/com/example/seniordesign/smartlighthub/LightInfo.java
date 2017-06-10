@@ -34,6 +34,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import yuku.ambilwarna.AmbilWarnaDialog;
+
 
 public class LightInfo extends AppCompatActivity {
 
@@ -66,6 +68,7 @@ public class LightInfo extends AppCompatActivity {
 
     private EditText lightColorText;
 
+    private int defaultColor;
 
 
 
@@ -104,14 +107,23 @@ public class LightInfo extends AppCompatActivity {
         lightColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                colorPicker.show();
 
-                colorPicker.setCallback(new ColorPickerCallback() {
-                    @Override
-                    public void onColorChosen(@ColorInt int color) {
-                        Toast.makeText(LightInfo.this, color + "", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                // color picker 1 code
+//                colorPicker.show();
+//
+//                colorPicker.setCallback(new ColorPickerCallback() {
+//                    @Override
+//                    public void onColorChosen(@ColorInt int color) {
+//                        Toast.makeText(LightInfo.this, color + "", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+
+
+
+                // Color picker 2
+                openColorPickerDialog(false);
+
+
             }
         });
         lightState = (Switch) findViewById(R.id.lightState);
@@ -191,6 +203,7 @@ public class LightInfo extends AppCompatActivity {
                     lightNameString = light.getName();
 
                     lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
+                    defaultColor = Color.parseColor(light.getColor());
                     lightColorText.setText(light.getColor());
 
                     lightState.setChecked(light.isState());
@@ -216,4 +229,29 @@ public class LightInfo extends AppCompatActivity {
         Intent backHome = new Intent(LightInfo.this, HomePage.class);
         startActivity(backHome);
     }
+
+
+    // Color picker 2
+    private void openColorPickerDialog(boolean AlphaSupport) {
+
+        AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(LightInfo.this, defaultColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog ambilWarnaDialog, int color) {
+
+                defaultColor = color;
+
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
+
+                Toast.makeText(LightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ambilWarnaDialog.show();
+
+    }
+
+
+
 }

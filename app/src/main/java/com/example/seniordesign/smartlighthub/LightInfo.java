@@ -160,6 +160,8 @@ public class LightInfo extends AppCompatActivity {
 
                     String RGBcolor = red + ", " + green + ", " + blue;
 
+                    key.child("Color").setValue(RGBcolor);
+
                     Toast.makeText(LightInfo.this, RGBcolor, Toast.LENGTH_SHORT).show();
 
                     String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
@@ -184,7 +186,6 @@ public class LightInfo extends AppCompatActivity {
 
                         int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
                         Log.d("LightInfo", "New Color = " + newColor);
-
 
                     }
 
@@ -253,8 +254,37 @@ public class LightInfo extends AppCompatActivity {
 
                     lightNameString = light.getName();
 
-                    lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
-                    defaultColor = Color.parseColor(light.getColor());
+                    //lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
+                    //defaultColor = Color.parseColor(light.getColor());
+
+                    String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
+
+                    Pattern pattern = Pattern.compile(regex);
+
+                    Matcher matcher = pattern.matcher(light.getColor());
+
+                    if (matcher.find())
+                    {
+                        Log.d("LightInfo", "Match " + matcher);
+
+                        Log.d("LightInfo", "group 1 " + matcher.group(1));
+                        Log.d("LightInfo", "group 2 " + matcher.group(2));
+                        Log.d("LightInfo", "group 3 " + matcher.group(3));
+
+                        int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
+                        Log.d("LightInfo", "New Color = " + newColor);
+
+                        lightColor.setBackgroundColor(newColor);
+                        defaultColor = newColor;
+
+                    }
+
+                    else
+                    {
+                        Log.d("LightInfo", "No Match");
+                    }
+
+
                     lightColorText.setText(light.getColor());
 
                     lightState.setChecked(light.isState());

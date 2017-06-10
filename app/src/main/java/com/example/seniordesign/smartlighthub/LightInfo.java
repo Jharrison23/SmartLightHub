@@ -2,6 +2,7 @@ package com.example.seniordesign.smartlighthub;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
 import org.w3c.dom.Text;
 
@@ -71,6 +74,8 @@ public class LightInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_info);
 
+        final ColorPicker colorPicker = new ColorPicker(LightInfo.this, 0, 0, 0);
+
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
@@ -96,6 +101,19 @@ public class LightInfo extends AppCompatActivity {
 
         lightName = (EditText) findViewById(R.id.lightName);
         lightColor = (ImageView) findViewById(R.id.lightColor);
+        lightColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorPicker.show();
+
+                colorPicker.setCallback(new ColorPickerCallback() {
+                    @Override
+                    public void onColorChosen(@ColorInt int color) {
+                        Toast.makeText(LightInfo.this, color + "", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
         lightState = (Switch) findViewById(R.id.lightState);
         lightColorText = (EditText) findViewById(R.id.lightColorText);
 

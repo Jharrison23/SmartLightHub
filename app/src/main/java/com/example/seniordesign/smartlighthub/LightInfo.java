@@ -8,6 +8,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -254,35 +255,40 @@ public class LightInfo extends AppCompatActivity {
 
                     lightNameString = light.getName();
 
+                    lightColor.setBackgroundColor(light.getConvertedColor());
+                    defaultColor = light.getConvertedColor();
+
+
                     //lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
                     //defaultColor = Color.parseColor(light.getColor());
 
-                    String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
-
-                    Pattern pattern = Pattern.compile(regex);
-
-                    Matcher matcher = pattern.matcher(light.getColor());
-
-                    if (matcher.find())
-                    {
-                        Log.d("LightInfo", "Match " + matcher);
-
-                        Log.d("LightInfo", "group 1 " + matcher.group(1));
-                        Log.d("LightInfo", "group 2 " + matcher.group(2));
-                        Log.d("LightInfo", "group 3 " + matcher.group(3));
-
-                        int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
-                        Log.d("LightInfo", "New Color = " + newColor);
-
-                        lightColor.setBackgroundColor(newColor);
-                        defaultColor = newColor;
-
-                    }
-
-                    else
-                    {
-                        Log.d("LightInfo", "No Match");
-                    }
+//                    String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
+//
+//                    Pattern pattern = Pattern.compile(regex);
+//
+//                    Matcher matcher = pattern.matcher(light.getColor());
+//
+//                    if (matcher.find())
+//                    {
+//                        Log.d("LightInfo", "Match " + matcher);
+//
+//                        Log.d("LightInfo", "group 1 " + matcher.group(1));
+//                        Log.d("LightInfo", "group 2 " + matcher.group(2));
+//                        Log.d("LightInfo", "group 3 " + matcher.group(3));
+//
+//                        int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
+//                        Log.d("LightInfo", "New Color = " + newColor);
+//
+//                        Toast.makeText(LightInfo.this, "" + light.getConvertedColor(), Toast.LENGTH_SHORT).show();
+//                        lightColor.setBackgroundColor(light.getConvertedColor());
+//                        defaultColor = light.getConvertedColor();
+//
+//                    }
+//
+//                    else
+//                    {
+//                        Log.d("LightInfo", "No Match");
+//                    }
 
 
                     lightColorText.setText(light.getColor());

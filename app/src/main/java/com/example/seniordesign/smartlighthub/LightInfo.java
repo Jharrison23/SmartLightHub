@@ -29,8 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
-import com.pes.androidmaterialcolorpickerdialog.ColorPickerCallback;
 
 import org.w3c.dom.Text;
 
@@ -71,11 +69,9 @@ public class LightInfo extends AppCompatActivity {
 
     private String lightNameString = "";
 
-    private EditText lightColorText;
-
     private int defaultColor;
 
-    private Drawable currentColor;
+    private Drawable lightDrawableColor;
 
 
 
@@ -83,8 +79,6 @@ public class LightInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_info);
-
-        final ColorPicker colorPicker = new ColorPicker(LightInfo.this, 0, 0, 0);
 
         Bundle extras = getIntent().getExtras();
 
@@ -115,18 +109,6 @@ public class LightInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // color picker 1 code
-//                colorPicker.show();
-//
-//                colorPicker.setCallback(new ColorPickerCallback() {
-//                    @Override
-//                    public void onColorChosen(@ColorInt int color) {
-//                        Toast.makeText(LightInfo.this, color + "", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
-
-
                 // Color picker 2
                 openColorPickerDialog(false);
 
@@ -134,7 +116,6 @@ public class LightInfo extends AppCompatActivity {
             }
         });
         lightState = (Switch) findViewById(R.id.lightState);
-        lightColorText = (EditText) findViewById(R.id.lightColorText);
 
 
         updateButton = (Button) findViewById(R.id.updateButton);
@@ -147,63 +128,18 @@ public class LightInfo extends AppCompatActivity {
                     DatabaseReference key = userRef.child("Light " + (position + 1));
 
                     key.child("Name").setValue(lightName.getText().toString());
-//                    key.child("Color").setValue(lightColor.getBackground().toString());
 
-                    currentColor = (Drawable) lightColor.getBackground();
-///////////////
-                    int current = ((ColorDrawable) currentColor).getColor();
+                    lightDrawableColor = (Drawable) lightColor.getBackground();
 
-                   // key.child("Color").setValue(current);
+                    int colorInt = ((ColorDrawable) lightDrawableColor).getColor();
 
-                    int red = Color.red(current);                                                                                                                                                        startActivity(getIntent());
-                    int green = Color.green(current);
-                    int blue = Color.blue(current);
+                    int red = Color.red(colorInt);                                                                                                                                                        startActivity(getIntent());
+                    int green = Color.green(colorInt);
+                    int blue = Color.blue(colorInt);
 
                     String RGBcolor = red + ", " + green + ", " + blue;
 
                     key.child("Color").setValue(RGBcolor);
-
-                    Toast.makeText(LightInfo.this, RGBcolor, Toast.LENGTH_SHORT).show();
-
-                    String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
-
-                    Pattern pattern = Pattern.compile(regex);
-
-                    Matcher matcher = pattern.matcher(RGBcolor);
-
-                    boolean colorExist = RGBcolor.matches(regex);
-
-                    //Toast.makeText(LightInfo.this, "" + colorExist, Toast.LENGTH_SHORT).show();
-
-                    Log.d("LightInfo", "Color Exist " + colorExist);
-
-                    if (matcher.find())
-                    {
-                        Log.d("LightInfo", "Match " + matcher);
-
-                        Log.d("LightInfo", "group 1 " + matcher.group(1));
-                        Log.d("LightInfo", "group 2 " + matcher.group(2));
-                        Log.d("LightInfo", "group 3 " + matcher.group(3));
-
-                        int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
-                        Log.d("LightInfo", "New Color = " + newColor);
-
-                    }
-
-                    else
-                    {
-                        Log.d("LightInfo", "No Match");
-                    }
-
-
-
-                    //int newColor = new Color(matcher.group(1), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
-
-                    Log.d("LightInfo", "Old Color = " + current);
-                    Log.d("LightInfo", "RGB Color = " + RGBcolor);
-                   // Log.d("LightInfo", "New Color = " + newColor);
-
-
 
                 }
 
@@ -256,43 +192,9 @@ public class LightInfo extends AppCompatActivity {
                     lightNameString = light.getName();
 
                     lightColor.setBackgroundColor(light.getConvertedColor());
+
                     defaultColor = light.getConvertedColor();
-
-
-                    //lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
-                    //defaultColor = Color.parseColor(light.getColor());
-
-//                    String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
-//
-//                    Pattern pattern = Pattern.compile(regex);
-//
-//                    Matcher matcher = pattern.matcher(light.getColor());
-//
-//                    if (matcher.find())
-//                    {
-//                        Log.d("LightInfo", "Match " + matcher);
-//
-//                        Log.d("LightInfo", "group 1 " + matcher.group(1));
-//                        Log.d("LightInfo", "group 2 " + matcher.group(2));
-//                        Log.d("LightInfo", "group 3 " + matcher.group(3));
-//
-//                        int newColor = Color.rgb(Integer.valueOf(matcher.group(1)), Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
-//                        Log.d("LightInfo", "New Color = " + newColor);
-//
-//                        Toast.makeText(LightInfo.this, "" + light.getConvertedColor(), Toast.LENGTH_SHORT).show();
-//                        lightColor.setBackgroundColor(light.getConvertedColor());
-//                        defaultColor = light.getConvertedColor();
-//
-//                    }
-//
-//                    else
-//                    {
-//                        Log.d("LightInfo", "No Match");
-//                    }
-
-
-                    lightColorText.setText(light.getColor());
-
+                    
                     lightState.setChecked(light.isState());
 
                     lightRef = userRef.child(light.getName());

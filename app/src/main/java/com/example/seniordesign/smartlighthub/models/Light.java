@@ -41,6 +41,7 @@ public class Light {
     {
 
         int newColor = -1;
+
         String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
 
         Pattern pattern = Pattern.compile(regex);

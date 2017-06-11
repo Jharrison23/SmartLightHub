@@ -68,31 +68,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         holder.lightColor.setBackgroundColor(light.getConvertedColor());
 
-//        String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
-//
-//        Pattern pattern = Pattern.compile(regex);
-//
-//        Matcher matcher = pattern.matcher(light.getColor());
-//
-//        if (matcher.find())
-//        {
-//            int newColor = Color.rgb(Integer.valueOf(matcher.group(1)),
-//                    Integer.valueOf(matcher.group(2)), Integer.valueOf(matcher.group(3)));
-//
-//            holder.lightColor.setBackgroundColor(light.getConvertedColor());
-//
-//        }
-//
-//        else
-//        {
-//            Log.d("LightAdapter", "No Match");
-//
-//            holder.lightColor.setBackgroundColor(Color.rgb(0,0,0));
-//
-//        }
-
         holder.lightState.setChecked(light.isState());
-
 
     }
 

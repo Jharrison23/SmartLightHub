@@ -194,7 +194,7 @@ public class LightInfo extends AppCompatActivity {
                     lightColor.setBackgroundColor(light.getConvertedColor());
 
                     defaultColor = light.getConvertedColor();
-                    
+
                     lightState.setChecked(light.isState());
 
                     lightRef = userRef.child(light.getName());

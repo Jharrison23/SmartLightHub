@@ -69,8 +69,6 @@ public class LightInfo extends AppCompatActivity {
 
     private String lightNameString = "";
 
-    private EditText lightColorText;
-
     private int defaultColor;
 
     private Drawable lightDrawableColor;
@@ -118,7 +116,6 @@ public class LightInfo extends AppCompatActivity {
             }
         });
         lightState = (Switch) findViewById(R.id.lightState);
-        lightColorText = (EditText) findViewById(R.id.lightColorText);
 
 
         updateButton = (Button) findViewById(R.id.updateButton);
@@ -197,9 +194,7 @@ public class LightInfo extends AppCompatActivity {
                     lightColor.setBackgroundColor(light.getConvertedColor());
 
                     defaultColor = light.getConvertedColor();
-
-                    lightColorText.setText(light.getColor());
-
+                    
                     lightState.setChecked(light.isState());
 
                     lightRef = userRef.child(light.getName());

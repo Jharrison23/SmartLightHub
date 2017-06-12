@@ -141,6 +141,8 @@ public class LightInfo extends AppCompatActivity {
 
                     key.child("Color").setValue(RGBcolor);
 
+                    key.child("State").setValue(lightState.isChecked());
+
                 }
 
                 else

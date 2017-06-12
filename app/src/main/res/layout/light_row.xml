@@ -7,6 +7,7 @@
     android:id="@+id/lightsContainer"
     android:weightSum="99"
     android:gravity="center_vertical|left"
+    android:layout_marginBottom="20dp"
     >
 
     <!--<ImageView-->
@@ -20,28 +21,20 @@
     <TextView
         android:id="@+id/lightName"
         android:layout_width="40dp"
-        android:layout_weight="33"
         android:layout_height="match_parent"
+        android:layout_marginRight="16dp"
+        android:layout_weight="68.55"
         android:gravity="center"
         android:paddingLeft="8dp"
-        android:layout_marginRight="16dp"
         android:text="Light #"
 
-        />
-
-    <ImageView
-        android:id="@+id/lightColor"
-        android:layout_width="wrap_content"
-        android:layout_weight="33"
-        android:layout_height="80dp"
-        android:background="@android:color/holo_blue_light"
-        android:layout_marginRight="16dp"
-        android:tint="@color/colorPrimary" />
+        android:textAlignment="textStart"
+        android:textSize="22sp" />
 
     <Switch
         android:id="@+id/lightState"
         android:layout_width="wrap_content"
-        android:layout_weight="20"
+        android:layout_weight="8.96"
         android:layout_height="wrap_content"
         android:gravity="center|end"
         />

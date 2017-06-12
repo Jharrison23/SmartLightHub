@@ -35,7 +35,6 @@ public class HomePage extends AppCompatActivity {
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

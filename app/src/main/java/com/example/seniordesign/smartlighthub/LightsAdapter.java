@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,7 +40,6 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
     private LayoutInflater inflater;
 
-
     public LightsAdapter(List<Light> lightsList, Context c)
     {
         this.inflater = LayoutInflater.from(c);
@@ -66,10 +66,9 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         holder.lightName.setText(light.getName());
 
-        holder.lightColor.setBackgroundColor(light.getConvertedColor());
-
         holder.lightState.setChecked(light.isState());
 
+        holder.lightContainer.setBackgroundColor(light.getConvertedColor());
     }
 
     @Override
@@ -82,11 +81,9 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
     class LightsHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
-
-        private View container;
         private TextView lightName;
-        private ImageView lightColor;
         private Switch lightState;
+        private LinearLayout lightContainer;
 
 
 
@@ -96,13 +93,11 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
             itemView.setOnClickListener(this);
 
+            lightContainer = (LinearLayout) itemView.findViewById(R.id.lightsContainer);
+
             lightName = (TextView) itemView.findViewById(R.id.lightName);
 
-            lightColor = (ImageView) itemView.findViewById(R.id.lightColor);
-
             lightState = (Switch) itemView.findViewById(R.id.lightState);
-
-            container = itemView.findViewById(R.id.lightsContainer);
 
 
         }

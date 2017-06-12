@@ -57,15 +57,12 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         lightsAdapter = new LightsAdapter(createLightList(), this);
 
+        lightsRecyclerView.setHasFixedSize(true);
         lightsRecyclerView.setAdapter(lightsAdapter);
 
 
@@ -169,6 +166,9 @@ public class HomePage extends AppCompatActivity {
                     lightList.add(newLight);
 
                 }
+
+                lightsRecyclerView.setHasFixedSize(true);
+                lightsRecyclerView.setAdapter(lightsAdapter);
             }
 
             @Override

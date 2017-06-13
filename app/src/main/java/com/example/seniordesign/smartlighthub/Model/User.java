@@ -1,4 +1,4 @@
-package com.example.seniordesign.smartlighthub.models;
+package com.example.seniordesign.smartlighthub.Model;
 
 /**
  * Created by jamesharrison on 5/26/17.

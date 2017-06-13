@@ -1,4 +1,4 @@
-package com.example.seniordesign.smartlighthub;
+package com.example.seniordesign.smartlighthub.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.seniordesign.smartlighthub.models.User;
+import com.example.seniordesign.smartlighthub.R;
+import com.example.seniordesign.smartlighthub.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

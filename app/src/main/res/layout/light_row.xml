@@ -33,9 +33,11 @@
     <Switch
         android:id="@+id/lightState"
         android:layout_width="wrap_content"
-        android:layout_weight="8.96"
         android:layout_height="wrap_content"
-        android:gravity="center|end"
+        android:gravity="center"
+        android:layout_marginLeft="100dp"
+
+
         />
 
 </LinearLayout>

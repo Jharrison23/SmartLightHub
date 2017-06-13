@@ -1,6 +1,4 @@
-package com.example.seniordesign.smartlighthub.models;
-
-import android.graphics.Color;
+package com.example.seniordesign.smartlighthub.Model;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

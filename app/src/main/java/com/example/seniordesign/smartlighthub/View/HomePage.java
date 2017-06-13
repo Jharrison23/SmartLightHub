@@ -1,21 +1,20 @@
-package com.example.seniordesign.smartlighthub;
+package com.example.seniordesign.smartlighthub.View;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.seniordesign.smartlighthub.models.Light;
+import com.example.seniordesign.smartlighthub.Controller.LightsAdapter;
+import com.example.seniordesign.smartlighthub.R;
+import com.example.seniordesign.smartlighthub.Model.Light;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class HomePage extends AppCompatActivity {
 
@@ -34,7 +32,6 @@ public class HomePage extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
-
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -58,15 +55,12 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         lightsAdapter = new LightsAdapter(createLightList(), this);
 
+        lightsRecyclerView.setHasFixedSize(true);
         lightsRecyclerView.setAdapter(lightsAdapter);
 
 
@@ -170,6 +164,9 @@ public class HomePage extends AppCompatActivity {
                     lightList.add(newLight);
 
                 }
+
+                lightsRecyclerView.setHasFixedSize(true);
+                lightsRecyclerView.setAdapter(lightsAdapter);
             }
 
             @Override

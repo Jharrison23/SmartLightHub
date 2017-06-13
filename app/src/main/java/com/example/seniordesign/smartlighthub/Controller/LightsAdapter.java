@@ -1,20 +1,20 @@
-package com.example.seniordesign.smartlighthub;
+package com.example.seniordesign.smartlighthub.Controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.seniordesign.smartlighthub.models.Light;
+import com.example.seniordesign.smartlighthub.R;
+import com.example.seniordesign.smartlighthub.View.LightInfo;
+import com.example.seniordesign.smartlighthub.Model.Light;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +36,6 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
     private List<Light> lightsList;
 
     private LayoutInflater inflater;
-
 
     public LightsAdapter(List<Light> lightsList, Context c)
     {
@@ -64,11 +63,9 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         holder.lightName.setText(light.getName());
 
-        holder.lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
-
         holder.lightState.setChecked(light.isState());
 
-
+        holder.lightContainer.setBackgroundColor(light.getConvertedColor());
     }
 
     @Override
@@ -81,11 +78,9 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
     class LightsHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
 
-
-        private View container;
         private TextView lightName;
-        private ImageView lightColor;
         private Switch lightState;
+        private LinearLayout lightContainer;
 
 
 
@@ -95,13 +90,11 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
             itemView.setOnClickListener(this);
 
+            lightContainer = (LinearLayout) itemView.findViewById(R.id.lightsContainer);
+
             lightName = (TextView) itemView.findViewById(R.id.lightName);
 
-            lightColor = (ImageView) itemView.findViewById(R.id.lightColor);
-
             lightState = (Switch) itemView.findViewById(R.id.lightState);
-
-            container = itemView.findViewById(R.id.lightsContainer);
 
 
         }
@@ -148,6 +141,8 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
             Log.d("LightsAdapter", "Clicked " + getAdapterPosition());
         }
+
+
     }
 
 

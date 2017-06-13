@@ -1,23 +1,22 @@
-package com.example.seniordesign.smartlighthub;
+package com.example.seniordesign.smartlighthub.View;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.seniordesign.smartlighthub.models.Light;
+import com.example.seniordesign.smartlighthub.R;
+import com.example.seniordesign.smartlighthub.Model.Light;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,10 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 
 public class LightInfo extends AppCompatActivity {
@@ -61,8 +60,9 @@ public class LightInfo extends AppCompatActivity {
 
     private String lightNameString = "";
 
-    private EditText lightColorText;
+    private int defaultColor;
 
+    private Drawable lightDrawableColor;
 
 
 
@@ -96,8 +96,17 @@ public class LightInfo extends AppCompatActivity {
 
         lightName = (EditText) findViewById(R.id.lightName);
         lightColor = (ImageView) findViewById(R.id.lightColor);
+        lightColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Color picker 2
+                openColorPickerDialog(false);
+
+
+            }
+        });
         lightState = (Switch) findViewById(R.id.lightState);
-        lightColorText = (EditText) findViewById(R.id.lightColorText);
 
 
         updateButton = (Button) findViewById(R.id.updateButton);
@@ -110,17 +119,19 @@ public class LightInfo extends AppCompatActivity {
                     DatabaseReference key = userRef.child("Light " + (position + 1));
 
                     key.child("Name").setValue(lightName.getText().toString());
-//                    key.child("Color").setValue(lightColor.getBackground().toString());
 
+                    lightDrawableColor = (Drawable) lightColor.getBackground();
 
-                    key.child("Color").setValue(lightColorText.getText().toString());
-                    lightColor.setBackgroundColor(Color.parseColor(lightColorText.getText().toString()));
+                    int colorInt = ((ColorDrawable) lightDrawableColor).getColor();
 
+                    int red = Color.red(colorInt);                                                                                                                                                        startActivity(getIntent());
+                    int green = Color.green(colorInt);
+                    int blue = Color.blue(colorInt);
+
+                    String RGBcolor = red + ", " + green + ", " + blue;
+
+                    key.child("Color").setValue(RGBcolor);
                     key.child("State").setValue(lightState.isChecked());
-
-                            finish();
-                            startActivity(getIntent());
-
 
                 }
 
@@ -172,8 +183,9 @@ public class LightInfo extends AppCompatActivity {
 
                     lightNameString = light.getName();
 
-                    lightColor.setBackgroundColor(Color.parseColor(light.getColor()));
-                    lightColorText.setText(light.getColor());
+                    lightColor.setBackgroundColor(light.getConvertedColor());
+
+                    defaultColor = light.getConvertedColor();
 
                     lightState.setChecked(light.isState());
 
@@ -198,4 +210,33 @@ public class LightInfo extends AppCompatActivity {
         Intent backHome = new Intent(LightInfo.this, HomePage.class);
         startActivity(backHome);
     }
+
+
+    // Color picker 2
+    private void openColorPickerDialog(boolean AlphaSupport) {
+
+        AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(LightInfo.this, defaultColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog ambilWarnaDialog, int color) {
+
+                defaultColor = color;
+
+                lightColor.setBackgroundColor(color);
+
+
+
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
+
+                Toast.makeText(LightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ambilWarnaDialog.show();
+
+    }
+
+
+
 }

@@ -54,6 +54,9 @@ dependencies {
     // Color picker 2 dependency
     compile 'com.github.yukuku:ambilwarna:2.0.1'
 
+    // PubNub
+    compile group: 'com.pubnub', name: 'pubnub-gson', version: '4.6.4'
+
     testCompile 'junit:junit:4.12'
 }
 

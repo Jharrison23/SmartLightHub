@@ -76,6 +76,46 @@ public class Light {
 
     }
 
+    public int getGreen()
+    {
+        int green = -1;
+
+        String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(Color);
+
+        if (matcher.find())
+        {
+            green = Integer.valueOf(matcher.group(2));
+
+        }
+
+        return green;
+    }
+
+    public int getBlue()
+    {
+        int blue = -1;
+
+        String regex = "(\\d+),\\s(\\d+),\\s(\\d+)";
+
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(Color);
+
+        if (matcher.find())
+        {
+            blue = Integer.valueOf(matcher.group(3));
+
+        }
+
+        return blue;
+    }
+
+
+
     public void setColor(String color) {
         Color = color;
     }

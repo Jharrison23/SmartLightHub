@@ -59,6 +59,8 @@ public class HomePage extends AppCompatActivity {
 
     private String publishLight1;
 
+    private List<JSONObject> pubnubObjects;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -152,7 +154,8 @@ public class HomePage extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         Toast.makeText(this, "You must log out of the application to go back", Toast.LENGTH_SHORT).show();
     }
 
@@ -173,6 +176,21 @@ public class HomePage extends AppCompatActivity {
                     Light newLight = child.getValue(Light.class);
 
                     lightList.add(newLight);
+
+                    JSONObject rbgObject = new JSONObject();
+
+
+                    try {
+                        rbgObject.put("0", newLight.getRed());
+                        rbgObject.put("1", newLight.getGreen());
+                        rbgObject.put("2", newLight.getBlue());
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    pubnubObjects.add(rbgObject);
 
                 }
 

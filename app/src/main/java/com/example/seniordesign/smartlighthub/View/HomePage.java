@@ -68,13 +68,15 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        pubnubObjects = new ArrayList<>();
+
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         lightsAdapter = new LightsAdapter(createLightList(), this);
-
-        lightsRecyclerView.setHasFixedSize(true);
-        lightsRecyclerView.setAdapter(lightsAdapter);
+//
+//        lightsRecyclerView.setHasFixedSize(true);
+//        lightsRecyclerView.setAdapter(lightsAdapter);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -198,26 +200,8 @@ public class HomePage extends AppCompatActivity {
                 lightsRecyclerView.setAdapter(lightsAdapter);
 
 
-                publishLight1 = "{ \"RGB”: { \"0\": 255, \"1\": 0, \"2\": 0 } }";
+                pubnubConfig(pubnubObjects);
 
-//                JSONObject rbgObject = new JSONObject();
-//
-//
-//                try {
-//                    rbgObject.put("0", 255);
-//                    rbgObject.put("1", 0);
-//                    rbgObject.put("2", 0);
-//
-//
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                Log.d("HomePage", rbgObject + "");
-//
-//
-//                pubnubConfig(rbgObject);
             }
 
             @Override
@@ -233,7 +217,7 @@ public class HomePage extends AppCompatActivity {
 
 
 
-    public void pubnubConfig(final JSONObject published)
+    public void pubnubConfig(final List<JSONObject> pubnubObjects)
     {
         PNConfiguration pnConfiguration = new PNConfiguration();
         pnConfiguration.setSubscribeKey("sub-c-40e3d906-4ee7-11e7-bf50-02ee2ddab7fe");
@@ -242,13 +226,53 @@ public class HomePage extends AppCompatActivity {
 
         PubNub pubnub = new PubNub(pnConfiguration);
 
-        pubnub.publish().message(published).channel("hello_world")
-                .async(new PNCallback<PNPublishResult>() {
-                    @Override
-                    public void onResponse(PNPublishResult result, PNStatus status) {
-                        Log.d("HomePage", "We in here" + published);
-                    }
-                });
+
+        for (int i = 0; i < pubnubObjects.size(); i++)
+        {
+
+            switch(i)
+            {
+                case 0:
+                    final JSONObject light1Message = pubnubObjects.get(0);
+                    pubnub.publish().message(light1Message).channel("Light_1")
+                            .async(new PNCallback<PNPublishResult>() {
+                                @Override
+                                public void onResponse(PNPublishResult result, PNStatus status) {
+                                    Log.d("HomePage", "Light 1 publish: " + light1Message);
+                                }
+                            });
+
+                    break;
+
+                case 1:
+
+                    final JSONObject light2Message = pubnubObjects.get(1);
+                    pubnub.publish().message(light2Message).channel("Light_2")
+                            .async(new PNCallback<PNPublishResult>() {
+                                @Override
+                                public void onResponse(PNPublishResult result, PNStatus status) {
+                                    Log.d("HomePage", "Light 2 publish: " + light2Message);
+                                }
+                            });
+
+                    break;
+
+                case 2:
+
+                    final JSONObject light3Message = pubnubObjects.get(2);
+                    pubnub.publish().message(light3Message).channel("Light_3")
+                            .async(new PNCallback<PNPublishResult>() {
+                                @Override
+                                public void onResponse(PNPublishResult result, PNStatus status) {
+                                    Log.d("HomePage", "Light 3 publish: " + light3Message);
+                                }
+                            });
+
+                    break;
+
+            }
+        }
+
     }
 
 

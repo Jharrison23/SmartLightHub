@@ -156,13 +156,7 @@ public class LightInfo extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Log.d("HomePage", rbgObject + "");
-
-
-                    // Old pubnub publish
-                    //pubnubConfig(rbgObject);
-
-                    pubnubChannel(rbgObject, position);
+                    lightInfoPubnub(rbgObject, position);
                 }
 
 
@@ -270,7 +264,7 @@ public class LightInfo extends AppCompatActivity {
 
 
 
-    public void pubnubChannel(final JSONObject publishMessage, int lightNumber)
+    public void lightInfoPubnub(final JSONObject publishMessage, int lightNumber)
     {
 
         PNConfiguration pnConfiguration = new PNConfiguration();
@@ -283,11 +277,12 @@ public class LightInfo extends AppCompatActivity {
         switch(lightNumber)
         {
             case 0:
+                Toast.makeText(this, "publish", Toast.LENGTH_SHORT).show();
                 pubnub.publish().message(publishMessage).channel("Light_1")
                         .async(new PNCallback<PNPublishResult>() {
                             @Override
                             public void onResponse(PNPublishResult result, PNStatus status) {
-                                Log.d("HomePage", "Light 1 publish: " + publishMessage);
+                                Log.d("LightInfo", "Light 1 publish " + publishMessage);
                             }
                         });
 
@@ -298,7 +293,7 @@ public class LightInfo extends AppCompatActivity {
                         .async(new PNCallback<PNPublishResult>() {
                             @Override
                             public void onResponse(PNPublishResult result, PNStatus status) {
-                                Log.d("HomePage", "Light 2 publish: " + publishMessage);
+                                Log.d("LightInfo", "Light 2 publish " + publishMessage);
                             }
                         });
 
@@ -309,7 +304,7 @@ public class LightInfo extends AppCompatActivity {
                         .async(new PNCallback<PNPublishResult>() {
                             @Override
                             public void onResponse(PNPublishResult result, PNStatus status) {
-                                Log.d("HomePage", "Light 3 publish: " + publishMessage);
+                                Log.d("LightInfo", "Light 3 publish " + publishMessage);
                             }
                         });
 

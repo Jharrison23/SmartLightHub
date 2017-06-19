@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 import com.spotify.sdk.android.player.PlayerEvent;
 
-public class MusicSpotify extends AppCompatActivity implements ConnectionStateCallback, Player.NotificationCallback,
+public class MusicSpotify extends Activity implements ConnectionStateCallback, Player.NotificationCallback,
         View.OnClickListener
 {
 

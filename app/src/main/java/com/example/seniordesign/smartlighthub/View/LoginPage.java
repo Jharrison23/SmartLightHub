@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -18,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class LoginPage extends AppCompatActivity {
+public class LoginPage extends Activity {
 
     private static final String TAG = "LoginPage";
 

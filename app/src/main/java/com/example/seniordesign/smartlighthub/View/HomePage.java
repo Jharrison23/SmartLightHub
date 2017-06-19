@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePage extends AppCompatActivity {
+public class HomePage extends Activity {
 
 
     private FirebaseAuth mAuth;

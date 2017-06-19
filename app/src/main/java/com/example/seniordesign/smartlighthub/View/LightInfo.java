@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -39,7 +40,7 @@ import java.util.List;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 
-public class LightInfo extends AppCompatActivity {
+public class LightInfo extends Activity {
 
 
     private FirebaseAuth mAuth;

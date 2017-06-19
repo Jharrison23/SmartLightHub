@@ -56,6 +56,8 @@ public class CreateAccount extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_create_account);
         progressDialog = new ProgressDialog(this);
 
+        getActionBar().hide();
+
         init();
     }
 

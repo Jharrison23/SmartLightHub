@@ -71,6 +71,8 @@ public class HomePage extends Activity {
 
         pubnubObjects = new ArrayList<>();
 
+        getActionBar().setTitle("Home");
+
         lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

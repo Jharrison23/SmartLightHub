@@ -18,6 +18,9 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getActionBar().hide();
+
+
         Button loginButton = (Button) findViewById(R.id.loginButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {

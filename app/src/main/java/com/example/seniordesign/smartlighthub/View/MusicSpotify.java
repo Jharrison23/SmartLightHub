@@ -25,6 +25,7 @@ import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 import com.spotify.sdk.android.player.PlayerEvent;
 
+//
 public class MusicSpotify extends Activity implements ConnectionStateCallback, Player.NotificationCallback,
         View.OnClickListener
 {

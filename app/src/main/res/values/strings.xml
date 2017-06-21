@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SmartLightHub</string>
+    <string name="title_activity_bottom_navigation">BottomNavigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_presets">Presets</string>
+    <string name="title_settings">Settings</string>
 </resources>

@@ -96,26 +96,26 @@ public class HomePage extends Activity {
         };
 
 
-        lightControls = (Button) findViewById(R.id.lightControls);
-        lightControls.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(HomePage.this, LightControls.class);
-                startActivity(intent);
-            }
-        });
-
-
-        musicControls = (Button) findViewById(R.id.musicControls);
-        musicControls.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(HomePage.this, MusicControls.class);
-                startActivity(intent);
-            }
-        });
+//        lightControls = (Button) findViewById(R.id.lightControls);
+//        lightControls.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(HomePage.this, LightControls.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//
+//        musicControls = (Button) findViewById(R.id.musicControls);
+//        musicControls.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(HomePage.this, MusicControls.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 

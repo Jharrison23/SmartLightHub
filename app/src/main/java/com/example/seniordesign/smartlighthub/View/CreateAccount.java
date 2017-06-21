@@ -47,6 +47,7 @@ public class CreateAccount extends Activity implements View.OnClickListener{
     private EditText secondLightLabel;
     private EditText thirdLightLabel;
 
+    private int pageNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -233,6 +234,7 @@ public class CreateAccount extends Activity implements View.OnClickListener{
         {
             case R.id.nextButton:
 
+                pageNumber = 2;
                 if (!isEmpty(fullNameField) && !isEmpty(userNameField) && !isEmpty(emailField)
                         && !isEmpty(passwordField) && !isEmpty(confirmPasswordField))
                 {
@@ -305,6 +307,40 @@ public class CreateAccount extends Activity implements View.OnClickListener{
         }
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if(pageNumber == 1)
+        {
+            super.onBackPressed();
+        }
+
+        else if(pageNumber == 2)
+        {
+            pageNumber = 1;
+            firstLightField.setVisibility(View.INVISIBLE);
+                secondLightField.setVisibility(View.INVISIBLE);
+                thirdLightField.setVisibility(View.INVISIBLE);
+
+                firstLightLabel.setVisibility(View.INVISIBLE);
+                secondLightLabel.setVisibility(View.INVISIBLE);
+                thirdLightLabel.setVisibility(View.INVISIBLE);
+
+                doneButton.setVisibility(View.INVISIBLE);
+
+                fullNameField.setVisibility(View.VISIBLE);
+                userNameField.setVisibility(View.VISIBLE);
+                emailField.setVisibility(View.VISIBLE);
+                passwordField.setVisibility(View.VISIBLE);
+                confirmPasswordField.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
+//
+
+        }
+
+
+
+    }
 
     public boolean isEmpty(EditText field)
     {

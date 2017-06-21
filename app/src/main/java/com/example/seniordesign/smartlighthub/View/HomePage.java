@@ -140,13 +140,13 @@ public class HomePage extends Activity {
 
         if(item.getItemId() == R.id.settingsButton)
         {
-            startActivity(new Intent(HomePage.this, SettingsPage.class));
+            startActivity(new Intent(HomePage.this, LightControls.class));
         }
 
-        if (item.getItemId() == R.id.logoutButton)
-        {
-            logout();
-        }
+//        if (item.getItemId() == R.id.logoutButton)
+//        {
+//            logout();
+//        }
 
         return super.onOptionsItemSelected(item);
     }

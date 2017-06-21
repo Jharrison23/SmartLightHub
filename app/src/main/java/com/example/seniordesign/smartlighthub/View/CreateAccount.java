@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -87,16 +86,16 @@ public class CreateAccount extends Activity implements View.OnClickListener{
             }
         };
 
-        doneButton = (Button) findViewById(R.id.doneButton);
+        doneButton = (Button) findViewById(R.id.signUpButton);
         doneButton.setVisibility(View.INVISIBLE);
         doneButton.setOnClickListener(this);
 
         nextButton = (Button) findViewById(R.id.nextButton);
         nextButton.setOnClickListener(this);
 
-        backButton = (Button) findViewById(R.id.backButton);
-        backButton.setVisibility(View.INVISIBLE);
-        backButton.setOnClickListener(this);
+//        backButton = (Button) findViewById(R.id.backButton);
+//        backButton.setVisibility(View.INVISIBLE);
+//        backButton.setOnClickListener(this);
 
         fullNameField = (EditText) findViewById(R.id.fullNameField);
         userNameField = (EditText) findViewById(R.id.userNameField);
@@ -248,7 +247,7 @@ public class CreateAccount extends Activity implements View.OnClickListener{
                         thirdLightLabel.setVisibility(View.VISIBLE);
 
 
-                        backButton.setVisibility(View.VISIBLE);
+                        //backButton.setVisibility(View.VISIBLE);
                         doneButton.setVisibility(View.VISIBLE);
 
                         fullNameField.setVisibility(View.INVISIBLE);
@@ -275,32 +274,32 @@ public class CreateAccount extends Activity implements View.OnClickListener{
 
                 break;
 
-            case R.id.backButton:
+//            case R.id.backButton:
+//
+//
+//                firstLightField.setVisibility(View.INVISIBLE);
+//                secondLightField.setVisibility(View.INVISIBLE);
+//                thirdLightField.setVisibility(View.INVISIBLE);
+//
+//                firstLightLabel.setVisibility(View.INVISIBLE);
+//                secondLightLabel.setVisibility(View.INVISIBLE);
+//                thirdLightLabel.setVisibility(View.INVISIBLE);
+//
+//
+//                backButton.setVisibility(View.INVISIBLE);
+//                doneButton.setVisibility(View.INVISIBLE);
+//
+//                fullNameField.setVisibility(View.VISIBLE);
+//                userNameField.setVisibility(View.VISIBLE);
+//                emailField.setVisibility(View.VISIBLE);
+//                passwordField.setVisibility(View.VISIBLE);
+//                confirmPasswordField.setVisibility(View.VISIBLE);
+//                nextButton.setVisibility(View.VISIBLE);
+//
+//
+//                break;
 
-
-                firstLightField.setVisibility(View.INVISIBLE);
-                secondLightField.setVisibility(View.INVISIBLE);
-                thirdLightField.setVisibility(View.INVISIBLE);
-
-                firstLightLabel.setVisibility(View.INVISIBLE);
-                secondLightLabel.setVisibility(View.INVISIBLE);
-                thirdLightLabel.setVisibility(View.INVISIBLE);
-
-
-                backButton.setVisibility(View.INVISIBLE);
-                doneButton.setVisibility(View.INVISIBLE);
-
-                fullNameField.setVisibility(View.VISIBLE);
-                userNameField.setVisibility(View.VISIBLE);
-                emailField.setVisibility(View.VISIBLE);
-                passwordField.setVisibility(View.VISIBLE);
-                confirmPasswordField.setVisibility(View.VISIBLE);
-                nextButton.setVisibility(View.VISIBLE);
-
-
-                break;
-
-            case R.id.doneButton:
+            case R.id.signUpButton:
                 registerUser();
                 break;
         }

@@ -33,8 +33,7 @@ public class MainActivity extends Activity {
         });
 
 
-        TextView signUp = (TextView) findViewById(R.id.signUp);
-        signUp.setClickable(true);
+        Button signUp = (Button) findViewById(R.id.signUp);
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override

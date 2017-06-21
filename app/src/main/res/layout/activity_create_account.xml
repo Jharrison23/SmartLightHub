@@ -8,11 +8,10 @@
 
     <EditText
         android:id="@+id/fullNameField"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="114dp"
         android:ems="10"
         android:hint="Enter Full Name"
         android:inputType="textPersonName"
@@ -20,11 +19,12 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="@+id/userNameField"
         app:layout_constraintRight_toRightOf="@+id/userNameField"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp" />
 
     <EditText
         android:id="@+id/userNameField"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -35,15 +35,16 @@
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameField" />
+        app:layout_constraintTop_toBottomOf="@+id/fullNameField"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
 
     <EditText
         android:id="@+id/emailField"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Enter Email"
@@ -52,11 +53,12 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="@+id/passwordField"
         app:layout_constraintRight_toRightOf="@+id/passwordField"
-        app:layout_constraintTop_toBottomOf="@+id/userNameField" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameField"
+        android:layout_marginStart="8dp" />
 
     <EditText
         android:id="@+id/passwordField"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -67,25 +69,45 @@
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailField" />
+        app:layout_constraintTop_toBottomOf="@+id/emailField"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Button
-        android:id="@+id/doneButton"
-        android:layout_width="75dp"
+        android:id="@+id/signUpButton"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginRight="50dp"
-        android:background="@android:color/holo_green_light"
-        android:text="Done"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#7BC8BF"
+        android:text="Sign Up"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/nextButton"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginBottom="38dp" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#7BC8BF"
+        android:text="Next"
+        app:layout_constraintBaseline_toBaselineOf="@+id/signUpButton"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
     <EditText
         android:id="@+id/confirmPasswordField"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Confirm Password"
@@ -94,14 +116,15 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="@+id/passwordField"
         app:layout_constraintRight_toRightOf="@+id/passwordField"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordField"
+        android:layout_marginStart="8dp" />
 
     <EditText
         android:id="@+id/light1Label"
         android:layout_width="104dp"
         android:layout_height="45dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="114dp"
+        android:layout_marginTop="133dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Light 1"
@@ -110,13 +133,13 @@
         app:layout_constraintTop_toTopOf="parent"
         android:focusableInTouchMode="false"
         android:focusable="false"
-        android:clickable="false"/>
+        android:clickable="false"
+        android:layout_marginStart="16dp" />
 
     <EditText
         android:id="@+id/light1Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:ems="10"
         android:hint="Enter Light Name"
         android:inputType="textPersonName"
@@ -136,16 +159,16 @@
         android:text="Light 2"
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/light1Label"
+        app:layout_constraintTop_toTopOf="@+id/light1Label"
         android:focusableInTouchMode="false"
         android:focusable="false"
-        android:clickable="false"/>
+        android:clickable="false"
+        android:layout_marginStart="16dp" />
 
     <EditText
         android:id="@+id/light2Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:ems="10"
         android:hint="Enter Light Name"
         android:inputType="textPersonName"
@@ -165,16 +188,16 @@
         android:text="Light 3"
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@id/light2Label"
+        app:layout_constraintTop_toTopOf="@+id/light2Label"
         android:focusableInTouchMode="false"
         android:focusable="false"
-        android:clickable="false"/>
+        android:clickable="false"
+        android:layout_marginStart="16dp" />
 
     <EditText
         android:id="@+id/light3Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:ems="10"
         android:hint="Enter Light Name"
         android:inputType="textPersonName"
@@ -182,28 +205,42 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/light3Label"
         app:layout_constraintLeft_toRightOf="@+id/light3Label" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="45dp"
-        android:background="@android:color/holo_red_light"
-        android:text="Button"
-        app:layout_constraintBaseline_toBaselineOf="@+id/doneButton"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:text="Back" />
+    <!--<Button-->
+        <!--android:id="@+id/backButton"-->
+        <!--android:layout_width="75dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginLeft="45dp"-->
+        <!--android:background="@android:color/holo_red_dark"-->
+        <!--android:text="Back"-->
+        <!--app:layout_constraintBaseline_toBaselineOf="@+id/doneButton"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--tools:text="Back" />-->
 
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="75dp"
+
+
+    <TextView
+        android:id="@+id/editText"
+        android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:background="@android:color/holo_green_light"
-        android:text="Next"
-        app:layout_constraintBaseline_toBaselineOf="@+id/doneButton"
+        android:layout_marginTop="30dp"
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:inputType="textPersonName"
+        android:text="Smart Lights"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
 
 
 </android.support.constraint.ConstraintLayout>

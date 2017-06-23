@@ -30,14 +30,17 @@ public class BottomNavigation extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigationPresets:
                     fragment  = new LightPresets();
+                    getSupportActionBar().setTitle("Presets");
                     break;
 
                 case R.id.navigationHome:
                     fragment = new HomePage();
+                    getSupportActionBar().setTitle("Home");
                     break;
 
                 case R.id.navigationSettings:
                     fragment = new SettingsPage();
+                    getSupportActionBar().setTitle("Settings");
                     break;
             }
 
@@ -69,6 +72,7 @@ public class BottomNavigation extends AppCompatActivity {
         initialTransaction.replace(R.id.container, new HomePage()).commit();
 
         navigation.getMenu().getItem(1).setChecked(true);
+        getSupportActionBar().setTitle("Home");
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

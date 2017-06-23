@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.example.seniordesign.smartlighthub.Controller.BottomNavigation;
 import com.example.seniordesign.smartlighthub.R;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +42,7 @@ import java.util.List;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 
-public class LightInfo extends Activity {
+public class LightInfo extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
@@ -233,7 +235,7 @@ public class LightInfo extends Activity {
 
     @Override
     public void onBackPressed() {
-        Intent backHome = new Intent(LightInfo.this, HomePage.class);
+        Intent backHome = new Intent(LightInfo.this, BottomNavigation.class);
         startActivity(backHome);
     }
 

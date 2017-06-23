@@ -3,14 +3,17 @@ package com.example.seniordesign.smartlighthub.View;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -37,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomePage extends Activity {
+public class HomePage extends Fragment {
 
 
     private FirebaseAuth mAuth;
@@ -64,19 +67,18 @@ public class HomePage extends Activity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_page);
+
+        View view = inflater.inflate(R.layout.activity_home_page, container, false);
 
         pubnubObjects = new ArrayList<>();
 
-        getActionBar().setTitle("Home");
+        lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
+        lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        lightsRecyclerView = (RecyclerView) findViewById(R.id.lightsRecyclerView);
-        lightsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        lightsAdapter = new LightsAdapter(createLightList(), this);
+        lightsAdapter = new LightsAdapter(createLightList(), getContext());
 //
 //        lightsRecyclerView.setHasFixedSize(true);
 //        lightsRecyclerView.setAdapter(lightsAdapter);
@@ -90,79 +92,81 @@ public class HomePage extends Activity {
 
                 if (firebaseAuth.getCurrentUser() != null)
                 {
-                    Toast.makeText(HomePage.this, "Welcome", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
                 }
             }
         };
 
 
-        lightControls = (Button) findViewById(R.id.lightControls);
-        lightControls.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        lightControls = (Button) findViewById(R.id.lightControls);
+//        lightControls.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(HomePage.this, LightPresets.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//
+//        musicControls = (Button) findViewById(R.id.musicControls);
+//        musicControls.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent intent = new Intent(HomePage.this, MusicControls.class);
+//                startActivity(intent);
+//            }
+//        });
 
-                Intent intent = new Intent(HomePage.this, LightControls.class);
-                startActivity(intent);
-            }
-        });
-
-
-        musicControls = (Button) findViewById(R.id.musicControls);
-        musicControls.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(HomePage.this, MusicControls.class);
-                startActivity(intent);
-            }
-        });
+        return view;
 
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
 
         super.onStart();
 
         mAuth.addAuthStateListener(mAuthListener);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if(item.getItemId() == R.id.settingsButton)
-        {
-            startActivity(new Intent(HomePage.this, SettingsPage.class));
-        }
-
-        if (item.getItemId() == R.id.logoutButton)
-        {
-            logout();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        if(item.getItemId() == R.id.settingsButton)
+//        {
+//            startActivity(new Intent(getContext(), LightPresets.class));
+//        }
+//
+////        if (item.getItemId() == R.id.logoutButton)
+////        {
+////            logout();
+////        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     public void logout()
     {
         mAuth.signOut();
-        Toast.makeText(this, "User Logged Out", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(HomePage.this, MainActivity.class));
+        Toast.makeText(getContext(), "User Logged Out", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getContext(), MainActivity.class));
     }
 
-    @Override
-    public void onBackPressed()
-    {
-        Toast.makeText(this, "You must log out of the application to go back", Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void onBackPressed()
+//    {
+//        Toast.makeText(getContext(), "You must log out of the application to go back", Toast.LENGTH_SHORT).show();
+//    }
 
     public List<Light> createLightList()
     {

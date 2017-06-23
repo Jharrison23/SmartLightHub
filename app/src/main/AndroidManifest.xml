@@ -3,7 +3,7 @@
     package="com.example.seniordesign.smartlighthub">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -25,11 +25,14 @@
         <activity android:name=".View.LoginPage" />
         <activity android:name=".View.CreateAccount" />
         <activity android:name=".View.SettingsPage" />
-        <activity android:name=".View.HomePage" />
-        <activity android:name=".View.LightControls" />
+        <Fragment android:name=".View.HomePage" />
+        <activity android:name=".View.LightPresets" />
         <activity android:name=".View.MusicControls" />
         <activity android:name=".View.MusicSpotify" />
-        <activity android:name=".View.LightInfo"></activity>
+        <activity android:name=".View.LightInfo" />
+        <activity
+            android:name=".Controller.BottomNavigation"
+            android:label="@string/title_activity_bottom_navigation"/>
     </application>
 
 </manifest>

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CreateAccount extends Activity implements View.OnClickListener{
+public class CreateAccount extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "CreateAccount";
 
@@ -48,6 +48,7 @@ public class CreateAccount extends Activity implements View.OnClickListener{
     private EditText secondLightLabel;
     private EditText thirdLightLabel;
 
+    private int pageNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,7 +57,7 @@ public class CreateAccount extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_create_account);
         progressDialog = new ProgressDialog(this);
 
-        getActionBar().hide();
+        //getActionBar().hide();
 
         init();
     }
@@ -87,16 +88,16 @@ public class CreateAccount extends Activity implements View.OnClickListener{
             }
         };
 
-        doneButton = (Button) findViewById(R.id.doneButton);
+        doneButton = (Button) findViewById(R.id.signUpButton);
         doneButton.setVisibility(View.INVISIBLE);
         doneButton.setOnClickListener(this);
 
         nextButton = (Button) findViewById(R.id.nextButton);
         nextButton.setOnClickListener(this);
 
-        backButton = (Button) findViewById(R.id.backButton);
-        backButton.setVisibility(View.INVISIBLE);
-        backButton.setOnClickListener(this);
+//        backButton = (Button) findViewById(R.id.backButton);
+//        backButton.setVisibility(View.INVISIBLE);
+//        backButton.setOnClickListener(this);
 
         fullNameField = (EditText) findViewById(R.id.fullNameField);
         userNameField = (EditText) findViewById(R.id.userNameField);
@@ -234,6 +235,7 @@ public class CreateAccount extends Activity implements View.OnClickListener{
         {
             case R.id.nextButton:
 
+                pageNumber = 2;
                 if (!isEmpty(fullNameField) && !isEmpty(userNameField) && !isEmpty(emailField)
                         && !isEmpty(passwordField) && !isEmpty(confirmPasswordField))
                 {
@@ -248,7 +250,7 @@ public class CreateAccount extends Activity implements View.OnClickListener{
                         thirdLightLabel.setVisibility(View.VISIBLE);
 
 
-                        backButton.setVisibility(View.VISIBLE);
+                        //backButton.setVisibility(View.VISIBLE);
                         doneButton.setVisibility(View.VISIBLE);
 
                         fullNameField.setVisibility(View.INVISIBLE);
@@ -275,10 +277,49 @@ public class CreateAccount extends Activity implements View.OnClickListener{
 
                 break;
 
-            case R.id.backButton:
+//            case R.id.backButton:
+//
+//
+//                firstLightField.setVisibility(View.INVISIBLE);
+//                secondLightField.setVisibility(View.INVISIBLE);
+//                thirdLightField.setVisibility(View.INVISIBLE);
+//
+//                firstLightLabel.setVisibility(View.INVISIBLE);
+//                secondLightLabel.setVisibility(View.INVISIBLE);
+//                thirdLightLabel.setVisibility(View.INVISIBLE);
+//
+//
+//                backButton.setVisibility(View.INVISIBLE);
+//                doneButton.setVisibility(View.INVISIBLE);
+//
+//                fullNameField.setVisibility(View.VISIBLE);
+//                userNameField.setVisibility(View.VISIBLE);
+//                emailField.setVisibility(View.VISIBLE);
+//                passwordField.setVisibility(View.VISIBLE);
+//                confirmPasswordField.setVisibility(View.VISIBLE);
+//                nextButton.setVisibility(View.VISIBLE);
+//
+//
+//                break;
 
+            case R.id.signUpButton:
+                registerUser();
+                break;
+        }
+    }
 
-                firstLightField.setVisibility(View.INVISIBLE);
+    @Override
+    public void onBackPressed() {
+
+        if(pageNumber == 1)
+        {
+            super.onBackPressed();
+        }
+
+        else if(pageNumber == 2)
+        {
+            pageNumber = 1;
+            firstLightField.setVisibility(View.INVISIBLE);
                 secondLightField.setVisibility(View.INVISIBLE);
                 thirdLightField.setVisibility(View.INVISIBLE);
 
@@ -286,8 +327,6 @@ public class CreateAccount extends Activity implements View.OnClickListener{
                 secondLightLabel.setVisibility(View.INVISIBLE);
                 thirdLightLabel.setVisibility(View.INVISIBLE);
 
-
-                backButton.setVisibility(View.INVISIBLE);
                 doneButton.setVisibility(View.INVISIBLE);
 
                 fullNameField.setVisibility(View.VISIBLE);
@@ -296,16 +335,13 @@ public class CreateAccount extends Activity implements View.OnClickListener{
                 passwordField.setVisibility(View.VISIBLE);
                 confirmPasswordField.setVisibility(View.VISIBLE);
                 nextButton.setVisibility(View.VISIBLE);
+//
 
-
-                break;
-
-            case R.id.doneButton:
-                registerUser();
-                break;
         }
-    }
 
+
+
+    }
 
     public boolean isEmpty(EditText field)
     {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.R;
+import com.example.seniordesign.smartlighthub.View.HomePage;
 import com.example.seniordesign.smartlighthub.View.LightInfo;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.google.firebase.auth.FirebaseAuth;

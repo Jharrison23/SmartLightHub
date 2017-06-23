@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.seniordesign.smartlighthub.Controller.BottomNavigation;
 import com.example.seniordesign.smartlighthub.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,7 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class LoginPage extends Activity {
+public class LoginPage extends AppCompatActivity {
 
     private static final String TAG = "LoginPage";
 
@@ -40,7 +41,7 @@ public class LoginPage extends Activity {
         setContentView(R.layout.activity_login_page);
 
 
-        getActionBar().hide();
+        //getActionBar().hide();
 
         progressDialog = new ProgressDialog(this);
 
@@ -90,7 +91,7 @@ public class LoginPage extends Activity {
                         Log.d(TAG, "Sign in successful");
                         Toast.makeText(LoginPage.this, "Sign in Successful", Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(LoginPage.this, HomePage.class);
+                        Intent intent = new Intent(LoginPage.this, BottomNavigation.class);
                         startActivity(intent);
                         progressDialog.cancel();
 

@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.example.seniordesign.smartlighthub.R;
 
-public class MusicControls extends Activity {
+public class MusicControls extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

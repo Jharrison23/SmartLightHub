@@ -1,11 +1,14 @@
 package com.example.seniordesign.smartlighthub.View;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -19,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SettingsPage extends AppCompatActivity implements View.OnClickListener {
+public class SettingsPage extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "SettingsPage";
 
@@ -38,14 +41,23 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
     Button cancelButton;
     Button editButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_page);
 
-       init();
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+        View view = inflater.inflate(R.layout.activity_settings_page, container, false);
+
+
+        init(view);
+
+        return view;
+
+
+
     }
+
 
     @Override
     public void onStart() {
@@ -54,23 +66,23 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void init()
+    public void init(View view)
     {
 
 
-        fullnameField = (EditText) findViewById(R.id.fullNameField);
-        userNameField = (EditText) findViewById(R.id.userNameField);
-        emailField = (EditText) findViewById(R.id.emailField);
-        passwordField = (EditText) findViewById(R.id.passwordField);
+        fullnameField = (EditText) view.findViewById(R.id.fullNameField);
+        userNameField = (EditText) view.findViewById(R.id.userNameField);
+        emailField = (EditText) view.findViewById(R.id.emailField);
+        passwordField = (EditText) view.findViewById(R.id.passwordField);
 
 
-        saveButton = (Button) findViewById(R.id.saveButton);
+        saveButton = (Button) view.findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
 
-        cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton = (Button) view.findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(this);
 
-        editButton = (Button) findViewById(R.id.editButton);
+        editButton = (Button) view.findViewById(R.id.editButton);
         editButton.setOnClickListener(this);
 
         notEditable();

@@ -26,7 +26,7 @@
         <activity android:name=".View.CreateAccount" />
         <activity android:name=".View.SettingsPage" />
         <Fragment android:name=".View.HomePage" />
-        <activity android:name=".View.LightControls" />
+        <activity android:name=".View.LightPresets" />
         <activity android:name=".View.MusicControls" />
         <activity android:name=".View.MusicSpotify" />
         <activity android:name=".View.LightInfo" />

@@ -8,10 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.R;
 import com.example.seniordesign.smartlighthub.View.HomePage;
 import com.example.seniordesign.smartlighthub.View.LightInfo;
+import com.example.seniordesign.smartlighthub.View.LightPresets;
 import com.example.seniordesign.smartlighthub.View.SettingsPage;
 
 public class BottomNavigation extends AppCompatActivity {
@@ -27,7 +29,7 @@ public class BottomNavigation extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigationPresets:
-                    //fragment  = new LightInfo();
+                    fragment  = new LightPresets();
                     break;
 
                 case R.id.navigationHome:
@@ -35,7 +37,7 @@ public class BottomNavigation extends AppCompatActivity {
                     break;
 
                 case R.id.navigationSettings:
-                    //fragment = new SettingsPage();
+                    fragment = new SettingsPage();
                     break;
             }
 
@@ -61,6 +63,12 @@ public class BottomNavigation extends AppCompatActivity {
         //navigation.inflateMenu(R.menu.navigation_menu);
 
         fragmentManager = getSupportFragmentManager();
+
+        FragmentTransaction initialTransaction = fragmentManager.beginTransaction();
+
+        initialTransaction.replace(R.id.container, new HomePage()).commit();
+
+        navigation.getMenu().getItem(1).setChecked(true);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

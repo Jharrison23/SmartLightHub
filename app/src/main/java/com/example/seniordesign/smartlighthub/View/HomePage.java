@@ -103,7 +103,7 @@ public class HomePage extends Fragment {
 //            @Override
 //            public void onClick(View v) {
 //
-//                Intent intent = new Intent(HomePage.this, LightControls.class);
+//                Intent intent = new Intent(HomePage.this, LightPresets.class);
 //                startActivity(intent);
 //            }
 //        });
@@ -144,7 +144,7 @@ public class HomePage extends Fragment {
 //
 //        if(item.getItemId() == R.id.settingsButton)
 //        {
-//            startActivity(new Intent(getContext(), LightControls.class));
+//            startActivity(new Intent(getContext(), LightPresets.class));
 //        }
 //
 ////        if (item.getItemId() == R.id.logoutButton)

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.seniordesign.smartlighthub.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getActionBar().hide();
+        //getActionBar().hide();
 
 
         Button loginButton = (Button) findViewById(R.id.loginButton);

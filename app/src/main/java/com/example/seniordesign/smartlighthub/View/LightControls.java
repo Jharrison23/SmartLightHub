@@ -8,14 +8,12 @@ import android.view.MenuItem;
 
 import com.example.seniordesign.smartlighthub.R;
 
-public class LightControls extends Activity {
+public class LightControls extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_controls);
-
-        getActionBar().setTitle("Presets");
 
 
     }

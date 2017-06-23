@@ -25,14 +25,14 @@
         <activity android:name=".View.LoginPage" />
         <activity android:name=".View.CreateAccount" />
         <activity android:name=".View.SettingsPage" />
-        <activity android:name=".View.HomePage" />
+        <Fragment android:name=".View.HomePage" />
         <activity android:name=".View.LightControls" />
         <activity android:name=".View.MusicControls" />
         <activity android:name=".View.MusicSpotify" />
         <activity android:name=".View.LightInfo" />
         <activity
             android:name=".Controller.BottomNavigation"
-            android:label="@string/title_activity_bottom_navigation"></activity>
+            android:label="@string/title_activity_bottom_navigation"/>
     </application>
 
 </manifest>

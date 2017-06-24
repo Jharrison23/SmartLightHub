@@ -49,8 +49,59 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
         init();
     }
-    
-    
+
+    @Override
+    public void onBackPressed() {
+
+        if (pageNumber == 1) {
+            super.onBackPressed();
+        }
+
+        else if (pageNumber == 2) {
+
+            firstLightName.setVisibility(View.VISIBLE);
+            firstLightColor.setVisibility(View.VISIBLE);
+            firstLightState.setVisibility(View.VISIBLE);
+            firstPageNext.setVisibility(View.VISIBLE);
+
+            secondLightName.setVisibility(View.INVISIBLE);
+            secondLightColor.setVisibility(View.INVISIBLE);
+            secondLightState.setVisibility(View.INVISIBLE);
+            secondPageNext.setVisibility(View.INVISIBLE);
+
+            thirdLightName.setVisibility(View.INVISIBLE);
+            thirdLightColor.setVisibility(View.INVISIBLE);
+            thirdLightState.setVisibility(View.INVISIBLE);
+            thirdPageNext.setVisibility(View.INVISIBLE);
+
+            pageNumber = 1;
+        }
+
+        else if (pageNumber == 3) {
+
+
+            firstLightName.setVisibility(View.INVISIBLE);
+            firstLightColor.setVisibility(View.INVISIBLE);
+            firstLightState.setVisibility(View.INVISIBLE);
+            firstPageNext.setVisibility(View.INVISIBLE);
+
+            secondLightName.setVisibility(View.VISIBLE);
+            secondLightColor.setVisibility(View.VISIBLE);
+            secondLightState.setVisibility(View.VISIBLE);
+            secondPageNext.setVisibility(View.VISIBLE);
+
+            thirdLightName.setVisibility(View.INVISIBLE);
+            thirdLightColor.setVisibility(View.INVISIBLE);
+            thirdLightState.setVisibility(View.INVISIBLE);
+            thirdPageNext.setVisibility(View.INVISIBLE);
+
+            pageNumber = 2;
+
+
+        }
+
+    }
+
     public void init() {
         
         firstLightName  = (EditText) findViewById(R.id.firstLightName);

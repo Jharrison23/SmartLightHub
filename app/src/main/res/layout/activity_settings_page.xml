@@ -107,13 +107,12 @@
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="40dp"
         android:background="@android:color/holo_green_light"
         android:text="Save"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@+id/passwordField"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/cancelButton" />
 
     <Button
         android:id="@+id/cancelButton"

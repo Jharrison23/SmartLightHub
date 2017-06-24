@@ -186,7 +186,7 @@
         android:background="@color/colorAccent"/>
 
     <Button
-        android:id="@+id/secodPageNext"
+        android:id="@+id/secondPageNext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Next"

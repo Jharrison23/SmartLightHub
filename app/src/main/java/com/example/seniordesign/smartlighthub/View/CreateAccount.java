@@ -57,7 +57,7 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_create_account);
         progressDialog = new ProgressDialog(this);
 
-        //getActionBar().hide();
+        getSupportActionBar().hide();
 
         init();
     }

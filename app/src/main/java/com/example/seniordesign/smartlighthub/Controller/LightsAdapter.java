@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.R;
-import com.example.seniordesign.smartlighthub.View.HomePage;
 import com.example.seniordesign.smartlighthub.View.LightInfo;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,9 +92,9 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
             lightContainer = (LinearLayout) itemView.findViewById(R.id.lightsContainer);
 
-            lightName = (TextView) itemView.findViewById(R.id.lightName);
+            lightName = (TextView) itemView.findViewById(R.id.firstLightName);
 
-            lightState = (Switch) itemView.findViewById(R.id.lightState);
+            lightState = (Switch) itemView.findViewById(R.id.firstLightState);
 
 
         }

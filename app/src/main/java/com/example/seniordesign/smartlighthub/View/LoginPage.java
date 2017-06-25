@@ -41,7 +41,7 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
 
-        //getActionBar().hide();
+        getSupportActionBar().hide();
 
         progressDialog = new ProgressDialog(this);
 

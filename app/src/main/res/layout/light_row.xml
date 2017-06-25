@@ -18,7 +18,7 @@
         <!--android:tint="@color/colorPrimary" />-->
 
     <TextView
-        android:id="@+id/lightName"
+        android:id="@+id/firstLightName"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginRight="16dp"
@@ -31,7 +31,7 @@
         android:textSize="22sp" />
 
     <Switch
-        android:id="@+id/lightState"
+        android:id="@+id/firstLightState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"

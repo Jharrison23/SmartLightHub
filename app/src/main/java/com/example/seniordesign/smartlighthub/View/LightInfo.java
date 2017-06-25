@@ -1,12 +1,10 @@
 package com.example.seniordesign.smartlighthub.View;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,7 +46,6 @@ public class LightInfo extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
-
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -105,8 +102,8 @@ public class LightInfo extends AppCompatActivity {
         createLightList();
 
 
-        lightName = (EditText) findViewById(R.id.lightName);
-        lightColor = (ImageView) findViewById(R.id.lightColor);
+        lightName = (EditText) findViewById(R.id.firstLightName);
+        lightColor = (ImageView) findViewById(R.id.firstLightColor);
         lightColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +114,7 @@ public class LightInfo extends AppCompatActivity {
 
             }
         });
-        lightState = (Switch) findViewById(R.id.lightState);
+        lightState = (Switch) findViewById(R.id.firstLightState);
 
 
         updateButton = (Button) findViewById(R.id.updateButton);

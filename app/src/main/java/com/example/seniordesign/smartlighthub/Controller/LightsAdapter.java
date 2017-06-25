@@ -2,6 +2,7 @@ package com.example.seniordesign.smartlighthub.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,7 +66,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         holder.lightState.setChecked(light.isState());
 
-        holder.lightContainer.setBackgroundColor(light.getConvertedColor());
+        holder.homepageCardView.setBackgroundColor(light.getConvertedColor());
     }
 
     @Override
@@ -81,6 +82,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
         private TextView lightName;
         private Switch lightState;
         private LinearLayout lightContainer;
+        private CardView homepageCardView;
 
 
 
@@ -89,6 +91,8 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
             super(itemView);
 
             itemView.setOnClickListener(this);
+
+            homepageCardView = (CardView) itemView.findViewById(R.id.homepageCardView);
 
             lightContainer = (LinearLayout) itemView.findViewById(R.id.lightsContainer);
 

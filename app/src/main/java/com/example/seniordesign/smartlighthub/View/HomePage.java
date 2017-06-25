@@ -97,28 +97,6 @@ public class HomePage extends Fragment {
             }
         };
 
-
-//        lightControls = (Button) findViewById(R.id.lightControls);
-//        lightControls.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(HomePage.this, LightPresets.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//
-//        musicControls = (Button) findViewById(R.id.musicControls);
-//        musicControls.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(HomePage.this, MusicControls.class);
-//                startActivity(intent);
-//            }
-//        });
-
         return view;
 
     }
@@ -131,42 +109,6 @@ public class HomePage extends Fragment {
         mAuth.addAuthStateListener(mAuthListener);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        if(item.getItemId() == R.id.settingsButton)
-//        {
-//            startActivity(new Intent(getContext(), LightPresets.class));
-//        }
-//
-////        if (item.getItemId() == R.id.logoutButton)
-////        {
-////            logout();
-////        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    public void logout()
-    {
-        mAuth.signOut();
-        Toast.makeText(getContext(), "User Logged Out", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getContext(), MainActivity.class));
-    }
-
-//    @Override
-//    public void onBackPressed()
-//    {
-//        Toast.makeText(getContext(), "You must log out of the application to go back", Toast.LENGTH_SHORT).show();
-//    }
 
     public List<Light> createLightList()
     {

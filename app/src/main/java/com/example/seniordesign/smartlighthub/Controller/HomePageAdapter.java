@@ -31,14 +31,14 @@ import java.util.List;
  * Created by jamesharrison on 5/26/17.
  */
 
-public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHolder>{
+public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.LightsHolder>{
 
 
     private List<Light> lightsList;
 
     private LayoutInflater inflater;
 
-    public LightsAdapter(List<Light> lightsList, Context c)
+    public HomePageAdapter(List<Light> lightsList, Context c)
     {
         this.inflater = LayoutInflater.from(c);
 
@@ -49,7 +49,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
     @Override
     public LightsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.light_row, parent, false);
+        View view = inflater.inflate(R.layout.homepage_light_row, parent, false);
 
 
 
@@ -143,7 +143,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
             v.getContext().startActivity(lightInfoIntent);
 
-            Log.d("LightsAdapter", "Clicked " + getAdapterPosition());
+            Log.d("HomePageAdapter", "Clicked " + getAdapterPosition());
         }
 
 

@@ -1,23 +1,18 @@
 package com.example.seniordesign.smartlighthub.View;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.seniordesign.smartlighthub.Controller.LightsAdapter;
+import com.example.seniordesign.smartlighthub.Controller.HomePageAdapter;
 import com.example.seniordesign.smartlighthub.R;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +32,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class HomePage extends Fragment {
@@ -55,7 +49,7 @@ public class HomePage extends Fragment {
 
     private RecyclerView lightsRecyclerView;
 
-    private LightsAdapter lightsAdapter;
+    private HomePageAdapter homePageAdapter;
 
     private Button lightControls;
 
@@ -78,10 +72,10 @@ public class HomePage extends Fragment {
         lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        lightsAdapter = new LightsAdapter(createLightList(), getContext());
+        homePageAdapter = new HomePageAdapter(createLightList(), getContext());
 //
 //        lightsRecyclerView.setHasFixedSize(true);
-//        lightsRecyclerView.setAdapter(lightsAdapter);
+//        lightsRecyclerView.setAdapter(homePageAdapter);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -146,7 +140,7 @@ public class HomePage extends Fragment {
                 }
 
                 lightsRecyclerView.setHasFixedSize(true);
-                lightsRecyclerView.setAdapter(lightsAdapter);
+                lightsRecyclerView.setAdapter(homePageAdapter);
 
 
                 pubnubConfig(pubnubObjects);

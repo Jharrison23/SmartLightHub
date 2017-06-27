@@ -120,6 +120,8 @@ public class HomePage extends Fragment {
 
                     Light newLight = child.getValue(Light.class);
 
+                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
+
                     lightList.add(newLight);
 
                     JSONObject rbgObject = new JSONObject();

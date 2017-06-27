@@ -103,7 +103,7 @@ public class LightInfo extends AppCompatActivity {
 
 
         lightName = (EditText) findViewById(R.id.firstLightName);
-        lightColor = (ImageView) findViewById(R.id.firstLightColor);
+        lightColor = (ImageView) findViewById(R.id.firstLightColor_preset);
         lightColor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

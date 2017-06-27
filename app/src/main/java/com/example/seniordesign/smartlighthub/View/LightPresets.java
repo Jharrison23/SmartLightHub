@@ -2,23 +2,61 @@ package com.example.seniordesign.smartlighthub.View;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.example.seniordesign.smartlighthub.Controller.PresetsPageAdapter;
+import com.example.seniordesign.smartlighthub.Model.Light;
+import com.example.seniordesign.smartlighthub.Model.Preset;
 import com.example.seniordesign.smartlighthub.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LightPresets extends Fragment {
 
+
+    private FirebaseAuth mAuth;
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+    private DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Presets");
+
+    private PresetsPageAdapter presetsPageAdapter;
+
     FloatingActionButton addPresets;
+
+    RecyclerView presetsRecyclerView;
 
     @Nullable
     @Override
@@ -36,6 +74,22 @@ public class LightPresets extends Fragment {
     public void init(View view)
     {
         addPresets = (FloatingActionButton) view.findViewById(R.id.addPresetsButton);
+
+        presetsRecyclerView = (RecyclerView) view.findViewById(R.id.presetsRecyclerView);
+        presetsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+        presetsPageAdapter = new PresetsPageAdapter(createPresetList(), getContext());
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+            }
+        };
+
+
 
         addPresets.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +133,103 @@ public class LightPresets extends Fragment {
         });
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    public List<Preset> createPresetList() {
+
+        final List<Preset> presetList = new ArrayList<>();
+
+
+        ValueEventListener presetEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child: children) {
+
+                    List<Light> lightlist = new ArrayList<>();
+
+                    String name = (String) child.child("Name").getValue();
+
+                    Iterable<DataSnapshot> lightslist = child.child("Lights").getChildren();
+
+                    for (DataSnapshot lil: lightslist)
+                    {
+
+                        Light light = lil.getValue(Light.class);
+
+                        Log.d("Light Color VALUE ", light.getColor());
+                        lightlist.add(light);
+
+                    }
+
+                    Preset newPreset = new Preset(name, lightlist);
+
+                    Log.d("PRESET VALUE ", "i = " + child + " " + newPreset);
+
+                    presetList.add(newPreset);
+
+                }
+
+
+                presetsRecyclerView.setHasFixedSize(true);
+                presetsRecyclerView.setAdapter(presetsPageAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        userRef.addValueEventListener(presetEventListener);
+        return presetList;
+    }
+
+
+
+    public List<Light> createLightList(DatabaseReference presetsLightRef)
+    {
+
+
+
+        final List<Light> lightList = new ArrayList<>();
+
+        ValueEventListener lightEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child : children) {
+
+                    Light newLight = child.getValue(Light.class);
+
+                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
+
+                    lightList.add(newLight);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        presetsLightRef.addValueEventListener(lightEventListener);
+        return lightList;
+    }
+
+
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {

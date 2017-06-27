@@ -276,7 +276,11 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
     {
         DatabaseReference currentPreset = presetsRef.child(presetName);
 
-        DatabaseReference firstLightPresetRef = currentPreset.child("Light 1");
+        currentPreset.child("Name").setValue(presetName);
+
+        DatabaseReference lightRef = currentPreset.child("Lights");
+
+        DatabaseReference firstLightPresetRef = lightRef.child("Light 1");
         firstLightPresetRef.child("Name").setValue(firstLightName.getText().toString());
         Drawable firstLightDrawableColor = (Drawable) firstLightColor.getBackground();
 
@@ -293,7 +297,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
 
 
-        DatabaseReference secondLightPresetRef = currentPreset.child("Light 2");
+        DatabaseReference secondLightPresetRef = lightRef.child("Light 2");
         secondLightPresetRef.child("Name").setValue(thirdLightName.getText().toString());
         Drawable secondLightDrawableColor = (Drawable) secondLightColor.getBackground();
 
@@ -311,7 +315,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
 
 
-        DatabaseReference thirdLightPresetRef = currentPreset.child("Light 3");
+        DatabaseReference thirdLightPresetRef = lightRef.child("Light 3");
         thirdLightPresetRef.child("Name").setValue(thirdLightName.getText().toString());
         Drawable thirdLightDrawableColor = (Drawable) thirdLightColor.getBackground();
 

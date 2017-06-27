@@ -51,15 +51,15 @@
             android:id="@+id/presetName_preset"
             android:layout_width="96dp"
             android:layout_height="23dp"
-            android:layout_marginTop="21dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textSize="24sp"
-            app:layout_constraintTop_toBottomOf="@+id/firstLightColor_preset"
-            android:layout_marginRight="8dp"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/firstLightColor_preset" />
 
 
     </android.support.constraint.ConstraintLayout>

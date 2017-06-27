@@ -164,7 +164,8 @@ public class LightPresets extends Fragment {
 
                         Light light = lil.getValue(Light.class);
 
-                        Log.d("Light Color VALUE ", light.getColor());
+                        Log.d("INHERE ", "jfkdsjklf");
+                        Log.d("Lil VALUE ", lil.getValue() + "");
                         lightlist.add(light);
 
                     }

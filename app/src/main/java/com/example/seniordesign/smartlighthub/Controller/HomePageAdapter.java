@@ -51,9 +51,6 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
 
         View view = inflater.inflate(R.layout.homepage_light_row, parent, false);
 
-
-
-
         return new LightsHolder(view);
     }
 

@@ -1,23 +1,21 @@
 package com.example.seniordesign.smartlighthub.View;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.seniordesign.smartlighthub.Controller.LightsAdapter;
+import com.example.seniordesign.smartlighthub.Controller.HomePageAdapter;
 import com.example.seniordesign.smartlighthub.R;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +35,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class HomePage extends Fragment {
@@ -55,7 +52,7 @@ public class HomePage extends Fragment {
 
     private RecyclerView lightsRecyclerView;
 
-    private LightsAdapter lightsAdapter;
+    private HomePageAdapter homePageAdapter;
 
     private Button lightControls;
 
@@ -71,53 +68,109 @@ public class HomePage extends Fragment {
     {
         super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.activity_home_page, container, false);
+        View view;
 
-        pubnubObjects = new ArrayList<>();
+        Bundle extras = this.getArguments();
 
-        lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
-        lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (extras != null)
+        {
 
-        lightsAdapter = new LightsAdapter(createLightList(), getContext());
+            String light1Name = extras.getString("light1Name");
+            String light1Color = extras.getString("light1Color");
+            Boolean light1State = extras.getBoolean("light1State");
+
+
+            DatabaseReference light1key = userRef.child("Light 1");
+
+            light1key.child("Name").setValue(light1Name);
+            light1key.child("Color").setValue(light1Color);
+            light1key.child("State").setValue(light1State);
+
+
+
+
+            String light2Name = extras.getString("light2Name");
+            String light2Color = extras.getString("light2Color");
+            Boolean light2State = extras.getBoolean("light2State");
+
+
+            DatabaseReference light2key = userRef.child("Light 2");
+
+            light2key.child("Name").setValue(light2Name);
+            light2key.child("Color").setValue(light2Color);
+            light2key.child("State").setValue(light2State);
+
+
+
+            String light3Name = extras.getString("light3Name");
+            String light3Color = extras.getString("light3Color");
+            Boolean light3State = extras.getBoolean("light3State");
+
+            DatabaseReference light3key = userRef.child("Light 3");
+
+            light3key.child("Name").setValue(light3Name);
+            light3key.child("Color").setValue(light3Color);
+            light3key.child("State").setValue(light3State);
+
+
+            view = inflater.inflate(R.layout.activity_home_page, container, false);
+
+            pubnubObjects = new ArrayList<>();
+
+            lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
+            lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            homePageAdapter = new HomePageAdapter(createLightList(), getContext());
 //
 //        lightsRecyclerView.setHasFixedSize(true);
-//        lightsRecyclerView.setAdapter(lightsAdapter);
+//        lightsRecyclerView.setAdapter(homePageAdapter);
 
 
-        mAuth = FirebaseAuth.getInstance();
+            mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if (firebaseAuth.getCurrentUser() != null)
-                {
-                    Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                    if (firebaseAuth.getCurrentUser() != null)
+                    {
+                        Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        };
+            };
+
+        }
+
+        else
+        {
+
+            view = inflater.inflate(R.layout.activity_home_page, container, false);
+
+            pubnubObjects = new ArrayList<>();
+
+            lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
+            lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            homePageAdapter = new HomePageAdapter(createLightList(), getContext());
+//
+//        lightsRecyclerView.setHasFixedSize(true);
+//        lightsRecyclerView.setAdapter(homePageAdapter);
 
 
-//        lightControls = (Button) findViewById(R.id.lightControls);
-//        lightControls.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(HomePage.this, LightPresets.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//
-//        musicControls = (Button) findViewById(R.id.musicControls);
-//        musicControls.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Intent intent = new Intent(HomePage.this, MusicControls.class);
-//                startActivity(intent);
-//            }
-//        });
+            mAuth = FirebaseAuth.getInstance();
+
+            mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                    if (firebaseAuth.getCurrentUser() != null)
+                    {
+                        Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
+
+        }
 
         return view;
 
@@ -131,42 +184,6 @@ public class HomePage extends Fragment {
         mAuth.addAuthStateListener(mAuthListener);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        if(item.getItemId() == R.id.settingsButton)
-//        {
-//            startActivity(new Intent(getContext(), LightPresets.class));
-//        }
-//
-////        if (item.getItemId() == R.id.logoutButton)
-////        {
-////            logout();
-////        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-    public void logout()
-    {
-        mAuth.signOut();
-        Toast.makeText(getContext(), "User Logged Out", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(getContext(), MainActivity.class));
-    }
-
-//    @Override
-//    public void onBackPressed()
-//    {
-//        Toast.makeText(getContext(), "You must log out of the application to go back", Toast.LENGTH_SHORT).show();
-//    }
 
     public List<Light> createLightList()
     {
@@ -183,6 +200,8 @@ public class HomePage extends Fragment {
                 for (DataSnapshot child : children) {
 
                     Light newLight = child.getValue(Light.class);
+
+                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
 
                     lightList.add(newLight);
 
@@ -204,7 +223,7 @@ public class HomePage extends Fragment {
                 }
 
                 lightsRecyclerView.setHasFixedSize(true);
-                lightsRecyclerView.setAdapter(lightsAdapter);
+                lightsRecyclerView.setAdapter(homePageAdapter);
 
 
                 pubnubConfig(pubnubObjects);

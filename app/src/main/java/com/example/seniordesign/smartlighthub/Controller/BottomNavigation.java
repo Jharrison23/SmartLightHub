@@ -50,17 +50,17 @@ public class BottomNavigation extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigationPresets:
                     fragment  = new LightPresets();
-                    getSupportActionBar().setTitle("Presets");
+                    setSelected(0);
                     break;
 
                 case R.id.navigationHome:
                     fragment = new HomePage();
-                    getSupportActionBar().setTitle("Home");
+                    setSelected(1);
                     break;
 
                 case R.id.navigationSettings:
                     fragment = new SettingsPage();
-                    getSupportActionBar().setTitle("Settings");
+                    setSelected(2);
                     break;
             }
 
@@ -105,12 +105,12 @@ public class BottomNavigation extends AppCompatActivity {
 
         FragmentTransaction initialTransaction = fragmentManager.beginTransaction();
 
-        initialTransaction.replace(R.id.container, new HomePage()).commit();
+            initialTransaction.replace(R.id.container, new HomePage()).commit();
 
-        navigation.getMenu().getItem(1).setChecked(true);
-        getSupportActionBar().setTitle("Home");
+            navigation.getMenu().getItem(1).setChecked(true);
+            getSupportActionBar().setTitle("Home");
 
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
     }
@@ -132,13 +132,34 @@ public class BottomNavigation extends AppCompatActivity {
 //        {
 //            startActivity(new Intent(getContext(), LightPresets.class));
 //        }
-//
+
         if (item.getItemId() == R.id.logoutButton)
         {
             logout();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setSelected(int selected)
+    {
+        switch (selected)
+        {
+            case 0:
+                navigation.getMenu().getItem(0).setChecked(true);
+                getSupportActionBar().setTitle("Presets");
+                break;
+
+            case 1:
+                navigation.getMenu().getItem(1).setChecked(true);
+                getSupportActionBar().setTitle("Home");
+                break;
+
+            case 2:
+                navigation.getMenu().getItem(2).setChecked(true);
+                getSupportActionBar().setTitle("Settings");
+        }
+
     }
 
     public void logout()

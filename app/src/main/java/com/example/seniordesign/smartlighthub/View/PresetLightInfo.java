@@ -1,5 +1,9 @@
 package com.example.seniordesign.smartlighthub.View;
 
+/**
+ * Created by jamesharrison on 6/27/17.
+ */
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -40,7 +44,7 @@ import java.util.List;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 
-public class LightInfo extends AppCompatActivity {
+public class PresetLightInfo extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
@@ -51,9 +55,10 @@ public class LightInfo extends AppCompatActivity {
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Lights");
+    private DatabaseReference userRef;
 
     private DatabaseReference lightRef;
+
     private List<Light> lightList;
 
     private EditText lightName;
@@ -63,6 +68,7 @@ public class LightInfo extends AppCompatActivity {
     private Switch lightState;
 
     private int position;
+    private String currentPreset = "";
 
     private Button updateButton;
 
@@ -82,7 +88,10 @@ public class LightInfo extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
+            currentPreset = extras.getString("preset");
             position = extras.getInt("pos");
+            userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Presets").child(currentPreset).child("Lights");
+
         }
 
 
@@ -162,7 +171,7 @@ public class LightInfo extends AppCompatActivity {
 
                 else
                 {
-                    Toast.makeText(LightInfo.this, "No name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PresetLightInfo.this, "Light has no name", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -214,7 +223,7 @@ public class LightInfo extends AppCompatActivity {
 
                     lightState.setChecked(light.isState());
 
-                    lightRef = userRef.child(light.getName());
+                    lightRef = userRef.child(("Light " + (position + 1))).child(light.getName());
 
                 }
             }
@@ -232,7 +241,7 @@ public class LightInfo extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent backHome = new Intent(LightInfo.this, BottomNavigation.class);
+        Intent backHome = new Intent(PresetLightInfo.this, BottomNavigation.class);
         startActivity(backHome);
     }
 
@@ -240,7 +249,7 @@ public class LightInfo extends AppCompatActivity {
     // Color picker 2
     private void openColorPickerDialog(boolean AlphaSupport) {
 
-        AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(LightInfo.this, defaultColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+        AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(PresetLightInfo.this, defaultColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
             public void onOk(AmbilWarnaDialog ambilWarnaDialog, int color) {
 
@@ -255,7 +264,7 @@ public class LightInfo extends AppCompatActivity {
             @Override
             public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
 
-                Toast.makeText(LightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PresetLightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
             }
         });
         ambilWarnaDialog.show();
@@ -277,7 +286,6 @@ public class LightInfo extends AppCompatActivity {
         switch(lightNumber)
         {
             case 0:
-                Toast.makeText(this, "publish", Toast.LENGTH_SHORT).show();
                 pubnub.publish().message(publishMessage).channel("Light_1")
                         .async(new PNCallback<PNPublishResult>() {
                             @Override
@@ -312,5 +320,28 @@ public class LightInfo extends AppCompatActivity {
 
         }
     }
+
+
+    // Old pubnub publish
+//    public void pubnubConfig(final JSONObject published)
+//    {
+//        PNConfiguration pnConfiguration = new PNConfiguration();
+//        pnConfiguration.setSubscribeKey("sub-c-40e3d906-4ee7-11e7-bf50-02ee2ddab7fe");
+//        pnConfiguration.setPublishKey("pub-c-6528095d-bc26-4768-a903-ac0a85174f81");
+//        pnConfiguration.setSecure(false);
+//
+//        PubNub pubnub = new PubNub(pnConfiguration);
+//
+//        pubnub.publish().message(published).channel("hello_world")
+//                .async(new PNCallback<PNPublishResult>() {
+//                    @Override
+//                    public void onResponse(PNPublishResult result, PNStatus status) {
+//                        Log.d("HomePage", "We in here" + published);
+//                    }
+//                });
+//    }
+
+
+
 
 }

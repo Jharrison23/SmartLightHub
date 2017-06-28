@@ -2,6 +2,7 @@ package com.example.seniordesign.smartlighthub.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,14 +31,14 @@ import java.util.List;
  * Created by jamesharrison on 5/26/17.
  */
 
-public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHolder>{
+public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.LightsHolder>{
 
 
     private List<Light> lightsList;
 
     private LayoutInflater inflater;
 
-    public LightsAdapter(List<Light> lightsList, Context c)
+    public HomePageAdapter(List<Light> lightsList, Context c)
     {
         this.inflater = LayoutInflater.from(c);
 
@@ -48,10 +49,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
     @Override
     public LightsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.light_row, parent, false);
-
-
-
+        View view = inflater.inflate(R.layout.homepage_light_row, parent, false);
 
         return new LightsHolder(view);
     }
@@ -65,7 +63,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
         holder.lightState.setChecked(light.isState());
 
-        holder.lightContainer.setBackgroundColor(light.getConvertedColor());
+        holder.homepageCardView.setBackgroundColor(light.getConvertedColor());
     }
 
     @Override
@@ -81,6 +79,7 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
         private TextView lightName;
         private Switch lightState;
         private LinearLayout lightContainer;
+        private CardView homepageCardView;
 
 
 
@@ -89,6 +88,8 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
             super(itemView);
 
             itemView.setOnClickListener(this);
+
+            homepageCardView = (CardView) itemView.findViewById(R.id.homepageCardView);
 
             lightContainer = (LinearLayout) itemView.findViewById(R.id.lightsContainer);
 
@@ -139,7 +140,9 @@ public class LightsAdapter extends RecyclerView.Adapter<LightsAdapter.LightsHold
 
             v.getContext().startActivity(lightInfoIntent);
 
-            Log.d("LightsAdapter", "Clicked " + getAdapterPosition());
+            Log.d("HomePageAdapter", "Clicked " + getAdapterPosition());
+
+            Toast.makeText(v.getContext(), "we clickiy", Toast.LENGTH_SHORT).show();
         }
 
 

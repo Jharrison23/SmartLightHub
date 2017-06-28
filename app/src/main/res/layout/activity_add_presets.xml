@@ -32,7 +32,7 @@
         android:layout_marginEnd="8dp" />
 
     <ImageView
-        android:id="@+id/firstLightColor"
+        android:id="@+id/firstLightColor_preset"
         android:layout_width="210dp"
         android:layout_height="144dp"
         android:layout_marginLeft="8dp"
@@ -58,7 +58,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="44dp"
-        app:layout_constraintTop_toBottomOf="@+id/firstLightColor"
+        app:layout_constraintTop_toBottomOf="@+id/firstLightColor_preset"
         app:layout_constraintHorizontal_bias="0.501"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
@@ -86,7 +86,7 @@
         android:layout_marginEnd="8dp" />
 
     <ImageView
-        android:id="@+id/secondLightColor"
+        android:id="@+id/secondLightColor_preset"
         android:layout_width="210dp"
         android:layout_height="144dp"
         android:layout_marginLeft="8dp"
@@ -113,7 +113,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="44dp"
-        app:layout_constraintTop_toBottomOf="@+id/secondLightColor"
+        app:layout_constraintTop_toBottomOf="@+id/secondLightColor_preset"
         app:layout_constraintHorizontal_bias="0.501"
         android:visibility="invisible"
         android:layout_marginStart="8dp"
@@ -140,7 +140,7 @@
         android:layout_marginEnd="8dp" />
 
     <ImageView
-        android:id="@+id/thirdLightColor"
+        android:id="@+id/thirdLightColor_preset"
         android:layout_width="210dp"
         android:layout_height="144dp"
         android:layout_marginLeft="8dp"
@@ -167,7 +167,7 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="44dp"
-        app:layout_constraintTop_toBottomOf="@+id/thirdLightColor"
+        app:layout_constraintTop_toBottomOf="@+id/thirdLightColor_preset"
         app:layout_constraintHorizontal_bias="0.501"
         android:visibility="invisible"
         android:layout_marginStart="8dp"

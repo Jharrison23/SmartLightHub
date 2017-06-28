@@ -149,21 +149,21 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
     public void init() {
         
         firstLightName  = (EditText) findViewById(R.id.firstLightName);
-        firstLightColor = (ImageView) findViewById(R.id.firstLightColor);
+        firstLightColor = (ImageView) findViewById(R.id.firstLightColor_preset);
         firstLightColor.setOnClickListener(this);
         firstLightState = (Switch) findViewById(R.id.firstLightState);
         firstPageNext = (Button) findViewById(R.id.firstPageNext);
         firstPageNext.setOnClickListener(this);
 
         secondLightName  = (EditText) findViewById(R.id.secondLightName);
-        secondLightColor = (ImageView) findViewById(R.id.secondLightColor);
+        secondLightColor = (ImageView) findViewById(R.id.secondLightColor_preset);
         secondLightColor.setOnClickListener(this);
         secondLightState = (Switch) findViewById(R.id.secondLightState);
         secondPageNext = (Button) findViewById(R.id.secondPageNext);
         secondPageNext.setOnClickListener(this);
 
         thirdLightName  = (EditText) findViewById(R.id.thirdLightName);
-        thirdLightColor = (ImageView) findViewById(R.id.thirdLightColor);
+        thirdLightColor = (ImageView) findViewById(R.id.thirdLightColor_preset);
         thirdLightColor.setOnClickListener(this);
         thirdLightState = (Switch) findViewById(R.id.thirdLightState);
         thirdPageNext = (Button) findViewById(R.id.thirdPageNext);
@@ -224,17 +224,20 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
                 startActivity(new Intent(AddPresetsActivity.this, BottomNavigation.class));
                 break;
 
-            case R.id.firstLightColor:
+            case R.id.firstLightColor_preset:
+                defaultColor = ((ColorDrawable) firstLightColor.getBackground()).getColor();
                 openColorPickerDialog(false, firstLightColor);
                 break;
 
 
-            case R.id.secondLightColor:
-
+            case R.id.secondLightColor_preset:
+                defaultColor = ((ColorDrawable) secondLightColor.getBackground()).getColor();
                 openColorPickerDialog(false, secondLightColor);
                 break;
 
-            case R.id.thirdLightColor:
+            case R.id.thirdLightColor_preset:
+
+                defaultColor = ((ColorDrawable) thirdLightColor.getBackground()).getColor();
 
                 openColorPickerDialog(false, thirdLightColor);
                 break;
@@ -273,7 +276,11 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
     {
         DatabaseReference currentPreset = presetsRef.child(presetName);
 
-        DatabaseReference firstLightPresetRef = currentPreset.child("Light 1");
+        currentPreset.child("Name").setValue(presetName);
+
+        DatabaseReference lightRef = currentPreset.child("Lights");
+
+        DatabaseReference firstLightPresetRef = lightRef.child("Light 1");
         firstLightPresetRef.child("Name").setValue(firstLightName.getText().toString());
         Drawable firstLightDrawableColor = (Drawable) firstLightColor.getBackground();
 
@@ -290,7 +297,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
 
 
-        DatabaseReference secondLightPresetRef = currentPreset.child("Light 2");
+        DatabaseReference secondLightPresetRef = lightRef.child("Light 2");
         secondLightPresetRef.child("Name").setValue(thirdLightName.getText().toString());
         Drawable secondLightDrawableColor = (Drawable) secondLightColor.getBackground();
 
@@ -308,7 +315,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
 
 
-        DatabaseReference thirdLightPresetRef = currentPreset.child("Light 3");
+        DatabaseReference thirdLightPresetRef = lightRef.child("Light 3");
         thirdLightPresetRef.child("Name").setValue(thirdLightName.getText().toString());
         Drawable thirdLightDrawableColor = (Drawable) thirdLightColor.getBackground();
 

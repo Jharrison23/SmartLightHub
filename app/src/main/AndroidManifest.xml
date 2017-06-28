@@ -29,7 +29,7 @@
         <Fragment android:name=".View.HomePage" />
         <activity android:name=".View.PresetLightInfo"/>
 
-        <activity android:name=".View.LightPresets" />
+        <Fragment android:name=".View.LightPresets" />
         <activity android:name=".View.MusicControls" />
         <activity android:name=".View.MusicSpotify" />
         <activity android:name=".View.LightInfo" />

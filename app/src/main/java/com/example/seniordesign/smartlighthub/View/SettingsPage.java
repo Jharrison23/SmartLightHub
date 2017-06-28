@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SettingsPage extends Fragment implements View.OnClickListener {
+public class SettingsPage extends Activity implements View.OnClickListener {
 
     private static final String TAG = "SettingsPage";
 
@@ -41,20 +41,12 @@ public class SettingsPage extends Fragment implements View.OnClickListener {
     Button cancelButton;
     Button editButton;
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings_page);
 
-
-        View view = inflater.inflate(R.layout.activity_settings_page, container, false);
-
-
-        init(view);
-
-        return view;
-
-
+        init();
 
     }
 
@@ -66,23 +58,23 @@ public class SettingsPage extends Fragment implements View.OnClickListener {
 
     }
 
-    public void init(View view)
+    public void init()
     {
 
 
-        fullnameField = (EditText) view.findViewById(R.id.fullNameField);
-        userNameField = (EditText) view.findViewById(R.id.userNameField);
-        emailField = (EditText) view.findViewById(R.id.emailField);
-        passwordField = (EditText) view.findViewById(R.id.passwordField);
+        fullnameField = (EditText) findViewById(R.id.fullNameField);
+        userNameField = (EditText) findViewById(R.id.userNameField);
+        emailField = (EditText) findViewById(R.id.emailField);
+        passwordField = (EditText) findViewById(R.id.passwordField);
 
 
-        saveButton = (Button) view.findViewById(R.id.saveButton);
+        saveButton = (Button) findViewById(R.id.saveButton);
         saveButton.setOnClickListener(this);
 
-        cancelButton = (Button) view.findViewById(R.id.cancelButton);
+        cancelButton = (Button) findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(this);
 
-        editButton = (Button) view.findViewById(R.id.editButton);
+        editButton = (Button) findViewById(R.id.editButton);
         editButton.setOnClickListener(this);
 
         notEditable();

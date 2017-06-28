@@ -59,8 +59,8 @@ public class BottomNavigation extends AppCompatActivity {
                     break;
 
                 case R.id.navigationSettings:
-                    fragment = new SettingsPage();
-                    setSelected(2);
+//                    fragment = new SettingsPage();
+//                    setSelected(2);
                     break;
             }
 
@@ -128,15 +128,11 @@ public class BottomNavigation extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-//        if(item.getItemId() == R.id.settingsButton)
-//        {
-//            startActivity(new Intent(getContext(), LightPresets.class));
-//        }
-
-        if (item.getItemId() == R.id.logoutButton)
+        if(item.getItemId() == R.id.settingsPage)
         {
-            logout();
+            startActivity(new Intent(BottomNavigation.this, SettingsPage.class));
         }
+
 
         return super.onOptionsItemSelected(item);
     }

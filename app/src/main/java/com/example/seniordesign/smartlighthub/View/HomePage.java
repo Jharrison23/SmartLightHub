@@ -1,5 +1,8 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -65,31 +68,109 @@ public class HomePage extends Fragment {
     {
         super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.activity_home_page, container, false);
+        View view;
 
-        pubnubObjects = new ArrayList<>();
+        Bundle extras = this.getArguments();
 
-        lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
-        lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (extras != null)
+        {
 
-        homePageAdapter = new HomePageAdapter(createLightList(), getContext());
+            String light1Name = extras.getString("light1Name");
+            String light1Color = extras.getString("light1Color");
+            Boolean light1State = extras.getBoolean("light1State");
+
+
+            DatabaseReference light1key = userRef.child("Light 1");
+
+            light1key.child("Name").setValue(light1Name);
+            light1key.child("Color").setValue(light1Color);
+            light1key.child("State").setValue(light1State);
+
+
+
+
+            String light2Name = extras.getString("light2Name");
+            String light2Color = extras.getString("light2Color");
+            Boolean light2State = extras.getBoolean("light2State");
+
+
+            DatabaseReference light2key = userRef.child("Light 2");
+
+            light2key.child("Name").setValue(light2Name);
+            light2key.child("Color").setValue(light2Color);
+            light2key.child("State").setValue(light2State);
+
+
+
+            String light3Name = extras.getString("light3Name");
+            String light3Color = extras.getString("light3Color");
+            Boolean light3State = extras.getBoolean("light3State");
+
+            DatabaseReference light3key = userRef.child("Light 3");
+
+            light3key.child("Name").setValue(light3Name);
+            light3key.child("Color").setValue(light3Color);
+            light3key.child("State").setValue(light3State);
+
+
+            view = inflater.inflate(R.layout.activity_home_page, container, false);
+
+            pubnubObjects = new ArrayList<>();
+
+            lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
+            lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            homePageAdapter = new HomePageAdapter(createLightList(), getContext());
 //
 //        lightsRecyclerView.setHasFixedSize(true);
 //        lightsRecyclerView.setAdapter(homePageAdapter);
 
 
-        mAuth = FirebaseAuth.getInstance();
+            mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if (firebaseAuth.getCurrentUser() != null)
-                {
-                    Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                    if (firebaseAuth.getCurrentUser() != null)
+                    {
+                        Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        };
+            };
+
+        }
+
+        else
+        {
+
+            view = inflater.inflate(R.layout.activity_home_page, container, false);
+
+            pubnubObjects = new ArrayList<>();
+
+            lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
+            lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            homePageAdapter = new HomePageAdapter(createLightList(), getContext());
+//
+//        lightsRecyclerView.setHasFixedSize(true);
+//        lightsRecyclerView.setAdapter(homePageAdapter);
+
+
+            mAuth = FirebaseAuth.getInstance();
+
+            mAuthListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                    if (firebaseAuth.getCurrentUser() != null)
+                    {
+                        Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
+
+        }
 
         return view;
 

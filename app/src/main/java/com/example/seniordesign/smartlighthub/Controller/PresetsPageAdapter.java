@@ -2,6 +2,11 @@ package com.example.seniordesign.smartlighthub.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,12 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.example.seniordesign.smartlighthub.Model.Preset;
 import com.example.seniordesign.smartlighthub.R;
-import com.example.seniordesign.smartlighthub.View.LightInfo;
+import com.example.seniordesign.smartlighthub.View.HomePage;
 import com.example.seniordesign.smartlighthub.View.PresetLightInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -99,8 +102,10 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
         private ImageView secondLightColor;
         private ImageView thirdLightColor;
 
+
         private TextView presetName;
 
+        private ConstraintLayout presetConstraintsLayout;
         private CardView presetPageCardView;
 
 
@@ -108,9 +113,7 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
         public PresetsHolder(View itemView) {
             super(itemView);
 
-
-            //itemView.setOnClickListener(this);
-
+            presetConstraintsLayout = (ConstraintLayout) itemView.findViewById(R.id.presetConstraints);
             presetPageCardView = (CardView) itemView.findViewById(R.id.presetCardView);
 
             firstLightColor = (ImageView) itemView.findViewById(R.id.firstLightColor_preset);
@@ -123,20 +126,24 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
             thirdLightColor.setOnClickListener(this);
 
             presetName = (TextView) itemView.findViewById(R.id.presetName_preset);
+            presetName.setClickable(true);
             presetName.setOnClickListener(this);
 
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(final View v) {
+
+
+            final View view = v;
 
             final List<Light> lightList = new ArrayList<>();
 
-            String currentPreset = presetList.get(getAdapterPosition()).getName();
+            final String currentPreset = presetList.get(getAdapterPosition()).getName();
 
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
             DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Presets").child(currentPreset).child("Lights");
 
@@ -152,6 +159,86 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
                         lightList.add(newLight);
 
                     }
+
+
+                    switch (view.getId())
+                    {
+                        case R.id.presetName_preset:
+
+
+                            Bundle homepageIntent = new Bundle();
+
+                            homepageIntent.putString("light1Name", lightList.get(0).getName());
+                            homepageIntent.putBoolean("light1State", lightList.get(0).isState());
+                            homepageIntent.putString("light1Color", lightList.get(0).getColor());
+
+                            homepageIntent.putString("light2Name", lightList.get(1).getName());
+                            homepageIntent.putBoolean("light2State", lightList.get(1).isState());
+                            homepageIntent.putString("light2Color", lightList.get(1).getColor());
+
+                            homepageIntent.putString("light3Name", lightList.get(2).getName());
+                            homepageIntent.putBoolean("light3State", lightList.get(2).isState());
+                            homepageIntent.putString("light3Color", lightList.get(2).getColor());
+
+
+                            BottomNavigation bottomNavigation = (BottomNavigation)v.getContext();
+
+                            Fragment homeFragment = new HomePage();
+
+                            homeFragment.setArguments(homepageIntent);
+
+                            FragmentManager fragmentManager = bottomNavigation.getSupportFragmentManager();
+
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                            bottomNavigation.setSelected(1);
+
+                            fragmentTransaction.replace(R.id.container, homeFragment,"PresetsAdapter").commit();
+
+                            break;
+
+                        case R.id.firstLightColor_preset:
+
+                            Intent firstLightInfoIntent = new Intent(view.getContext(), PresetLightInfo.class);
+
+                            firstLightInfoIntent.putExtra("pos", 0);
+                            firstLightInfoIntent.putExtra("preset", currentPreset);
+
+                            view.getContext().startActivity(firstLightInfoIntent);
+
+                            Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
+
+                            break;
+
+                        case R.id.secondLightColor_preset:
+
+                            Intent secondLightInfoIntent = new Intent(view.getContext(), PresetLightInfo.class);
+
+                            secondLightInfoIntent.putExtra("pos", 1);
+                            secondLightInfoIntent.putExtra("preset", currentPreset);
+
+                            view.getContext().startActivity(secondLightInfoIntent);
+
+                            Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
+
+                            break;
+
+                        case R.id.thirdLightColor_preset:
+
+                            Intent thirdLightInfoIntent = new Intent(view.getContext(), PresetLightInfo.class);
+
+                            thirdLightInfoIntent.putExtra("pos", 2);
+                            thirdLightInfoIntent.putExtra("preset", currentPreset);
+
+                            view.getContext().startActivity(thirdLightInfoIntent);
+
+                            Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
+
+                            break;
+
+                    }
+
+
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -159,68 +246,6 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
                 }
             });
 
-
-            switch (v.getId())
-            {
-                case R.id.firstLightColor_preset:
-
-                    Toast.makeText(v.getContext(),presetList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
-
-                    Intent firstLightInfoIntent = new Intent(v.getContext(), PresetLightInfo.class);
-
-                    firstLightInfoIntent.putExtra("pos", 0);
-                    firstLightInfoIntent.putExtra("preset", currentPreset);
-
-                    v.getContext().startActivity(firstLightInfoIntent);
-
-                    Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
-
-                    break;
-
-                case R.id.secondLightColor_preset:
-
-                    Toast.makeText(v.getContext(),presetList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
-
-                    Intent secondLightInfoIntent = new Intent(v.getContext(), PresetLightInfo.class);
-
-                    secondLightInfoIntent.putExtra("pos", 1);
-                    secondLightInfoIntent.putExtra("preset", currentPreset);
-
-                    v.getContext().startActivity(secondLightInfoIntent);
-
-                    Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
-
-                    break;
-
-                case R.id.thirdLightColor_preset:
-
-                    Toast.makeText(v.getContext(),presetList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
-
-                    Intent thirdLightInfoIntent = new Intent(v.getContext(), PresetLightInfo.class);
-
-                    thirdLightInfoIntent.putExtra("pos", 2);
-                    thirdLightInfoIntent.putExtra("preset", currentPreset);
-
-                    v.getContext().startActivity(thirdLightInfoIntent);
-
-                    Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
-
-                    break;
-
-
-
-            }
-
-//
-//            Toast.makeText(v.getContext(),presetList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
-//
-//            Intent lightInfoIntent = new Intent(v.getContext(), LightInfo.class);
-//
-//            lightInfoIntent.putExtra("pos", getAdapterPosition());
-//
-//            v.getContext().startActivity(lightInfoIntent);
-//
-//            Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
         }
 
     }

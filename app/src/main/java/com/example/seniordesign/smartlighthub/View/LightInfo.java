@@ -313,27 +313,4 @@ public class LightInfo extends AppCompatActivity {
         }
     }
 
-
-    // Old pubnub publish
-//    public void pubnubConfig(final JSONObject published)
-//    {
-//        PNConfiguration pnConfiguration = new PNConfiguration();
-//        pnConfiguration.setSubscribeKey("sub-c-40e3d906-4ee7-11e7-bf50-02ee2ddab7fe");
-//        pnConfiguration.setPublishKey("pub-c-6528095d-bc26-4768-a903-ac0a85174f81");
-//        pnConfiguration.setSecure(false);
-//
-//        PubNub pubnub = new PubNub(pnConfiguration);
-//
-//        pubnub.publish().message(published).channel("hello_world")
-//                .async(new PNCallback<PNPublishResult>() {
-//                    @Override
-//                    public void onResponse(PNPublishResult result, PNStatus status) {
-//                        Log.d("HomePage", "We in here" + published);
-//                    }
-//                });
-//    }
-
-
-
-
 }

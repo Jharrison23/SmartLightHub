@@ -90,13 +90,7 @@ public class PresetLightInfo extends AppCompatActivity {
         if (extras != null) {
             currentPreset = extras.getString("preset");
             position = extras.getInt("pos");
-
-            Toast.makeText(this, "position = " + position, Toast.LENGTH_SHORT).show();
-
-
             userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Presets").child(currentPreset).child("Lights");
-
-            Toast.makeText(this, "User Ref = " + userRef, Toast.LENGTH_SHORT).show();
 
         }
 
@@ -177,7 +171,7 @@ public class PresetLightInfo extends AppCompatActivity {
 
                 else
                 {
-                    Toast.makeText(PresetLightInfo.this, "No name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PresetLightInfo.this, "Light has no name", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -292,7 +286,6 @@ public class PresetLightInfo extends AppCompatActivity {
         switch(lightNumber)
         {
             case 0:
-                Toast.makeText(this, "publish", Toast.LENGTH_SHORT).show();
                 pubnub.publish().message(publishMessage).channel("Light_1")
                         .async(new PNCallback<PNPublishResult>() {
                             @Override

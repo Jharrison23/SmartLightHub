@@ -7,10 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,8 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
 import com.example.seniordesign.smartlighthub.Controller.PresetsPageAdapter;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.example.seniordesign.smartlighthub.Model.Preset;
@@ -31,13 +27,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class LightPresets extends Fragment {
 
@@ -192,55 +183,6 @@ public class LightPresets extends Fragment {
         userRef.addValueEventListener(presetEventListener);
         return presetList;
     }
-
-
-
-    public List<Light> createLightList(DatabaseReference presetsLightRef)
-    {
-
-
-
-        final List<Light> lightList = new ArrayList<>();
-
-        ValueEventListener lightEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-
-                for (DataSnapshot child : children) {
-
-                    Light newLight = child.getValue(Light.class);
-
-                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
-
-                    lightList.add(newLight);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        presetsLightRef.addValueEventListener(lightEventListener);
-        return lightList;
-    }
-
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//
-//        getMenuInflater().inflate(R.menu.light_preset_menu, menu);
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
-//
-
 
 
 }

@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/signUp"
+        android:id="@+id/signInButton"
         android:layout_width="240dp"
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"

@@ -1,12 +1,10 @@
 package com.example.seniordesign.smartlighthub.View;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.seniordesign.smartlighthub.R;
 
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Button signUp = (Button) findViewById(R.id.signUp);
+        Button signUp = (Button) findViewById(R.id.signInButton);
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override

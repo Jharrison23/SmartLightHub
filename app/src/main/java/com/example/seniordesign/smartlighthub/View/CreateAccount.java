@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.R;
@@ -35,6 +36,8 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
     private Button doneButton;
     private Button nextButton;
     private Button backButton;
+
+    private TextView signInButton;
 
     private EditText fullNameField;
     private EditText userNameField;
@@ -91,6 +94,10 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
         doneButton = (Button) findViewById(R.id.signUpButton);
         doneButton.setVisibility(View.INVISIBLE);
         doneButton.setOnClickListener(this);
+
+        signInButton = (TextView) findViewById(R.id.signInButton);
+        signInButton.setClickable(true);
+        signInButton.setOnClickListener(this);
 
         nextButton = (Button) findViewById(R.id.nextButton);
         nextButton.setOnClickListener(this);
@@ -233,6 +240,11 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId())
         {
+
+            case R.id.signInButton:
+                startActivity(new Intent(CreateAccount.this, LoginPage.class));
+                break;
+
             case R.id.nextButton:
 
                 pageNumber = 2;
@@ -313,7 +325,8 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
         if(pageNumber == 1)
         {
-            super.onBackPressed();
+            startActivity(new Intent(CreateAccount.this, MainActivity.class));
+
         }
 
         else if(pageNumber == 2)

@@ -325,7 +325,8 @@ public class CreateAccount extends AppCompatActivity implements View.OnClickList
 
         if(pageNumber == 1)
         {
-            super.onBackPressed();
+            startActivity(new Intent(CreateAccount.this, MainActivity.class));
+
         }
 
         else if(pageNumber == 2)

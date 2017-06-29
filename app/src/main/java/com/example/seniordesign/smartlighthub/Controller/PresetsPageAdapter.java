@@ -172,6 +172,45 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
                     }
 
 
+                    switch (view.getId()) {
+
+                        case R.id.presetName_preset:
+
+
+                            Bundle homepageIntent = new Bundle();
+
+                            homepageIntent.putString("light1Name", lightList.get(0).getName());
+                            homepageIntent.putBoolean("light1State", lightList.get(0).isState());
+                            homepageIntent.putString("light1Color", lightList.get(0).getColor());
+
+                            homepageIntent.putString("light2Name", lightList.get(1).getName());
+                            homepageIntent.putBoolean("light2State", lightList.get(1).isState());
+                            homepageIntent.putString("light2Color", lightList.get(1).getColor());
+
+                            homepageIntent.putString("light3Name", lightList.get(2).getName());
+                            homepageIntent.putBoolean("light3State", lightList.get(2).isState());
+                            homepageIntent.putString("light3Color", lightList.get(2).getColor());
+
+
+                            BottomNavigation bottomNavigation = (BottomNavigation)v.getContext();
+
+                            Fragment homeFragment = new HomePage();
+
+                            homeFragment.setArguments(homepageIntent);
+
+                            FragmentManager fragmentManager = bottomNavigation.getSupportFragmentManager();
+
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                            bottomNavigation.setSelected(1);
+
+                            fragmentTransaction.replace(R.id.container, homeFragment,"PresetsAdapter").commit();
+
+                            break;
+
+
+                    }
+
 
                 }
                 @Override
@@ -182,39 +221,6 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
 
             switch (view.getId())
             {
-                case R.id.presetName_preset:
-
-
-                    Bundle homepageIntent = new Bundle();
-
-                    homepageIntent.putString("light1Name", lightList.get(0).getName());
-                    homepageIntent.putBoolean("light1State", lightList.get(0).isState());
-                    homepageIntent.putString("light1Color", lightList.get(0).getColor());
-
-                    homepageIntent.putString("light2Name", lightList.get(1).getName());
-                    homepageIntent.putBoolean("light2State", lightList.get(1).isState());
-                    homepageIntent.putString("light2Color", lightList.get(1).getColor());
-
-                    homepageIntent.putString("light3Name", lightList.get(2).getName());
-                    homepageIntent.putBoolean("light3State", lightList.get(2).isState());
-                    homepageIntent.putString("light3Color", lightList.get(2).getColor());
-
-
-                    BottomNavigation bottomNavigation = (BottomNavigation)v.getContext();
-
-                    Fragment homeFragment = new HomePage();
-
-                    homeFragment.setArguments(homepageIntent);
-
-                    FragmentManager fragmentManager = bottomNavigation.getSupportFragmentManager();
-
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    bottomNavigation.setSelected(1);
-
-                    fragmentTransaction.replace(R.id.container, homeFragment,"PresetsAdapter").commit();
-
-                    break;
 
                 case R.id.firstLightColor_preset:
 //

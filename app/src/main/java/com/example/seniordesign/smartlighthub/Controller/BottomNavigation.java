@@ -59,8 +59,9 @@ public class BottomNavigation extends AppCompatActivity {
                     break;
 
                 case R.id.navigationSettings:
-//                    fragment = new SettingsPage();
-//                    setSelected(2);
+                    fragment = new HomePage();
+                    setSelected(1);
+                    Toast.makeText(BottomNavigation.this, "Dont Click me retard", Toast.LENGTH_SHORT).show();
                     break;
             }
 

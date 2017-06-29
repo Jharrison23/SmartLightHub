@@ -132,7 +132,7 @@ public class BottomNavigation extends AppCompatActivity {
 
         if(item.getItemId() == R.id.settingsPage)
         {
-            startActivity(new Intent(BottomNavigation.this, MoodCreation.class));
+            startActivity(new Intent(BottomNavigation.this, SettingsPage.class));
         }
 
 

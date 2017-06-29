@@ -8,13 +8,14 @@
 
     <ImageView
         android:id="@+id/importedImage"
-        android:layout_width="388dp"
-        android:layout_height="333dp"
-        android:layout_marginBottom="56dp"
+        android:layout_width="376dp"
+        android:layout_height="321dp"
+        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/sym_call_missed" />
+        tools:layout_editor_absoluteY="142dp" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/firstLightLayout"
@@ -77,7 +78,6 @@
             android:layout_marginLeft="1dp"
             android:layout_marginTop="8dp"
             android:hint="Enter Light Name"
-            android:text="TextView"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -120,7 +120,6 @@
             android:layout_marginLeft="1dp"
             android:layout_marginTop="8dp"
             android:hint="Enter Light Name"
-            android:text="TextView"
             android:textAlignment="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -144,8 +143,8 @@
 
     <TextView
         android:id="@+id/moodLightNumber"
-        android:layout_width="112dp"
-        android:layout_height="22dp"
+        android:layout_width="119dp"
+        android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:text="Light "
         android:textAlignment="center"
@@ -193,5 +192,18 @@
         app:layout_constraintTop_toBottomOf="@+id/importedImage"
         android:visibility="invisible"
         />
+
+    <ImageButton
+        android:id="@+id/uploadImage"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/importedImage"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thirdLightLayout"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,10 +1,16 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +18,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -29,6 +36,9 @@ import org.w3c.dom.Text;
 
 public class MoodCreation extends AppCompatActivity implements View.OnClickListener{
 
+    private static final int SELECTED_PICTURE = 100;
+
+    private Uri uri;
 
     private FirebaseAuth mAuth;
 
@@ -49,6 +59,7 @@ public class MoodCreation extends AppCompatActivity implements View.OnClickListe
     private ConstraintLayout thirdLightLayout;
 
     private ImageView imageForMood;
+    private ImageButton uploadImage;
 
     private EditText firstLightName;
     private EditText secondLightName;
@@ -87,6 +98,8 @@ public class MoodCreation extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mood_creation);
 
+        getSupportActionBar().setTitle("Create Mood");
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -113,6 +126,9 @@ public class MoodCreation extends AppCompatActivity implements View.OnClickListe
         thirdLightLayout = (ConstraintLayout) findViewById(R.id.thirdLightLayout);
 
         imageForMood = (ImageView) findViewById(R.id.importedImage);
+
+        uploadImage = (ImageButton) findViewById(R.id.uploadImage);
+        uploadImage.setOnClickListener(this);
 
         firstNextButton = (Button) findViewById(R.id.firstMoodNext);
         firstNextButton.setOnClickListener(this);
@@ -227,9 +243,29 @@ public class MoodCreation extends AppCompatActivity implements View.OnClickListe
             case R.id.moodDone:
                 savePreset();
                 break;
+
+            // Open user galler
+            case R.id.uploadImage:
+                Intent uploadIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
+                startActivityForResult(uploadIntent, SELECTED_PICTURE);
+
+                break;
         }
     }
 
+    // Method for saving the users selected image
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+         if (requestCode == SELECTED_PICTURE && resultCode == RESULT_OK) {
+
+             uri = data.getData();
+
+             imageForMood.setImageURI(uri);
+        }
+    }
 
     public void savePreset()
     {
@@ -295,6 +331,41 @@ public class MoodCreation extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+        if (pageNumber == 1) {
+            super.onBackPressed();
+        }
+
+        else if (pageNumber == 2) {
 
 
+            lightNumberField.setText("Light 1");
+
+            firstLightLayout.setVisibility(View.VISIBLE);
+            secondLightLayout.setVisibility(View.INVISIBLE);
+            thirdLightLayout.setVisibility(View.INVISIBLE);
+
+            firstNextButton.setVisibility(View.VISIBLE);
+            secondNextButton.setVisibility(View.INVISIBLE);
+            doneButton.setVisibility(View.INVISIBLE);
+            pageNumber = 1;
+
+        }
+
+        else if (pageNumber == 3) {
+
+            lightNumberField.setText("Light 2");
+
+            firstLightLayout.setVisibility(View.INVISIBLE);
+            secondLightLayout.setVisibility(View.VISIBLE);
+            thirdLightLayout.setVisibility(View.INVISIBLE);
+
+            firstNextButton.setVisibility(View.INVISIBLE);
+            secondNextButton.setVisibility(View.VISIBLE);
+            doneButton.setVisibility(View.INVISIBLE);
+            pageNumber = 2;
+        }
+    }
 }

@@ -96,7 +96,7 @@ public class LightPresets extends Fragment {
                 alertDialog.setTitle("New Preset");
                 alertDialog.setView(input);
                 alertDialog.setMessage("Please Enter Preset Name");
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Custom",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -111,14 +111,26 @@ public class LightPresets extends Fragment {
                             }
                         });
 
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
 
-                alertDialog.show();
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Mood", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Intent AddPresetIntent = new Intent(getActivity(), MoodCreation.class);
+
+                                AddPresetIntent.putExtra("Preset Name", input.getText().toString());
+
+                                startActivity(AddPresetIntent);
+                            }
+                        });
+
+                        alertDialog.show();
 
             }
         });

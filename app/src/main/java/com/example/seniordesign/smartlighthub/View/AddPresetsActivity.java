@@ -219,7 +219,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
                 break;
 
-            case R.id.thirdPageNext:
+            case R.id.thirdPageDone:
                 savePreset();
                 startActivity(new Intent(AddPresetsActivity.this, BottomNavigation.class));
                 break;

@@ -27,17 +27,19 @@
         <activity android:name=".View.SettingsPage" />
 
         <Fragment android:name=".View.HomePage" />
-        <activity android:name=".View.PresetLightInfo"/>
+
+        <activity android:name=".View.PresetLightInfo" />
 
         <Fragment android:name=".View.LightPresets" />
+
         <activity android:name=".View.MusicControls" />
         <activity android:name=".View.MusicSpotify" />
         <activity android:name=".View.LightInfo" />
-
         <activity
             android:name=".Controller.BottomNavigation"
             android:label="@string/title_activity_bottom_navigation" />
-        <activity android:name=".View.AddPresetsActivity"></activity>
+        <activity android:name=".View.AddPresetsActivity" />
+        <activity android:name=".View.MoodCreation"></activity>
     </application>
 
 </manifest>

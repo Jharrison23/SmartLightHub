@@ -19,6 +19,7 @@ import com.example.seniordesign.smartlighthub.View.HomePage;
 import com.example.seniordesign.smartlighthub.View.LightInfo;
 import com.example.seniordesign.smartlighthub.View.LightPresets;
 import com.example.seniordesign.smartlighthub.View.MainActivity;
+import com.example.seniordesign.smartlighthub.View.MoodCreation;
 import com.example.seniordesign.smartlighthub.View.SettingsPage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -131,7 +132,7 @@ public class BottomNavigation extends AppCompatActivity {
 
         if(item.getItemId() == R.id.settingsPage)
         {
-            startActivity(new Intent(BottomNavigation.this, SettingsPage.class));
+            startActivity(new Intent(BottomNavigation.this, MoodCreation.class));
         }
 
 

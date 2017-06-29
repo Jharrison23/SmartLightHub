@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.example.seniordesign.smartlighthub.Model.Preset;
 import com.example.seniordesign.smartlighthub.R;
@@ -129,6 +131,32 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
             presetName.setClickable(true);
             presetName.setOnClickListener(this);
 
+            presetName.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    final String currentPreset = presetList.get(getAdapterPosition()).getName();
+
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+                    final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                    DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Presets");
+
+                    userRef.child(currentPreset).removeValue();
+
+                    Toast.makeText(v.getContext(), "Deleted " + currentPreset, Toast.LENGTH_SHORT).show();
+
+                    presetList.remove(getAdapterPosition());
+
+                    presetList.clear();
+
+                    notifyItemRemoved(getAdapterPosition());
+
+                    return true;
+                }
+            });
+
         }
 
         @Override
@@ -159,7 +187,6 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
                         lightList.add(newLight);
 
                     }
-
 
                     switch (view.getId())
                     {

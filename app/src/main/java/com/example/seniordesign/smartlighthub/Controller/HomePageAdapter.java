@@ -2,12 +2,16 @@ package com.example.seniordesign.smartlighthub.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -26,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * Created by jamesharrison on 5/26/17.
@@ -73,7 +79,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
         return lightsList.size();
     }
 
-    class LightsHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    class LightsHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
     {
 
         private TextView lightName;
@@ -88,6 +94,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
             super(itemView);
 
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
 
             homepageCardView = (CardView) itemView.findViewById(R.id.homepageCardView);
 
@@ -104,6 +111,14 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
         @Override
         public void onClick(View v) {
 
+            final int initialColor = ((ColorDrawable) homepageCardView.getBackground()).getColor();
+            openColorPickerDialog(false, initialColor);
+
+        }
+
+
+        @Override
+        public boolean onLongClick(View v) {
 
             final List<Light> lightList = new ArrayList<>();
 
@@ -143,7 +158,68 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
             Log.d("HomePageAdapter", "Clicked " + getAdapterPosition());
 
             Toast.makeText(v.getContext(), "we clickiy", Toast.LENGTH_SHORT).show();
+
+            return true;
         }
+
+
+
+        // Color picker 2
+        private void openColorPickerDialog(boolean AlphaSupport, final int initialColor) {
+
+            AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(itemView.getContext(), initialColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                @Override
+                public void onOk(AmbilWarnaDialog ambilWarnaDialog, int color) {
+
+                    homepageCardView.setBackgroundColor(color);
+
+                    updateDatabaseLightColor(getAdapterPosition());
+
+                }
+
+                @Override
+                public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
+
+                    Toast.makeText(itemView.getContext(), "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                }
+            });
+            ambilWarnaDialog.show();
+
+        }
+
+
+
+        public boolean updateDatabaseLightColor(final int lightNumber) {
+
+
+
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+            final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+            DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Lights");
+
+            DatabaseReference lightRef = userRef.child("Light " + (lightNumber + 1));
+
+            Drawable lightDrawableColor = (Drawable) homepageCardView.getBackground();
+
+            int colorInt = ((ColorDrawable) lightDrawableColor).getColor();
+
+            int red = Color.red(colorInt);
+            int green = Color.green(colorInt);
+            int blue = Color.blue(colorInt);
+
+            String RGBcolor = red + ", " + green + ", " + blue;
+
+            lightRef.child("Color").setValue(RGBcolor);
+
+            lightsList.clear();
+
+            return true;
+        }
+
+
+
 
 
     }

@@ -39,7 +39,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
     private EditText thirdLightName;
     private ImageView thirdLightColor;
     private Switch thirdLightState;
-    private Button thirdPageNext;
+    private Button thirdPageDone;
 
     private int pageNumber;
     private int defaultColor;
@@ -117,7 +117,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
             thirdLightName.setVisibility(View.INVISIBLE);
             thirdLightColor.setVisibility(View.INVISIBLE);
             thirdLightState.setVisibility(View.INVISIBLE);
-            thirdPageNext.setVisibility(View.INVISIBLE);
+            thirdPageDone.setVisibility(View.INVISIBLE);
 
             pageNumber = 1;
         }
@@ -138,7 +138,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
             thirdLightName.setVisibility(View.INVISIBLE);
             thirdLightColor.setVisibility(View.INVISIBLE);
             thirdLightState.setVisibility(View.INVISIBLE);
-            thirdPageNext.setVisibility(View.INVISIBLE);
+            thirdPageDone.setVisibility(View.INVISIBLE);
 
             pageNumber = 2;
 
@@ -166,8 +166,8 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
         thirdLightColor = (ImageView) findViewById(R.id.thirdLightColor_preset);
         thirdLightColor.setOnClickListener(this);
         thirdLightState = (Switch) findViewById(R.id.thirdLightState);
-        thirdPageNext = (Button) findViewById(R.id.thirdPageNext);
-        thirdPageNext.setOnClickListener(this);
+        thirdPageDone = (Button) findViewById(R.id.thirdPageDone);
+        thirdPageDone.setOnClickListener(this);
 
         pageNumber = 1;
     }
@@ -193,7 +193,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
                 thirdLightName.setVisibility(View.INVISIBLE);
                 thirdLightColor.setVisibility(View.INVISIBLE);
                 thirdLightState.setVisibility(View.INVISIBLE);
-                thirdPageNext.setVisibility(View.INVISIBLE);
+                thirdPageDone.setVisibility(View.INVISIBLE);
 
                 pageNumber = 2;
                 break;
@@ -213,13 +213,13 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
                 thirdLightName.setVisibility(View.VISIBLE);
                 thirdLightColor.setVisibility(View.VISIBLE);
                 thirdLightState.setVisibility(View.VISIBLE);
-                thirdPageNext.setVisibility(View.VISIBLE);
+                thirdPageDone.setVisibility(View.VISIBLE);
 
                 pageNumber = 3;
 
                 break;
 
-            case R.id.thirdPageNext:
+            case R.id.thirdPageDone:
                 savePreset();
                 startActivity(new Intent(AddPresetsActivity.this, BottomNavigation.class));
                 break;
@@ -298,7 +298,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
 
         DatabaseReference secondLightPresetRef = lightRef.child("Light 2");
-        secondLightPresetRef.child("Name").setValue(thirdLightName.getText().toString());
+        secondLightPresetRef.child("Name").setValue(secondLightName.getText().toString());
         Drawable secondLightDrawableColor = (Drawable) secondLightColor.getBackground();
 
         int secondColorInt = ((ColorDrawable) secondLightDrawableColor).getColor();

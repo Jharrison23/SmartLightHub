@@ -19,6 +19,7 @@ import com.example.seniordesign.smartlighthub.View.HomePage;
 import com.example.seniordesign.smartlighthub.View.LightInfo;
 import com.example.seniordesign.smartlighthub.View.LightPresets;
 import com.example.seniordesign.smartlighthub.View.MainActivity;
+import com.example.seniordesign.smartlighthub.View.MoodCreation;
 import com.example.seniordesign.smartlighthub.View.SettingsPage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,8 +60,9 @@ public class BottomNavigation extends AppCompatActivity {
                     break;
 
                 case R.id.navigationSettings:
-//                    fragment = new SettingsPage();
-//                    setSelected(2);
+                    fragment = new HomePage();
+                    setSelected(1);
+                    Toast.makeText(BottomNavigation.this, "Dont Click me retard", Toast.LENGTH_SHORT).show();
                     break;
             }
 

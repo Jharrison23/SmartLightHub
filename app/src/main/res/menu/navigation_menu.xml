@@ -13,8 +13,8 @@
         android:enabled="true"
         android:title="@string/title_home" />
     <item
-        android:id="@+id/navigationSettings"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/title_settings" />
+        android:id="@+id/navigationRoutines"
+        android:icon="@drawable/ic_query_builder"
+        android:title="Routines" />
 
 </menu>

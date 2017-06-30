@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +32,7 @@
         <activity android:name=".View.PresetLightInfo" />
 
         <Fragment android:name=".View.LightPresets" />
+        <Fragment android:name=".View.Routines"/>
 
         <activity android:name=".View.MusicControls" />
         <activity android:name=".View.MusicSpotify" />
@@ -40,7 +41,7 @@
             android:name=".Controller.BottomNavigation"
             android:label="@string/title_activity_bottom_navigation" />
         <activity android:name=".View.AddPresetsActivity" />
-        <activity android:name=".View.MoodCreation"></activity>
+        <activity android:name=".View.MoodCreation" />
     </application>
 
 </manifest>

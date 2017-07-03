@@ -122,8 +122,7 @@ public class LightInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (lightNameString != "")
-                {
+                if (lightNameString != "") {
                     DatabaseReference key = userRef.child("Light " + (position + 1));
 
                     key.child("Name").setValue(lightName.getText().toString());
@@ -132,7 +131,7 @@ public class LightInfo extends AppCompatActivity {
 
                     int colorInt = ((ColorDrawable) lightDrawableColor).getColor();
 
-                    int red = Color.red(colorInt);                                                                                                                                                        startActivity(getIntent());
+                    int red = Color.red(colorInt);
                     int green = Color.green(colorInt);
                     int blue = Color.blue(colorInt);
 
@@ -151,12 +150,14 @@ public class LightInfo extends AppCompatActivity {
                         rbgObject.put("2", blue);
 
 
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-                    lightInfoPubnub(rbgObject, position);
+                    //lightInfoPubnub(rbgObject, position);
+
+                    Intent backHome = new Intent(LightInfo.this, BottomNavigation.class);
+                    startActivity(backHome);
                 }
 
 
@@ -174,11 +175,11 @@ public class LightInfo extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        super.onStart();
 
         mAuth.addAuthStateListener(mAuthListener);
 
 
-        super.onStart();
     }
 
 

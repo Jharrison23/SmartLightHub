@@ -62,6 +62,11 @@ public class HomePage extends Fragment {
 
     private List<JSONObject> pubnubObjects;
 
+    private List<Light> listOfLights;
+
+    private Boolean isPublished;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -113,66 +118,110 @@ public class HomePage extends Fragment {
             light3key.child("State").setValue(light3State);
 
 
-            view = inflater.inflate(R.layout.activity_home_page, container, false);
 
-            pubnubObjects = new ArrayList<>();
+        }
 
-            lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
-            lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        view = inflater.inflate(R.layout.activity_home_page, container, false);
 
-            homePageAdapter = new HomePageAdapter(createLightList(), getContext());
+        pubnubObjects = new ArrayList<>();
+
+        listOfLights = new ArrayList<>();
+
+        lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
+        lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        homePageAdapter = new HomePageAdapter(createLightList(), getContext());
 //
 //        lightsRecyclerView.setHasFixedSize(true);
 //        lightsRecyclerView.setAdapter(homePageAdapter);
 
 
-            mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
-            mAuthListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                    if (firebaseAuth.getCurrentUser() != null)
-                    {
-                        Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
-                    }
+                if (firebaseAuth.getCurrentUser() != null)
+                {
+                    Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
                 }
-            };
-
-        }
-
-        else
-        {
-
-            view = inflater.inflate(R.layout.activity_home_page, container, false);
-
-            pubnubObjects = new ArrayList<>();
-
-            lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
-            lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-            homePageAdapter = new HomePageAdapter(createLightList(), getContext());
-//
-//        lightsRecyclerView.setHasFixedSize(true);
-//        lightsRecyclerView.setAdapter(homePageAdapter);
+            }
+        };
 
 
-            mAuth = FirebaseAuth.getInstance();
 
-            mAuthListener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                    if (firebaseAuth.getCurrentUser() != null)
-                    {
-                        Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            };
-
-        }
 
         return view;
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        final List<Light> lightList = new ArrayList<>();
+
+        isPublished = false;
+
+        mAuth.addAuthStateListener(mAuthListener);
+
+        ValueEventListener lightEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child : children) {
+
+                    Light newLight = child.getValue(Light.class);
+
+                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
+
+                    lightList.add(newLight);
+
+                    JSONObject rbgObject = new JSONObject();
+
+
+                    try {
+                        rbgObject.put("0", newLight.getRed());
+                        rbgObject.put("1", newLight.getGreen());
+                        rbgObject.put("2", newLight.getBlue());
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (pubnubObjects.size() < 3)
+                    {
+                        pubnubObjects.add(rbgObject);
+                    }
+
+                }
+
+                Log.d("OnResume PubObject = ","" + pubnubObjects.toString());
+
+                if (!isPublished)
+                {
+                    pubnubConfig(pubnubObjects);
+
+                    isPublished = true;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        userRef.addValueEventListener(lightEventListener);
+
+
 
     }
 
@@ -181,9 +230,20 @@ public class HomePage extends Fragment {
 
         super.onStart();
 
-        mAuth.addAuthStateListener(mAuthListener);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d("OnPause PubObject = ","" + pubnubObjects.toString());
+
+        pubnubObjects.clear();
+
+        Log.d("PauseClear PubObject = ","" + pubnubObjects.toString());
+
+
+    }
 
     public List<Light> createLightList()
     {
@@ -218,15 +278,17 @@ public class HomePage extends Fragment {
                         e.printStackTrace();
                     }
 
-                    pubnubObjects.add(rbgObject);
+                    //pubnubObjects.add(rbgObject);
 
                 }
+
+                listOfLights = lightList;
 
                 lightsRecyclerView.setHasFixedSize(true);
                 lightsRecyclerView.setAdapter(homePageAdapter);
 
 
-                pubnubConfig(pubnubObjects);
+                //pubnubConfig(pubnubObjects);
 
             }
 
@@ -300,8 +362,5 @@ public class HomePage extends Fragment {
         }
 
     }
-
-
-
 
 }

@@ -161,6 +161,15 @@ public class HomePage extends Fragment {
     public void onResume() {
         super.onResume();
 
+    }
+
+    @Override
+    public void onStart() {
+
+        super.onStart();
+
+
+        mAuth.addAuthStateListener(mAuthListener);
 
         final List<Light> lightList = new ArrayList<>();
 
@@ -223,12 +232,6 @@ public class HomePage extends Fragment {
 
 
 
-    }
-
-    @Override
-    public void onStart() {
-
-        super.onStart();
 
     }
 

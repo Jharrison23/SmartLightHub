@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.seniordesign.smartlighthub.Model.Light;
@@ -28,6 +30,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class AddRoutine extends AppCompatActivity implements View.OnClickListener{
 
@@ -76,6 +80,8 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
 
     private int pageNumber = 1;
 
+    private int initialColor;
+
 
 
     @Override
@@ -98,8 +104,13 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
         constraintSet = false;
 
         firstLightConstraint = (ConstraintLayout) findViewById(R.id.firstLightContraint);
+        firstLightConstraint.setOnClickListener(this);
+
         secondLightConstraint = (ConstraintLayout) findViewById(R.id.secondLightConstraint);
+        secondLightConstraint.setOnClickListener(this);
+
         thirdLightConstraint = (ConstraintLayout) findViewById(R.id.thirdLightContraint);
+        thirdLightConstraint.setOnClickListener(this);
 
         firstLightName = (TextView) findViewById(R.id.addRoutineFirstName) ;
         secondLightName = (TextView) findViewById(R.id.addRoutineSecondName);
@@ -192,6 +203,23 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
             case R.id.routineDoneButton:
 
                 break;
+
+            case R.id.firstLightContraint:
+                initialColor = ((ColorDrawable) firstLightConstraint.getBackground()).getColor();
+                openColorPickerDialog(false, initialColor, firstLightConstraint);
+
+                break;
+
+            case R.id.secondLightConstraint:
+                initialColor = ((ColorDrawable) secondLightConstraint.getBackground()).getColor();
+                openColorPickerDialog(false, initialColor, secondLightConstraint);
+
+                break;
+
+            case R.id.thirdLightContraint:
+                initialColor = ((ColorDrawable) thirdLightConstraint.getBackground()).getColor();
+                openColorPickerDialog(false, initialColor, thirdLightConstraint);
+                break;
         }
     }
 
@@ -228,4 +256,28 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
 
 
     }
+
+
+    // Color picker 2
+    private void openColorPickerDialog(boolean AlphaSupport, final int initialColor, final ConstraintLayout layout) {
+
+        AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(AddRoutine.this, initialColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onOk(AmbilWarnaDialog ambilWarnaDialog, int color) {
+
+                layout.setBackgroundColor(color);
+
+            }
+
+            @Override
+            public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
+
+                Toast.makeText(AddRoutine.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ambilWarnaDialog.show();
+
+    }
+
+
 }

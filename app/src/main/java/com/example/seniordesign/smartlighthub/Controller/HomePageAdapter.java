@@ -98,7 +98,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
 
 
 
-        public LightsHolder(View itemView) {
+        public LightsHolder(final View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(this);

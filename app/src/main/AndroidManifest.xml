@@ -34,6 +34,7 @@
         <Fragment android:name=".View.LightPresets" />
         <Fragment android:name=".View.Routines"/>
 
+        <activity android:name=".View.AddRoutine"/>
         <activity android:name=".View.MusicControls" />
         <activity android:name=".View.MusicSpotify" />
         <activity android:name=".View.LightInfo" />

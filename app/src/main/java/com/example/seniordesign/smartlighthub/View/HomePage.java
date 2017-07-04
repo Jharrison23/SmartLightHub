@@ -62,8 +62,6 @@ public class HomePage extends Fragment {
 
     private List<JSONObject> pubnubObjects;
 
-    private List<Light> listOfLights;
-
     private Boolean isPublished;
 
 
@@ -125,8 +123,6 @@ public class HomePage extends Fragment {
 
         pubnubObjects = new ArrayList<>();
 
-        listOfLights = new ArrayList<>();
-
         lightsRecyclerView = (RecyclerView) view.findViewById(R.id.lightsRecyclerView);
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -142,10 +138,6 @@ public class HomePage extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                if (firebaseAuth.getCurrentUser() != null)
-                {
-                    Toast.makeText(getContext(), "Welcome", Toast.LENGTH_SHORT).show();
-                }
             }
         };
 
@@ -268,30 +260,12 @@ public class HomePage extends Fragment {
 
                     lightList.add(newLight);
 
-                    JSONObject rbgObject = new JSONObject();
 
-
-                    try {
-                        rbgObject.put("0", newLight.getRed());
-                        rbgObject.put("1", newLight.getGreen());
-                        rbgObject.put("2", newLight.getBlue());
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    //pubnubObjects.add(rbgObject);
 
                 }
 
-                listOfLights = lightList;
-
                 lightsRecyclerView.setHasFixedSize(true);
                 lightsRecyclerView.setAdapter(homePageAdapter);
-
-
-                //pubnubConfig(pubnubObjects);
 
             }
 

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,104 +10,265 @@
     tools:context="com.example.seniordesign.smartlighthub.View.AddRoutine">
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/routineName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="Routine Name"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="32dp"
-        app:layout_constraintHorizontal_bias="0.497" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TimePicker
-        android:id="@+id/timePicker"
-        android:layout_width="279dp"
+        android:id="@+id/routineTime"
+        android:layout_width="256dp"
         android:layout_height="193dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:timePickerMode="spinner"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintHorizontal_bias="0.507" />
+        app:layout_constraintTop_toBottomOf="@+id/routineName" />
 
-    <ToggleButton
-        android:id="@+id/mondayToggle"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="0dp"
-        android:textOff="M"
+    <LinearLayout
+        android:id="@+id/weekContainer"
+        android:layout_width="286dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        android:weightSum="70"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/routineTime"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
-        android:textOn="M"
-        app:layout_constraintLeft_toRightOf="@+id/toggleButton3"
-        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButton3" />
+        <ToggleButton
+            android:id="@+id/sundayToggle"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_weight="10"
+            android:textOff="S"
+            android:textOn="S"
+            app:layout_constraintLeft_toLeftOf="@+id/routineTime"
+            tools:layout_editor_absoluteY="285dp" />
 
-    <ToggleButton
-        android:id="@+id/tuesdayButton"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="0dp"
-        android:textOff="T"
-        android:textOn="T"
-        app:layout_constraintBaseline_toBaselineOf="@+id/mondayToggle"
-        app:layout_constraintLeft_toRightOf="@+id/mondayToggle" />
+        <ToggleButton
+            android:id="@+id/mondayToggle"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_weight="10"
+            android:textOff="M"
+            android:textOn="M"
+            app:layout_constraintBaseline_toBaselineOf="@+id/sundayToggle"
+            app:layout_constraintLeft_toRightOf="@+id/sundayToggle" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton3"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="2dp"
-        android:textOff="S"
-        android:textOn="S"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker"
-        android:layout_marginLeft="19dp"
-        app:layout_constraintLeft_toLeftOf="@+id/timePicker" />
+        <ToggleButton
+            android:id="@+id/tuesdayToggle"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_weight="10"
+            android:textOff="T"
+            android:textOn="T"
+            app:layout_constraintBaseline_toBaselineOf="@+id/mondayToggle"
+            app:layout_constraintLeft_toRightOf="@+id/mondayToggle" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton4"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:textOff="W"
-        android:textOn="w"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tuesdayButton"
-        app:layout_constraintLeft_toRightOf="@+id/tuesdayButton"
-        android:layout_marginLeft="0dp" />
+        <ToggleButton
+            android:id="@+id/wednesdayToggle"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_weight="10"
+            android:textOff="W"
+            android:textOn="w"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tuesdayToggle"
+            app:layout_constraintLeft_toRightOf="@+id/tuesdayToggle" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton5"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:textOff="T"
-        android:textOn="T"
-        app:layout_constraintLeft_toRightOf="@+id/toggleButton4"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButton4" />
+        <ToggleButton
+            android:id="@+id/thursdayToggle"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_weight="10"
+            android:textOff="T"
+            android:textOn="T"
+            app:layout_constraintBaseline_toBaselineOf="@+id/wednesdayToggle"
+            app:layout_constraintLeft_toRightOf="@+id/wednesdayToggle" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton6"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:textOff="F"
-        android:textOn="F"
-        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButton5"
-        app:layout_constraintLeft_toRightOf="@+id/toggleButton5"
-        android:layout_marginLeft="0dp" />
+        <ToggleButton
+            android:id="@+id/fridayToggle"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_weight="10"
+            android:textOff="F"
+            android:textOn="F"
+            app:layout_constraintBaseline_toBaselineOf="@+id/thursdayToggle"
+            app:layout_constraintLeft_toRightOf="@+id/thursdayToggle" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton7"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:textOff="S"
-        android:textOn="S"
-        app:layout_constraintBaseline_toBaselineOf="@+id/toggleButton6"
-        app:layout_constraintLeft_toRightOf="@+id/toggleButton6"
-        android:layout_marginLeft="0dp" />
+        <ToggleButton
+            android:id="@+id/saturdayToggle"
+            android:layout_width="88dp"
+            android:layout_height="48dp"
+            android:layout_weight="10"
+            android:textOff="S"
+            android:textOn="S"
+            app:layout_constraintBaseline_toBaselineOf="@+id/fridayToggle"
+            app:layout_constraintLeft_toRightOf="@+id/fridayToggle" />
 
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/firstLightContraint"
+        android:layout_width="344dp"
+        android:layout_height="90dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="49dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/routineName">
+
+        <TextView
+            android:id="@+id/addRoutineFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/addRoutineFirstSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/addRoutineFirstName"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/secondLightConstraint"
+        android:layout_width="344dp"
+        android:layout_height="90dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstLightContraint">
+
+        <TextView
+            android:id="@+id/addRoutineSecondName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/addRoutineSecondSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/addRoutineSecondName"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/thirdLightContraint"
+        android:layout_width="344dp"
+        android:layout_height="90dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secondLightConstraint">
+
+        <TextView
+            android:id="@+id/addRoutineThirdName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/addRoutineThirdSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/addRoutineThirdName"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/routineDoneButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorAccent"
+        android:text="Done"
+        android:visibility="invisible"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/routineNextButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/routineNextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Next"
+        android:visibility="visible"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+

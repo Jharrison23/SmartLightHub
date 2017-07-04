@@ -12,14 +12,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.Controller.BottomNavigation;
+import com.example.seniordesign.smartlighthub.Model.Light;
 import com.example.seniordesign.smartlighthub.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -41,11 +49,14 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
     private Switch thirdLightState;
     private Button thirdPageDone;
 
+    private TextView lightNumber;
+
     private int pageNumber;
     private int defaultColor;
 
     private String presetName;
 
+    private List<Light> homepageLightList;
 
     private FirebaseAuth mAuth;
 
@@ -57,6 +68,8 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
     private DatabaseReference presetsRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Presets");
 
+    private DatabaseReference lightsRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Lights");
+
 
 
 
@@ -67,6 +80,11 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_add_presets);
 
 
+        if (getSupportActionBar() != null) {
+
+            getSupportActionBar().setTitle("Create Preset");
+
+        }
         mAuth = FirebaseAuth.getInstance();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -103,6 +121,8 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
         }
 
         else if (pageNumber == 2) {
+            lightNumber.setText("Light 1");
+
 
             firstLightName.setVisibility(View.VISIBLE);
             firstLightColor.setVisibility(View.VISIBLE);
@@ -124,6 +144,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
 
         else if (pageNumber == 3) {
 
+            lightNumber.setText("Light 2");
 
             firstLightName.setVisibility(View.INVISIBLE);
             firstLightColor.setVisibility(View.INVISIBLE);
@@ -147,6 +168,8 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void init() {
+
+        homepageLightList = new ArrayList<>();
         
         firstLightName  = (EditText) findViewById(R.id.firstLightName);
         firstLightColor = (ImageView) findViewById(R.id.firstLightColor_preset);
@@ -169,7 +192,42 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
         thirdPageDone = (Button) findViewById(R.id.thirdPageDone);
         thirdPageDone.setOnClickListener(this);
 
+        lightNumber = (TextView) findViewById(R.id.presetLightNumber);
+        lightNumber.setText("Light 1");
+
         pageNumber = 1;
+
+
+
+        lightsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child: children) {
+
+                    Light currentLight = child.getValue(Light.class);
+                    homepageLightList.add(currentLight);
+
+                }
+
+                firstLightName.setText(homepageLightList.get(0).getName());
+                secondLightName.setText(homepageLightList.get(1).getName());
+                thirdLightName.setText(homepageLightList.get(2).getName());
+
+            }
+
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+
     }
 
 
@@ -179,7 +237,9 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             
             case R.id.firstPageNext:
-                
+                lightNumber.setText("Light 2");
+
+
                 firstLightName.setVisibility(View.INVISIBLE);
                 firstLightColor.setVisibility(View.INVISIBLE);
                 firstLightState.setVisibility(View.INVISIBLE);
@@ -199,6 +259,8 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
                 break;
 
             case R.id.secondPageNext:
+                lightNumber.setText("Light 3");
+
 
                 firstLightName.setVisibility(View.INVISIBLE);
                 firstLightColor.setVisibility(View.INVISIBLE);

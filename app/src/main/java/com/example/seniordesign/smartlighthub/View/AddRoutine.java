@@ -1,6 +1,8 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -43,7 +45,9 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
 
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Lights");
+    private DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid());
+
+    private DatabaseReference lightsRef = userRef.child("Lights");
 
     private ConstraintLayout firstLightConstraint;
     private ConstraintLayout secondLightConstraint;
@@ -81,6 +85,8 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
     private int pageNumber = 1;
 
     private int initialColor;
+
+    private Boolean[] listOfDays;
 
 
 
@@ -138,9 +144,13 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
 
         routineTimePicker = (TimePicker) findViewById(R.id.routineTime);
 
+        routineName = (EditText) findViewById(R.id.routineName);
+
+        listOfDays = new Boolean[7];
+
         lightsList = new ArrayList<>();
 
-        userRef.addValueEventListener(new ValueEventListener() {
+        lightsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -197,10 +207,19 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
                 addRoutineNext.setVisibility(View.INVISIBLE);
                 addRoutineDone.setVisibility(View.VISIBLE);
 
+                listOfDays[0] = sundayToggle.isChecked();
+                listOfDays[1] = mondayToggle.isChecked();
+                listOfDays[2] = tuesdayToggle.isChecked();
+                listOfDays[3] = wednesdayToggle.isChecked();
+                listOfDays[4] = thursdayToggle.isChecked();
+                listOfDays[5] = fridayToggle.isChecked();
+                listOfDays[6] = saturdayToggle.isChecked();
 
                 break;
 
             case R.id.routineDoneButton:
+                saveRoutine();
+
 
                 break;
 
@@ -276,6 +295,96 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
             }
         });
         ambilWarnaDialog.show();
+
+    }
+
+    public void saveRoutine() {
+
+        DatabaseReference routineRef = userRef.child("Routines");
+
+        String key = routineRef.push().getKey();
+
+        DatabaseReference currentRoutineRef = routineRef.child(key);
+
+        currentRoutineRef.child("Name").setValue(routineName.getText().toString());
+
+        currentRoutineRef.child("Time").setValue(routineTimePicker.getCurrentHour() + ": " + routineTimePicker.getCurrentMinute());
+
+        DatabaseReference routineLightRef = currentRoutineRef.child("Lights");
+
+        DatabaseReference firstLightRef = routineLightRef.child("Light 1");
+        
+        firstLightRef.child("Name").setValue(firstLightName.getText());
+
+        Drawable firstLightDrawableColor = (Drawable) firstLightConstraint.getBackground();
+
+        int firstColorInt = ((ColorDrawable) firstLightDrawableColor).getColor();
+
+        int firstRed = Color.red(firstColorInt);
+        int firstGreen = Color.green(firstColorInt);
+        int firstBlue = Color.blue(firstColorInt);
+
+        String firstRGBcolor = firstRed + ", " + firstGreen + ", " + firstBlue;
+        
+        firstLightRef.child("Color").setValue(firstRGBcolor);
+
+        firstLightRef.child("State").setValue(firstLightState.isChecked());
+
+
+
+
+        DatabaseReference secondLightRef = routineLightRef.child("Light 2");
+
+        secondLightRef.child("Name").setValue(secondLightName.getText().toString());
+
+        Drawable secondLightDrawableColor = (Drawable) secondLightConstraint.getBackground();
+
+        int secondColorInt = ((ColorDrawable) secondLightDrawableColor).getColor();
+
+        int secondRed = Color.red(secondColorInt);
+        int secondGreen = Color.green(secondColorInt);
+        int secondBlue = Color.blue(secondColorInt);
+
+        String secondRGBcolor = secondRed + ", " + secondGreen + ", " + secondBlue;
+        
+        secondLightRef.child("Color").setValue(secondRGBcolor);
+
+        secondLightRef.child("State").setValue(secondLightState.isChecked());
+
+
+
+
+        DatabaseReference thirdLightRef = routineLightRef.child("Light 3");
+        
+        thirdLightRef.child("Name").setValue(thirdLightName.getText().toString());
+
+        Drawable thirdLightDrawableColor = (Drawable) thirdLightConstraint.getBackground();
+
+        int thirdColorInt = ((ColorDrawable) thirdLightDrawableColor).getColor();
+
+        int thirdRed = Color.red(thirdColorInt);
+        int thirdGreen = Color.green(thirdColorInt);
+        int thirdBlue = Color.blue(thirdColorInt);
+
+        String thirdRGBcolor = thirdRed + ", " + thirdGreen + ", " + thirdBlue;
+
+        thirdLightRef.child("Color").setValue(thirdRGBcolor);
+
+        thirdLightRef.child("State").setValue(thirdLightState.isChecked());
+
+
+        DatabaseReference daysRef = currentRoutineRef.child("Days");
+
+        daysRef.child("Sunday").setValue(listOfDays[0]);
+        daysRef.child("Monday").setValue(listOfDays[1]);
+        daysRef.child("Tuesday").setValue(listOfDays[2]);
+        daysRef.child("Wednesday").setValue(listOfDays[3]);
+        daysRef.child("Thursday").setValue(listOfDays[4]);
+        daysRef.child("Friday").setValue(listOfDays[5]);
+        daysRef.child("Saturday").setValue(listOfDays[6]);
+
+
+
 
     }
 

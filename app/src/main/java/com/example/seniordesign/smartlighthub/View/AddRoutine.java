@@ -94,6 +94,7 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_routine);
 
+        getSupportActionBar().setTitle("Add Routine");
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -217,13 +218,19 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
                 break;
 
             case R.id.routineDoneButton:
-                saveRoutine();
 
-                Intent backHome = new Intent(AddRoutine.this, BottomNavigation.class);
+                if (!routineName.getText().toString().trim().equals("")) {
 
-                startActivity(backHome);
+                    saveRoutine();
 
+                    Intent backHome = new Intent(AddRoutine.this, BottomNavigation.class);
 
+                    startActivity(backHome);
+                }
+
+                else {
+                    Toast.makeText(this, "Please Enter Routine Name", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.firstLightContraint:
@@ -305,9 +312,9 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
 
         DatabaseReference routineRef = userRef.child("Routines");
 
-        String key = routineRef.push().getKey();
+        //String key = routineRef.push().getKey();
 
-        DatabaseReference currentRoutineRef = routineRef.child(key);
+        DatabaseReference currentRoutineRef = routineRef.child(routineName.getText().toString());
 
         currentRoutineRef.child("Name").setValue(routineName.getText().toString());
 

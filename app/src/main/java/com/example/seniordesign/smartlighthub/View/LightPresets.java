@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import com.example.seniordesign.smartlighthub.Controller.PresetsPageAdapter;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.example.seniordesign.smartlighthub.Model.Preset;
@@ -100,13 +102,25 @@ public class LightPresets extends Fragment {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
 
-                                Intent AddPresetIntent = new Intent(getActivity(), AddPresetsActivity.class);
+                                if (!input.getText().toString().equals("")) {
 
-                                AddPresetIntent.putExtra("Preset Name", input.getText().toString());
+                                    dialog.dismiss();
 
-                                startActivity(AddPresetIntent);
+                                    Intent AddPresetIntent = new Intent(getActivity(), AddPresetsActivity.class);
+
+                                    AddPresetIntent.putExtra("Preset Name", input.getText().toString());
+
+                                    startActivity(AddPresetIntent);
+
+                                }
+
+                                else {
+
+                                    Toast.makeText(getActivity(), "Enter Preset Name", Toast.LENGTH_SHORT).show();
+
+                                }
+
 
                             }
                         });
@@ -122,11 +136,26 @@ public class LightPresets extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                Intent AddPresetIntent = new Intent(getActivity(), MoodCreation.class);
+                                if (!input.getText().toString().equals("")) {
 
-                                AddPresetIntent.putExtra("Preset Name", input.getText().toString());
+                                    dialog.dismiss();
 
-                                startActivity(AddPresetIntent);
+                                    Intent AddPresetIntent = new Intent(getActivity(), MoodCreation.class);
+
+                                    AddPresetIntent.putExtra("Preset Name", input.getText().toString());
+
+                                    startActivity(AddPresetIntent);
+
+                                }
+
+                                else {
+
+                                    Toast.makeText(getActivity(), "Enter Preset Name", Toast.LENGTH_SHORT).show();
+
+                                }
+
+
+
                             }
                         });
 

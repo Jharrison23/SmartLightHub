@@ -1,6 +1,8 @@
 package com.example.seniordesign.smartlighthub.Controller;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.w3c.dom.Text;
 
 import java.util.List;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 /**
  * Created by jamesharrison on 7/6/17.
@@ -60,8 +64,6 @@ public class RoutinePageAdapter extends RecyclerView.Adapter<RoutinePageAdapter.
         holder.fridayToggle.setChecked(routine.getDays().get(5));
         holder.saturdayToggle.setChecked(routine.getDays().get(6));
 
-        Toast.makeText(holder.itemView.getContext(), "" + routine.getDays().get(6), Toast.LENGTH_SHORT).show();
-
         holder.routineName.setText(routine.getName());
 
         holder.routineTime.setText(routine.getRoutineTime());
@@ -79,9 +81,10 @@ public class RoutinePageAdapter extends RecyclerView.Adapter<RoutinePageAdapter.
     }
 
 
-    class RoutineHolder extends RecyclerView.ViewHolder {
+    class RoutineHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
 
+        private CardView routineCardView;
 
         private TextView routineName;
         private TextView routineTime;
@@ -103,6 +106,9 @@ public class RoutinePageAdapter extends RecyclerView.Adapter<RoutinePageAdapter.
         public RoutineHolder(View itemView) {
             super(itemView);
 
+            routineCardView = (CardView) itemView.findViewById(R.id.routinePageCardView);
+            routineCardView.setOnLongClickListener(this);
+
             routineName = (TextView) itemView.findViewById(R.id.routineElementName);
 
             routineTime = (TextView) itemView.findViewById(R.id.routineElementTime);
@@ -116,11 +122,104 @@ public class RoutinePageAdapter extends RecyclerView.Adapter<RoutinePageAdapter.
             saturdayToggle = (ToggleButton) itemView.findViewById(R.id.saturdayToggle);
 
             routineElementFirstLightColor = (ImageView) itemView.findViewById(R.id.routineElementFirstLightColor);
+            routineElementFirstLightColor.setOnClickListener(this);
+
             routineElementSecondLightColor = (ImageView) itemView.findViewById(R.id.routineElementSecondLightColor);
+            routineElementSecondLightColor.setOnClickListener(this);
+
             routineElementThirdLightColor = (ImageView) itemView.findViewById(R.id.routineElementThirdLightColor);
+            routineElementThirdLightColor.setOnClickListener(this);
+
 
 
         }
+
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()) {
+
+                case R.id.routineElementFirstLightColor:
+                    final int firstInitialColor = ((ColorDrawable) routineElementFirstLightColor.getBackground()).getColor();
+                    openColorPickerDialog(false, firstInitialColor, routineElementFirstLightColor, 1);
+                    break;
+
+                case R.id.routineElementSecondLightColor:
+                    final int secondInitialColor = ((ColorDrawable) routineElementSecondLightColor.getBackground()).getColor();
+                    openColorPickerDialog(false, secondInitialColor, routineElementSecondLightColor, 2);
+                    break;
+
+                case R.id.routineElementThirdLightColor:
+                    final int thirdInitialColor = ((ColorDrawable) routineElementThirdLightColor.getBackground()).getColor();
+                    openColorPickerDialog(false, thirdInitialColor, routineElementThirdLightColor, 3);
+                    break;
+
+            }
+
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+
+            switch (v.getId()) {
+                case R.id.routinePageCardView:
+
+                    String routineName = routineList.get(getAdapterPosition()).getName();
+
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                    DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Routines");
+
+                    userRef.child(routineName).removeValue();
+
+                    Toast.makeText(v.getContext(), "Deleted " + routineName, Toast.LENGTH_SHORT).show();
+
+                    routineList.remove(getAdapterPosition());
+
+                    routineList.clear();
+
+                    notifyItemRemoved(getAdapterPosition());
+
+                    break;
+            }
+
+            return true;
+        }
+
+
+
+
+        // Color picker 2
+        private boolean openColorPickerDialog(boolean AlphaSupport, int defaultColor, final ImageView currentLightColor, final int lightPosition) {
+
+            AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(itemView.getContext(), defaultColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                @Override
+                public void onOk(AmbilWarnaDialog ambilWarnaDialog, int color) {
+
+                    currentLightColor.setBackgroundColor(color);
+
+                    //updateDatabaseLightColor(currentLightColor, lightPosition, getAdapterPosition());
+                    Toast.makeText(itemView.getContext(), "Light " + lightPosition + " updated", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
+
+                    Toast.makeText(itemView.getContext(), "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                }
+            });
+            ambilWarnaDialog.show();
+
+            return true;
+
+        }
+
+
+
+
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -17,6 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.seniordesign.smartlighthub.Controller.BottomNavigation;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.example.seniordesign.smartlighthub.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -217,6 +219,10 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
             case R.id.routineDoneButton:
                 saveRoutine();
 
+                Intent backHome = new Intent(AddRoutine.this, BottomNavigation.class);
+
+                startActivity(backHome);
+
 
                 break;
 
@@ -372,13 +378,13 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
 
         DatabaseReference daysRef = currentRoutineRef.child("Days");
 
-        daysRef.child("Sunday").setValue(listOfDays[0]);
-        daysRef.child("Monday").setValue(listOfDays[1]);
-        daysRef.child("Tuesday").setValue(listOfDays[2]);
-        daysRef.child("Wednesday").setValue(listOfDays[3]);
-        daysRef.child("Thursday").setValue(listOfDays[4]);
-        daysRef.child("Friday").setValue(listOfDays[5]);
-        daysRef.child("Saturday").setValue(listOfDays[6]);
+        daysRef.child("Day 1").setValue(listOfDays[0]);
+        daysRef.child("Day 2").setValue(listOfDays[1]);
+        daysRef.child("Day 3").setValue(listOfDays[2]);
+        daysRef.child("Day 4").setValue(listOfDays[3]);
+        daysRef.child("Day 5").setValue(listOfDays[4]);
+        daysRef.child("Day 6").setValue(listOfDays[5]);
+        daysRef.child("Day 7").setValue(listOfDays[6]);
 
 
 

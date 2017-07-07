@@ -101,7 +101,6 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
         {
             presetName = extras.getString("Preset Name");
 
-            Toast.makeText(this, presetName, Toast.LENGTH_SHORT).show();
         }
         init();
     }

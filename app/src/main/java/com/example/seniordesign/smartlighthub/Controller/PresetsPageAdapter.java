@@ -223,15 +223,6 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
             {
 
                 case R.id.firstLightColor_preset:
-//
-//                            Intent firstLightInfoIntent = new Intent(view.getContext(), PresetLightInfo.class);
-//
-//                            firstLightInfoIntent.putExtra("pos", 0);
-//                            firstLightInfoIntent.putExtra("preset", currentPreset);
-//
-//                            view.getContext().startActivity(firstLightInfoIntent);
-//
-//                            Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
 
                     final int firstInitialColor = ((ColorDrawable) firstLightColor.getBackground()).getColor();
                     openColorPickerDialog(false, firstInitialColor, firstLightColor, 1);
@@ -239,31 +230,12 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
 
                 case R.id.secondLightColor_preset:
 
-//                    Intent secondLightInfoIntent = new Intent(view.getContext(), PresetLightInfo.class);
-//
-//                    secondLightInfoIntent.putExtra("pos", 1);
-//                    secondLightInfoIntent.putExtra("preset", currentPreset);
-//
-//                    view.getContext().startActivity(secondLightInfoIntent);
-//
-//                    Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
-
                     final int secondInitialColor = ((ColorDrawable) secondLightColor.getBackground()).getColor();
                     openColorPickerDialog(false, secondInitialColor, secondLightColor, 2);
 
                     break;
 
                 case R.id.thirdLightColor_preset:
-
-//                    Intent thirdLightInfoIntent = new Intent(view.getContext(), PresetLightInfo.class);
-//
-//                    thirdLightInfoIntent.putExtra("pos", 2);
-//                    thirdLightInfoIntent.putExtra("preset", currentPreset);
-//
-//                    view.getContext().startActivity(thirdLightInfoIntent);
-//
-//                    Log.d("PresetPageAdapter", "Clicked " + getAdapterPosition());
-
                     final int thirdInitialColor = ((ColorDrawable) thirdLightColor.getBackground()).getColor();
                     openColorPickerDialog(false, thirdInitialColor, thirdLightColor, 3);
 

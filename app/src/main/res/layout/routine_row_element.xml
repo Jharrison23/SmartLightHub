@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:orientation="horizontal"
+    android:id="@+id/lightsContainer"
+    android:weightSum="99"
+    android:gravity="center_vertical|left"
+    android:padding="10dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/routinePageCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/routineElementTime"
+                android:layout_width="105dp"
+                android:layout_height="30dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/routineElementName"
+                app:layout_constraintLeft_toRightOf="@+id/routineElementName" />
+
+            <TextView
+                android:id="@+id/routineElementName"
+                android:layout_width="106dp"
+                android:layout_height="30dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="@+id/weekContainer"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/weekContainer"
+                android:layout_width="224dp"
+                android:layout_height="41dp"
+                android:orientation="horizontal"
+                android:weightSum="70"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/routineElementName"
+                app:layout_constraintVertical_bias="0.0"
+                android:layout_marginTop="15dp">
+
+                <ToggleButton
+                    android:id="@+id/sundayToggle"
+                    android:layout_width="88dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="10"
+                    android:textOff="S"
+                    android:textOn="S"
+                    app:layout_constraintLeft_toLeftOf="@+id/routineTime"
+                    tools:layout_editor_absoluteY="285dp" />
+
+                <ToggleButton
+                    android:id="@+id/mondayToggle"
+                    android:layout_width="88dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="10"
+                    android:textOff="M"
+                    android:textOn="M"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/sundayToggle"
+                    app:layout_constraintLeft_toRightOf="@+id/sundayToggle" />
+
+                <ToggleButton
+                    android:id="@+id/tuesdayToggle"
+                    android:layout_width="88dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="10"
+                    android:textOff="T"
+                    android:textOn="T"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/mondayToggle"
+                    app:layout_constraintLeft_toRightOf="@+id/mondayToggle" />
+
+                <ToggleButton
+                    android:id="@+id/wednesdayToggle"
+                    android:layout_width="88dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="10"
+                    android:textOff="W"
+                    android:textOn="w"
+                    android:textSize="13sp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tuesdayToggle"
+                    app:layout_constraintLeft_toRightOf="@+id/tuesdayToggle" />
+
+                <ToggleButton
+                    android:id="@+id/thursdayToggle"
+                    android:layout_width="88dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="10"
+                    android:textOff="T"
+                    android:textOn="T"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/wednesdayToggle"
+                    app:layout_constraintLeft_toRightOf="@+id/wednesdayToggle" />
+
+                <ToggleButton
+                    android:id="@+id/fridayToggle"
+                    android:layout_width="88dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="10"
+                    android:textOff="F"
+                    android:textOn="F"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/thursdayToggle"
+                    app:layout_constraintLeft_toRightOf="@+id/thursdayToggle" />
+
+                <ToggleButton
+                    android:id="@+id/saturdayToggle"
+                    android:layout_width="88dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="10"
+                    android:textOff="S"
+                    android:textOn="S"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/fridayToggle"
+                    app:layout_constraintLeft_toRightOf="@+id/fridayToggle" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="65dp"
+                android:layout_height="99dp"
+                android:orientation="vertical"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:id="@+id/routineElementFirstLightColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/routineElementSecondLightColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/routineElementFirstLightColor" />
+
+                <ImageView
+                    android:id="@+id/routineElementThirdLightColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="33dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/routineElementSecondLightColor" />
+
+            </LinearLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -22,6 +22,7 @@
         android:hint="Routine Name"
         android:inputType="textPersonName"
         android:textAlignment="center"
+        android:text=""
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -45,7 +46,7 @@
     <LinearLayout
         android:id="@+id/weekContainer"
         android:layout_width="286dp"
-        android:layout_height="40dp"
+        android:layout_height="53dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:orientation="horizontal"
@@ -54,7 +55,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/routineTime"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        tools:layout_editor_absoluteX="49dp">
 
         <ToggleButton
             android:id="@+id/sundayToggle"
@@ -162,7 +164,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/addRoutineFirstName"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:checked="true"/>
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -198,7 +201,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/addRoutineSecondName"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:checked="true"/>
 
     </android.support.constraint.ConstraintLayout>
 
@@ -235,7 +239,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/addRoutineThirdName"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            android:checked="true"/>
 
     </android.support.constraint.ConstraintLayout>
 

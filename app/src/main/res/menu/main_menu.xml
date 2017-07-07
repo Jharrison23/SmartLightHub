@@ -8,4 +8,10 @@
         android:title="Settings"
         />
 
+    <item
+        android:id="@+id/musicMode"
+        android:title="Music"
+        android:icon="@drawable/ic_library_music"
+        app:showAsAction="always"/>
+
 </menu>

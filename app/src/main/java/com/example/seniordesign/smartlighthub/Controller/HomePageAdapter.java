@@ -165,8 +165,6 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
 
             Log.d("HomePageAdapter", "Clicked " + getAdapterPosition());
 
-            Toast.makeText(v.getContext(), "we clickiy", Toast.LENGTH_SHORT).show();
-
             return true;
         }
 

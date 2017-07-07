@@ -212,8 +212,15 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
                 }
 
                 firstLightName.setText(homepageLightList.get(0).getName());
+                firstLightColor.setBackgroundColor(homepageLightList.get(0).getConvertedColor());
+
                 secondLightName.setText(homepageLightList.get(1).getName());
+                secondLightColor.setBackgroundColor(homepageLightList.get(1).getConvertedColor());
+
                 thirdLightName.setText(homepageLightList.get(2).getName());
+                thirdLightColor.setBackgroundColor(homepageLightList.get(2).getConvertedColor());
+
+
 
             }
 

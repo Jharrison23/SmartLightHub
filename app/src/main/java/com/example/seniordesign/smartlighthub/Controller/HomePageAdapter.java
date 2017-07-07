@@ -120,7 +120,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
         public void onClick(View v) {
 
             final int initialColor = ((ColorDrawable) homepageCardView.getBackground()).getColor();
-            openColorPickerDialog(false, initialColor);
+            openColorPickerDialog(false, initialColor, lightState.isChecked());
 
         }
 
@@ -173,7 +173,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
 
 
         // Color picker 2
-        private void openColorPickerDialog(boolean AlphaSupport, final int initialColor) {
+        private void openColorPickerDialog(boolean AlphaSupport, final int initialColor, final boolean isChecked) {
 
             AmbilWarnaDialog ambilWarnaDialog = new AmbilWarnaDialog(itemView.getContext(), initialColor, AlphaSupport, new AmbilWarnaDialog.OnAmbilWarnaListener() {
                 @Override
@@ -195,6 +195,23 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
                         rbgObject.put("0", red);
                         rbgObject.put("1", green);
                         rbgObject.put("2", blue);
+                        rbgObject.put("3", 0);
+
+                        int stateFlag = 0;
+
+                        if (isChecked)
+                        {
+                            stateFlag = 1;
+                        }
+
+                        else if (!isChecked) {
+                            stateFlag = 0;
+                        }
+
+                        rbgObject.put("4", stateFlag);
+
+                        rbgObject.put("5", 0);
+
 
 
                     } catch (JSONException e) {

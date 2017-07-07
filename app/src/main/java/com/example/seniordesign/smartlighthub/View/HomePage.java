@@ -190,6 +190,22 @@ public class HomePage extends Fragment {
                         rbgObject.put("0", newLight.getRed());
                         rbgObject.put("1", newLight.getGreen());
                         rbgObject.put("2", newLight.getBlue());
+                        rbgObject.put("3", 0);
+
+                        int stateFlag = 0;
+
+                        if (newLight.isState())
+                        {
+                            stateFlag = 1;
+                        }
+
+                        else if (!newLight.isState()) {
+                            stateFlag = 0;
+                        }
+
+                        rbgObject.put("4", stateFlag);
+
+                        rbgObject.put("5", 0);
 
 
                     } catch (JSONException e) {

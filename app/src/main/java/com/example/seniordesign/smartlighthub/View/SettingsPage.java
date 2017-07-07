@@ -1,16 +1,21 @@
 package com.example.seniordesign.smartlighthub.View;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.R;
 import com.example.seniordesign.smartlighthub.Model.User;
@@ -22,9 +27,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SettingsPage extends Activity implements View.OnClickListener {
+public class SettingsPage extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "SettingsPage";
+
+    private FirebaseAuth mAuth;
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -41,10 +50,19 @@ public class SettingsPage extends Activity implements View.OnClickListener {
     Button cancelButton;
     Button editButton;
 
+    private Button logoutButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
+
+
+        if (getSupportActionBar() != null) {
+
+            getSupportActionBar().setTitle("Settings");
+
+        }
 
         init();
 
@@ -54,6 +72,8 @@ public class SettingsPage extends Activity implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+
+        mAuth.addAuthStateListener(mAuthListener);
         showData();
 
     }
@@ -61,6 +81,14 @@ public class SettingsPage extends Activity implements View.OnClickListener {
     public void init()
     {
 
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+            }
+        };
 
         fullnameField = (EditText) findViewById(R.id.fullNameField);
         userNameField = (EditText) findViewById(R.id.userNameField);
@@ -76,6 +104,8 @@ public class SettingsPage extends Activity implements View.OnClickListener {
 
         editButton = (Button) findViewById(R.id.editButton);
         editButton.setOnClickListener(this);
+
+        logoutButton = (Button) findViewById(R.id.settingsPageLogOut);
 
         notEditable();
 
@@ -140,6 +170,7 @@ public class SettingsPage extends Activity implements View.OnClickListener {
                 showData();
                 notEditable();
                 break;
+
         }
     }
 
@@ -178,7 +209,30 @@ public class SettingsPage extends Activity implements View.OnClickListener {
     }
 
 
+    public void logout()
+    {
+        mAuth.signOut();
+        Toast.makeText(this, "User Logged Out", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MainActivity.class));
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
+        getMenuInflater().inflate(R.menu.settings_page_menu, menu);
 
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.settingsPageLogOut) {
+
+            logout();
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

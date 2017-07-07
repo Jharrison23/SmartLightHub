@@ -193,12 +193,6 @@ public class BottomNavigation extends AppCompatActivity {
 
     }
 
-    public void logout()
-    {
-        mAuth.signOut();
-        Toast.makeText(this, "User Logged Out", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, MainActivity.class));
-    }
 
 
     public void pubnubConfig(final JSONObject pubnubObjects)

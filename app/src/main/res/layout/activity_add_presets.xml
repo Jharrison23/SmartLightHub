@@ -35,17 +35,16 @@
         android:id="@+id/firstLightColor_preset"
         android:layout_width="210dp"
         android:layout_height="144dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="65dp"
         android:layout_weight="33"
-        android:background="@android:color/holo_blue_light"
         android:tint="@color/colorPrimary"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/firstLightName"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/firstLightName" />
 
     <Switch
         android:id="@+id/firstLightState"
@@ -90,18 +89,17 @@
         android:id="@+id/secondLightColor_preset"
         android:layout_width="210dp"
         android:layout_height="144dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="65dp"
         android:layout_weight="33"
-        android:background="@android:color/holo_blue_light"
         android:tint="@color/colorPrimary"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/secondLightName"
-        android:visibility="invisible"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/secondLightName" />
 
     <Switch
         android:id="@+id/secondLightState"
@@ -144,18 +142,17 @@
         android:id="@+id/thirdLightColor_preset"
         android:layout_width="210dp"
         android:layout_height="144dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="65dp"
         android:layout_weight="33"
-        android:background="@android:color/holo_blue_light"
         android:tint="@color/colorPrimary"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thirdLightName"
-        android:visibility="invisible"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/thirdLightName" />
 
     <Switch
         android:id="@+id/thirdLightState"

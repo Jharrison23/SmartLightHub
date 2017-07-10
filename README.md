@@ -13,12 +13,12 @@ This is a Senior Design Project which is a Smart Home automation lighting system
   * Password
   * The user will also give the three lights their initial name
 
-<a href="https://github.com/Jharrison23/Resources/blob/master/CreateUser.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/CreateUser.gif" title="Create User"/></a>
+<a href="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/CreateUser.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/CreateUser.gif" title="Create User"/></a>
 
 #### Login
 * Using Googles Firebase for authentication a user can login with the email and password after creating an account.
 
-<a href="https://github.com/Jharrison23/Resources/blob/master/LoginPage.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/LoginPage.gif" title="Login"/></a>
+<a href="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/LoginPage.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/LoginPage.gif" title="Login"/></a>
 
 #### Control Main Lights
 * From the Home page a user has a couple different options
@@ -26,7 +26,7 @@ This is a Senior Design Project which is a Smart Home automation lighting system
   * Change the state(on/off) by clicking the switch for that light
   * Long click: Brings up a page with the full light information including the name, color and state to allow the user to edit all the information from one view
 
-<a href="https://github.com/Jharrison23/Resources/blob/master/ChangeColors.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/ChangeColors.gif" title="Main Light Control"/></a>
+<a href="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/ChangeColors.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/ChangeColors.gif" title="Main Light Control"/></a>
 
 #### Moods
 * A type of preset lights settings, a Mood Preset is created by:
@@ -34,12 +34,12 @@ This is a Senior Design Project which is a Smart Home automation lighting system
   2. To select the color, the user will slide thier finger over the pixel with the desired color
   3. If needed change the name and state of the lights
 
-<a href="https://github.com/Jharrison23/Resources/blob/master/MoodCreation.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/MoodCreation.gif" title="Mood Creation"/></a>
+<a href="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/MoodCreation.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/MoodCreation.gif" title="Mood Creation"/></a>
 
 #### Custom Presets
 * The other type of preset a user can create is a custom preset, this is created by manually selecting the colors for each light in the preset
  
-<a href="https://github.com/Jharrison23/Resources/blob/master/CustomPresets.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/CustomPresets.gif" title="Custom Presets"/></a>
+<a href="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/CustomPresets.gif"><img src="https://github.com/Jharrison23/Resources/blob/master/SmartLightHub/CustomPresets.gif" title="Custom Presets"/></a>
 
 ### Presets Tab
 * From the presets tab the user can do a few things:

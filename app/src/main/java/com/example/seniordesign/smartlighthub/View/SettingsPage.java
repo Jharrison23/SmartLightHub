@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -96,14 +97,14 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
         passwordField = (EditText) findViewById(R.id.passwordField);
 
 
-        saveButton = (Button) findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(this);
-
-        cancelButton = (Button) findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(this);
-
-        editButton = (Button) findViewById(R.id.editButton);
-        editButton.setOnClickListener(this);
+//        saveButton = (Button) findViewById(R.id.saveButton);
+//        saveButton.setOnClickListener(this);
+//
+//        cancelButton = (Button) findViewById(R.id.cancelButton);
+//        cancelButton.setOnClickListener(this);
+//
+//        editButton = (Button) findViewById(R.id.editButton);
+//        editButton.setOnClickListener(this);
 
         logoutButton = (Button) findViewById(R.id.settingsPageLogOut);
 
@@ -157,19 +158,19 @@ public class SettingsPage extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.saveButton:
-                updateInfo();
-                notEditable();
-                break;
-
-            case R.id.editButton:
-                isEditable();
-                break;
-
-            case R.id.cancelButton:
-                showData();
-                notEditable();
-                break;
+//            case R.id.saveButton:
+//                updateInfo();
+//                notEditable();
+//                break;
+//
+//            case R.id.editButton:
+//                isEditable();
+//                break;
+//
+//            case R.id.cancelButton:
+//                showData();
+//                notEditable();
+//                break;
 
         }
     }

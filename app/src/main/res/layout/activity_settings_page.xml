@@ -6,123 +6,158 @@
     android:layout_height="match_parent"
     tools:context="com.example.seniordesign.smartlighthub.View.LoginPage">
 
-    <EditText
-        android:id="@+id/fullNameField"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="338dp"
+        android:layout_height="501dp"
+        android:orientation="vertical"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="124dp"
-        android:ems="10"
-        android:hint="Full Name"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="@+id/userNameField"
-        app:layout_constraintRight_toRightOf="@+id/userNameField"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/userNameField"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="User Name"
-        android:inputType="text"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/fullNameField"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/accountSettingsField"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/accountSettingsField" />
-
-
-    <EditText
-        android:id="@+id/emailField"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Enter Email"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="@+id/passwordField"
-        app:layout_constraintRight_toRightOf="@+id/passwordField"
-        app:layout_constraintTop_toBottomOf="@+id/userNameField" />
-
-    <EditText
-        android:id="@+id/passwordField"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:hint="Enter Password"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/emailField"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="@+id/userNameField"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/userNameField"
-        app:layout_constraintHorizontal_bias="0.0" />
-
-    <EditText
-        android:id="@+id/accountSettingsField"
-        android:layout_width="200dp"
-        android:layout_height="47dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="33dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:text="Account Settings"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
-        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteY="22dp" />
-
-    <Button
-        android:id="@+id/editButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="43dp"
-        android:text="Edit"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp">
 
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@android:color/holo_green_light"
-        android:text="Save"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/passwordField"
-        app:layout_constraintBaseline_toBaselineOf="@+id/cancelButton" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="42dp"
-        android:background="@android:color/holo_red_light"
-        android:text="Cancel"
-        app:layout_constraintLeft_toLeftOf="@+id/passwordField"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+    </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="100dp"
+            android:layout_height="37dp"
+            android:text="TextView"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="124dp" />
+
+        <EditText
+            android:id="@+id/fullNameField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="124dp"
+            android:ems="10"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="@+id/userNameField"
+            app:layout_constraintRight_toRightOf="@+id/userNameField"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+
+    <!--<EditText-->
+        <!--android:id="@+id/userNameField"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="18dp"-->
+        <!--android:ems="10"-->
+        <!--android:hint="User Name"-->
+        <!--android:inputType="text"-->
+        <!--android:textAlignment="center"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/fullNameField"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:layout_marginEnd="8dp" />-->
+
+
+    <!--<EditText-->
+        <!--android:id="@+id/emailField"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginTop="19dp"-->
+        <!--android:ems="10"-->
+        <!--android:hint="Enter Email"-->
+        <!--android:inputType="textPersonName"-->
+        <!--android:textAlignment="center"-->
+        <!--app:layout_constraintHorizontal_bias="1.0"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/passwordField"-->
+        <!--app:layout_constraintRight_toRightOf="@+id/passwordField"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/userNameField"-->
+        <!--android:layout_marginStart="8dp" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/passwordField"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:ems="10"-->
+        <!--android:hint="Enter Password"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:textAlignment="center"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/emailField"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--app:layout_constraintRight_toRightOf="@+id/userNameField"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/userNameField"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--android:layout_marginEnd="8dp" />-->
+
+    <!--<EditText-->
+        <!--android:id="@+id/accountSettingsField"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="47dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginTop="33dp"-->
+        <!--android:clickable="false"-->
+        <!--android:focusable="false"-->
+        <!--android:text="Account Settings"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textAllCaps="false"-->
+        <!--android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"-->
+        <!--android:textSize="24sp"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/editButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginTop="43dp"-->
+        <!--android:text="Edit"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/passwordField"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/saveButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:background="@android:color/holo_green_light"-->
+        <!--android:text="Save"-->
+        <!--app:layout_constraintHorizontal_bias="1.0"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="@+id/passwordField"-->
+        <!--app:layout_constraintBaseline_toBaselineOf="@+id/cancelButton"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/cancelButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginTop="42dp"-->
+        <!--android:background="@android:color/holo_red_light"-->
+        <!--android:text="Cancel"-->
+        <!--app:layout_constraintLeft_toLeftOf="@+id/passwordField"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/passwordField" />-->
 
 </android.support.constraint.ConstraintLayout>

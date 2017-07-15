@@ -20,9 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.spotify.sdk.android.authentication.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity android:name=".View.LoginPage" />
         <activity android:name=".View.CreateAccount" />
         <activity android:name=".View.SettingsPage" />
@@ -36,7 +34,6 @@
 
         <activity android:name=".View.AddRoutine"/>
         <activity android:name=".View.MusicControls" />
-        <activity android:name=".View.MusicSpotify" />
         <activity android:name=".View.LightInfo" />
         <activity
             android:name=".Controller.BottomNavigation"

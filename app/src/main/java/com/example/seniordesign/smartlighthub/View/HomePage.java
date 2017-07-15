@@ -67,6 +67,8 @@ public class HomePage extends Fragment {
 
     private Switch masterSwitch;
 
+    private List<Light> masterLightList;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -121,6 +123,8 @@ public class HomePage extends Fragment {
 
         }
 
+        masterLightList = new ArrayList<>();
+
         view = inflater.inflate(R.layout.activity_home_page, container, false);
 
         pubnubObjects = new ArrayList<>();
@@ -148,6 +152,8 @@ public class HomePage extends Fragment {
                 light3Ref.child("State").setValue(masterSwitch.isChecked());
 
                 homePageAdapter = new HomePageAdapter(createLightList(), getContext());
+
+                masterSwitchPublish();
 
             }
         });
@@ -182,6 +188,69 @@ public class HomePage extends Fragment {
 
 
         mAuth.addAuthStateListener(mAuthListener);
+
+        onStartPubNub();
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d("OnPause PubObject = ","" + pubnubObjects.toString());
+
+        pubnubObjects.clear();
+
+        Log.d("PauseClear PubObject = ","" + pubnubObjects.toString());
+
+
+    }
+
+    public List<Light> createLightList()
+    {
+
+
+        final List<Light> lightList = new ArrayList<>();
+
+        ValueEventListener lightEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child : children) {
+
+                    Light newLight = child.getValue(Light.class);
+
+                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
+
+                    lightList.add(newLight);
+
+
+
+                }
+
+                masterLightList = lightList;
+
+                lightsRecyclerView.setHasFixedSize(true);
+                lightsRecyclerView.setAdapter(homePageAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        userRef.addValueEventListener(lightEventListener);
+        return lightList;
+    }
+
+
+
+    public void onStartPubNub() {
 
         final List<Light> lightList = new ArrayList<>();
 
@@ -239,7 +308,9 @@ public class HomePage extends Fragment {
 
                 }
 
-                Log.d("OnResume PubObject = ","" + pubnubObjects.toString());
+                masterLightList = lightList;
+
+                Log.d("On Start PubObject = ","" + pubnubObjects.toString());
 
                 if (!isPublished)
                 {
@@ -260,59 +331,63 @@ public class HomePage extends Fragment {
 
 
 
-
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
 
-        Log.d("OnPause PubObject = ","" + pubnubObjects.toString());
-
-        pubnubObjects.clear();
-
-        Log.d("PauseClear PubObject = ","" + pubnubObjects.toString());
+    public boolean masterSwitchPublish() {
 
 
-    }
-
-    public List<Light> createLightList()
-    {
+        if (masterLightList != null) {
 
 
-        final List<Light> lightList = new ArrayList<>();
-
-        ValueEventListener lightEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-
-                for (DataSnapshot child : children) {
-
-                    Light newLight = child.getValue(Light.class);
-
-                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
-
-                    lightList.add(newLight);
+            List<JSONObject> masterSwitchPubNub = new ArrayList<>();
 
 
+            for (Light currentLight: masterLightList) {
 
+                JSONObject rbgObject = new JSONObject();
+
+
+                try {
+                    rbgObject.put("0", currentLight.getRed());
+                    rbgObject.put("1", currentLight.getGreen());
+                    rbgObject.put("2", currentLight.getBlue());
+                    rbgObject.put("3", 0);
+
+                    int stateFlag = 0;
+
+                    if (masterSwitch.isChecked()) {
+                        stateFlag = 1;
+                    }
+
+                    else if (!masterSwitch.isChecked()) {
+                        stateFlag = 0;
+                    }
+
+                    rbgObject.put("4", stateFlag);
+
+                    rbgObject.put("5", 0);
+
+                    if (masterSwitchPubNub.size() < 3) {
+
+                        masterSwitchPubNub.add(rbgObject);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-                lightsRecyclerView.setHasFixedSize(true);
-                lightsRecyclerView.setAdapter(homePageAdapter);
-
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+            pubnubConfig(masterSwitchPubNub);
 
-            }
-        };
 
-        userRef.addValueEventListener(lightEventListener);
-        return lightList;
+
+        }
+
+
+        return true;
+
     }
 
 

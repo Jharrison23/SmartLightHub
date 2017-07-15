@@ -24,8 +24,7 @@ public class MusicControls extends AppCompatActivity {
             public void onClick(View v)
             {
 
-                Intent intent = new Intent(MusicControls.this, com.example.seniordesign.smartlighthub.View.MusicSpotify.class);
-                startActivity(intent);
+
             }
         });
     }

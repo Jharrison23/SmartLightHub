@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -87,15 +88,12 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
         return lightsList.size();
     }
 
-    class LightsHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
-    {
+    class LightsHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private TextView lightName;
         private Switch lightState;
         private LinearLayout lightContainer;
         private CardView homepageCardView;
-
-
 
 
         public LightsHolder(final View itemView) {
@@ -111,6 +109,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
             lightName = (TextView) itemView.findViewById(R.id.firstLightName);
 
             lightState = (Switch) itemView.findViewById(R.id.firstLightState);
+            lightState.setOnClickListener(this);
 
 
         }
@@ -119,8 +118,54 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
         @Override
         public void onClick(View v) {
 
-            final int initialColor = ((ColorDrawable) homepageCardView.getBackground()).getColor();
-            openColorPickerDialog(false, initialColor, lightState.isChecked());
+
+            if (v == itemView) {
+                final int initialColor = ((ColorDrawable) homepageCardView.getBackground()).getColor();
+                openColorPickerDialog(false, initialColor, lightState.isChecked());
+            }
+
+            else if (v.getId() == R.id.firstLightState) {
+
+                updateDatabaseSwitch(getAdapterPosition(), lightState.isChecked());
+
+                JSONObject rbgObject = new JSONObject();
+
+                Drawable drawableColor = homepageCardView.getBackground();
+
+                int color = ((ColorDrawable) drawableColor).getColor();
+
+                int red = Color.red(color);
+                int green = Color.green(color);
+                int blue = Color.blue(color);
+
+
+                try {
+                    rbgObject.put("0", red);
+                    rbgObject.put("1", green);
+                    rbgObject.put("2", blue);
+                    rbgObject.put("3", 0);
+
+                    int stateFlag = 0;
+
+                    if (lightState.isChecked()) {
+                        stateFlag = 1;
+                    } else if (!lightState.isChecked()) {
+                        stateFlag = 0;
+                    }
+
+                    rbgObject.put("4", stateFlag);
+
+                    rbgObject.put("5", 0);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                pubnubConfig(rbgObject, getAdapterPosition());
+
+            }
+
 
         }
 
@@ -149,13 +194,14 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
 
                     }
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
             });
 
-            Toast.makeText(v.getContext(),lightsList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), lightsList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
 
             Intent lightInfoIntent = new Intent(v.getContext(), LightInfo.class);
 
@@ -167,7 +213,6 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
 
             return true;
         }
-
 
 
         // Color picker 2
@@ -197,19 +242,15 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
 
                         int stateFlag = 0;
 
-                        if (isChecked)
-                        {
+                        if (isChecked) {
                             stateFlag = 1;
-                        }
-
-                        else if (!isChecked) {
+                        } else if (!isChecked) {
                             stateFlag = 0;
                         }
 
                         rbgObject.put("4", stateFlag);
 
                         rbgObject.put("5", 0);
-
 
 
                     } catch (JSONException e) {
@@ -232,9 +273,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
         }
 
 
-
         public boolean updateDatabaseLightColor(final int lightNumber) {
-
 
 
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -262,61 +301,74 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
             return true;
         }
 
-    }
+        public boolean updateDatabaseSwitch(final int lightNumber, boolean lightState) {
+
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+            final FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+            DatabaseReference userRef = firebaseDatabase.getReference().child("Users").child(currentUser.getUid()).child("Lights");
+
+            DatabaseReference lightRef = userRef.child("Light " + (lightNumber + 1));
+
+            lightRef.child("State").setValue(lightState);
+
+            lightsList.clear();
+
+            return true;
+        }
 
 
-    public void pubnubConfig(final JSONObject pubnubObject, int position) {
-        PNConfiguration pnConfiguration = new PNConfiguration();
-        pnConfiguration.setSubscribeKey("sub-c-40e3d906-4ee7-11e7-bf50-02ee2ddab7fe");
-        pnConfiguration.setPublishKey("pub-c-6528095d-bc26-4768-a903-ac0a85174f81");
-        pnConfiguration.setSecure(false);
+        public void pubnubConfig(final JSONObject pubnubObject, int position) {
+            PNConfiguration pnConfiguration = new PNConfiguration();
+            pnConfiguration.setSubscribeKey("sub-c-40e3d906-4ee7-11e7-bf50-02ee2ddab7fe");
+            pnConfiguration.setPublishKey("pub-c-6528095d-bc26-4768-a903-ac0a85174f81");
+            pnConfiguration.setSecure(false);
 
-        PubNub pubnub = new PubNub(pnConfiguration);
+            PubNub pubnub = new PubNub(pnConfiguration);
 
 
-        switch (position) {
-            case 0:
-                pubnub.publish().message(pubnubObject).channel("Light_1")
-                        .async(new PNCallback<PNPublishResult>() {
-                            @Override
-                            public void onResponse(PNPublishResult result, PNStatus status) {
-                                Log.d("HomePage Adapter ", "Light 1 publish: " + pubnubObject);
-                            }
-                        });
+            switch (position) {
+                case 0:
+                    pubnub.publish().message(pubnubObject).channel("Light_1")
+                            .async(new PNCallback<PNPublishResult>() {
+                                @Override
+                                public void onResponse(PNPublishResult result, PNStatus status) {
+                                    Log.d("HomePage Adapter ", "Light 1 publish: " + pubnubObject);
+                                }
+                            });
 
-                break;
+                    break;
 
-            case 1:
+                case 1:
 
-                pubnub.publish().message(pubnubObject).channel("Light_2")
-                        .async(new PNCallback<PNPublishResult>() {
-                            @Override
-                            public void onResponse(PNPublishResult result, PNStatus status) {
-                                Log.d("HomePage Adapter ", "Light 2 publish: " + pubnubObject);
-                            }
-                        });
+                    pubnub.publish().message(pubnubObject).channel("Light_2")
+                            .async(new PNCallback<PNPublishResult>() {
+                                @Override
+                                public void onResponse(PNPublishResult result, PNStatus status) {
+                                    Log.d("HomePage Adapter ", "Light 2 publish: " + pubnubObject);
+                                }
+                            });
 
-                break;
+                    break;
 
-            case 2:
+                case 2:
 
-                pubnub.publish().message(pubnubObject).channel("Light_3")
-                        .async(new PNCallback<PNPublishResult>() {
-                            @Override
-                            public void onResponse(PNPublishResult result, PNStatus status) {
-                                Log.d("HomePage Adapter ", "Light 3 publish: " + pubnubObject);
-                            }
-                        });
+                    pubnub.publish().message(pubnubObject).channel("Light_3")
+                            .async(new PNCallback<PNPublishResult>() {
+                                @Override
+                                public void onResponse(PNPublishResult result, PNStatus status) {
+                                    Log.d("HomePage Adapter ", "Light 3 publish: " + pubnubObject);
+                                }
+                            });
 
-                break;
+                    break;
+
+            }
 
         }
 
+
     }
-
-
-
-
-
 
 }

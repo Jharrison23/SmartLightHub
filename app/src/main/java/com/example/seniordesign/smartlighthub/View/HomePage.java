@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.Controller.HomePageAdapter;
@@ -64,6 +65,7 @@ public class HomePage extends Fragment {
 
     private Boolean isPublished;
 
+    private Switch masterSwitch;
 
 
     @Override
@@ -127,10 +129,28 @@ public class HomePage extends Fragment {
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         homePageAdapter = new HomePageAdapter(createLightList(), getContext());
-//
-//        lightsRecyclerView.setHasFixedSize(true);
-//        lightsRecyclerView.setAdapter(homePageAdapter);
 
+        masterSwitch = (Switch) view.findViewById(R.id.masterSwitch);
+        masterSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                DatabaseReference light1Ref = userRef.child("Light 1");
+                light1Ref.child("State").setValue(masterSwitch.isChecked());
+
+
+                DatabaseReference light2Ref = userRef.child("Light 2");
+                light2Ref.child("State").setValue(masterSwitch.isChecked());
+
+
+                DatabaseReference light3Ref = userRef.child("Light 3");
+                light3Ref.child("State").setValue(masterSwitch.isChecked());
+
+                homePageAdapter = new HomePageAdapter(createLightList(), getContext());
+
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 

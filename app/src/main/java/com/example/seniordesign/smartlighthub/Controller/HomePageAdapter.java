@@ -88,6 +88,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
         return lightsList.size();
     }
 
+
     class LightsHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private TextView lightName;

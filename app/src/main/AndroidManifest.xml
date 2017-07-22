@@ -40,6 +40,7 @@
             android:label="@string/title_activity_bottom_navigation" />
         <activity android:name=".View.AddPresetsActivity" />
         <activity android:name=".View.MoodCreation" />
+        <receiver android:name=".Controller.AlarmReciever"></receiver>
     </application>
 
 </manifest>

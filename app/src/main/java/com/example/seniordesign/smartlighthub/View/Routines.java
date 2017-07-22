@@ -1,7 +1,11 @@
 package com.example.seniordesign.smartlighthub.View;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.seniordesign.smartlighthub.Controller.AlarmReciever;
 import com.example.seniordesign.smartlighthub.Controller.RoutinePageAdapter;
 import com.example.seniordesign.smartlighthub.Model.Light;
 import com.example.seniordesign.smartlighthub.Model.Routine;
@@ -25,7 +31,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Routines extends android.support.v4.app.Fragment {
@@ -62,10 +70,13 @@ public class Routines extends android.support.v4.app.Fragment {
                 Intent addRoutineIntent = new Intent(getActivity(), AddRoutine.class);
 
                 startActivity(addRoutineIntent);
+
+
             }
         });
 
         routineRecyclerView = (RecyclerView) view.findViewById(R.id.routineRecyclerView);
+
         routineRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         routinePageAdapter = new RoutinePageAdapter(createRoutineList(), getContext());
@@ -82,6 +93,9 @@ public class Routines extends android.support.v4.app.Fragment {
         ValueEventListener routineEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int requestCodeIndex = 0;
+
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
 
                 for (DataSnapshot child: children) {
@@ -112,9 +126,35 @@ public class Routines extends android.support.v4.app.Fragment {
                         }
                     }
 
+
                     Routine routine = new Routine(name, time, listOfDays, lightList);
 
                     routineList.add(routine);
+
+
+
+
+                    Calendar calendar = Calendar.getInstance();
+
+                    // set the calendar with the hour and minute
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 27);
+
+                    Intent alarmIntent = new Intent(getActivity(), AlarmReciever.class);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), requestCodeIndex, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+
+                    alarmManager.set(alarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+                    Log.d("Alarm button clicked", "NOW");
+
+                    requestCodeIndex++;
+
+
+
+
 
                 }
 

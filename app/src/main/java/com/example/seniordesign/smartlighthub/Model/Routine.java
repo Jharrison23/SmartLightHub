@@ -9,14 +9,16 @@ import java.util.List;
 public class Routine {
 
     private String Name;
-    private String routineTime;
+    private String routineHour;
+    private String routineMinute;
     private List<Boolean> Days;
     private List<Light> lightsLight;
 
-    public Routine(String Name, String routineTime, List<Boolean> Days, List<Light> lightsLights) {
+    public Routine(String Name, String routineHour, String routineMinute, List<Boolean> Days, List<Light> lightsLights) {
 
         this.Name = Name;
-        this.routineTime = routineTime;
+        this.routineHour = routineHour;
+        this.routineMinute = routineMinute;
         this.Days = Days;
         this.lightsLight = lightsLights;
     }
@@ -30,12 +32,20 @@ public class Routine {
         Name = name;
     }
 
-    public String getRoutineTime() {
-        return routineTime;
+    public String getRoutineHour() {
+        return routineHour;
     }
 
-    public void setRoutineTime(String routineTime) {
-        this.routineTime = routineTime;
+    public void setRoutineHour(String routineHour) {
+        this.routineHour = routineHour;
+    }
+
+    public String getRoutineMinute() {
+        return routineMinute;
+    }
+
+    public void setRoutineMinute(String routineMinute) {
+        this.routineMinute = routineMinute;
     }
 
     public List<Boolean> getDays() {

@@ -66,7 +66,7 @@ public class RoutinePageAdapter extends RecyclerView.Adapter<RoutinePageAdapter.
 
         holder.routineName.setText(routine.getName());
 
-        holder.routineTime.setText(routine.getRoutineTime());
+        holder.routineTime.setText(routine.getRoutineHour() + " : " + routine.getRoutineMinute());
 
 
         holder.routineElementFirstLightColor.setBackgroundColor(routine.getLightsLight().get(0).getConvertedColor());

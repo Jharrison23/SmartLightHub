@@ -318,7 +318,9 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
 
         currentRoutineRef.child("Name").setValue(routineName.getText().toString());
 
-        currentRoutineRef.child("Time").setValue(routineTimePicker.getCurrentHour() + ": " + routineTimePicker.getCurrentMinute());
+        currentRoutineRef.child("Hour").setValue(routineTimePicker.getCurrentHour() + "");
+
+        currentRoutineRef.child("Minute").setValue(routineTimePicker.getCurrentMinute() + "");
 
         DatabaseReference routineLightRef = currentRoutineRef.child("Lights");
 

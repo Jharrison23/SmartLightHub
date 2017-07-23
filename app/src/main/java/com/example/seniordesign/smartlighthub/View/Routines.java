@@ -1,7 +1,6 @@
 package com.example.seniordesign.smartlighthub.View;
 
 import android.app.AlarmManager;
-import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +9,7 @@ import android.support.annotation.BoolRes;
 import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,7 +43,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Routines extends android.support.v4.app.Fragment {
+public class Routines extends Fragment {
 
 
     private FirebaseAuth mAuth;
@@ -297,6 +297,25 @@ public class Routines extends android.support.v4.app.Fragment {
 
                                 Intent alarmIntent = new Intent(getActivity(), AlarmReciever.class);
 
+                                alarmIntent.putExtra("light1Name", lightList.get(0).getName());
+                                alarmIntent.putExtra("light1State", lightList.get(0).isState());
+                                alarmIntent.putExtra("light1Color", lightList.get(0).getColor());
+
+                                Log.d("Alarm PushLight 1", "Name " + lightList.get(0).getName() + " Color " + lightList.get(0).getColor() + " State " + lightList.get(0).isState());
+
+                                alarmIntent.putExtra("light2Name", lightList.get(1).getName());
+                                alarmIntent.putExtra("light2State", lightList.get(1).isState());
+                                alarmIntent.putExtra("light2Color", lightList.get(1).getColor());
+
+                                Log.d("Alarm PushLight 2", "Name " + lightList.get(1).getName() + " Color " + lightList.get(1).getColor() + " State " + lightList.get(1).isState());
+
+                                alarmIntent.putExtra("light3Name", lightList.get(2).getName());
+                                alarmIntent.putExtra("light3State", lightList.get(2).isState());
+                                alarmIntent.putExtra("light3Color", lightList.get(2).getColor());
+
+                                Log.d("Alarm PushLight 3", "Name " + lightList.get(2).getName() + " Color " + lightList.get(2).getColor() + " State " + lightList.get(2).isState());
+
+
                                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), requestCodeIndex, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                                 AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
@@ -316,6 +335,25 @@ public class Routines extends android.support.v4.app.Fragment {
                                 calendar.set(Calendar.MINUTE, intMinute);
 
                                 Intent alarmIntent = new Intent(getActivity(), AlarmReciever.class);
+
+                                alarmIntent.putExtra("light1Name", lightList.get(0).getName());
+                                alarmIntent.putExtra("light1State", lightList.get(0).isState());
+                                alarmIntent.putExtra("light1Color", lightList.get(0).getColor());
+
+                                Log.d("Alarm PushLight 1", "Name " + lightList.get(0).getName() + " Color " + lightList.get(0).getColor() + " State " + lightList.get(0).isState());
+
+                                alarmIntent.putExtra("light2Name", lightList.get(1).getName());
+                                alarmIntent.putExtra("light2State", lightList.get(1).isState());
+                                alarmIntent.putExtra("light2Color", lightList.get(1).getColor());
+
+                                Log.d("Alarm PushLight 2", "Name " + lightList.get(1).getName() + " Color " + lightList.get(1).getColor() + " State " + lightList.get(1).isState());
+
+                                alarmIntent.putExtra("light3Name", lightList.get(2).getName());
+                                alarmIntent.putExtra("light3State", lightList.get(2).isState());
+                                alarmIntent.putExtra("light3Color", lightList.get(2).getColor());
+
+                                Log.d("Alarm PushLight 3", "Name " + lightList.get(2).getName() + " Color " + lightList.get(2).getColor() + " State " + lightList.get(2).isState());
+
 
                                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), requestCodeIndex, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -343,6 +381,7 @@ public class Routines extends android.support.v4.app.Fragment {
         userRef.addValueEventListener(routineEventListener);
 
     }
+
 
 
 

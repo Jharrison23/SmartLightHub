@@ -202,7 +202,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
                 }
             });
 
-            Toast.makeText(v.getContext(), lightsList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(v.getContext(), lightsList.get(getAdapterPosition()).getName(), Toast.LENGTH_SHORT).show();
 
             Intent lightInfoIntent = new Intent(v.getContext(), LightInfo.class);
 
@@ -266,7 +266,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.Lights
                 @Override
                 public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
 
-                    Toast.makeText(itemView.getContext(), "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(itemView.getContext(), "Color Picker Closed", Toast.LENGTH_SHORT).show();
                 }
             });
             ambilWarnaDialog.show();

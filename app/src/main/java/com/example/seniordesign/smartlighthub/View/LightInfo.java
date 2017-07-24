@@ -163,7 +163,7 @@ public class LightInfo extends AppCompatActivity {
 
                 else
                 {
-                    Toast.makeText(LightInfo.this, "No name", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(LightInfo.this, "No name", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -256,7 +256,7 @@ public class LightInfo extends AppCompatActivity {
             @Override
             public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
 
-                Toast.makeText(LightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
             }
         });
         ambilWarnaDialog.show();
@@ -278,7 +278,7 @@ public class LightInfo extends AppCompatActivity {
         switch(lightNumber)
         {
             case 0:
-                Toast.makeText(this, "publish", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "publish", Toast.LENGTH_SHORT).show();
                 pubnub.publish().message(publishMessage).channel("Light_1")
                         .async(new PNCallback<PNPublishResult>() {
                             @Override

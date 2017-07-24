@@ -257,13 +257,13 @@ public class PresetsPageAdapter extends RecyclerView.Adapter<PresetsPageAdapter.
                     currentLightColor.setBackgroundColor(color);
 
                     updateDatabaseLightColor(currentLightColor, lightPosition, getAdapterPosition());
-                    Toast.makeText(itemView.getContext(), "Light " + lightPosition + " updated", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(itemView.getContext(), "Light " + lightPosition + " updated", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
 
-                    Toast.makeText(itemView.getContext(), "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(itemView.getContext(), "Color Picker Closed", Toast.LENGTH_SHORT).show();
                 }
             });
             ambilWarnaDialog.show();

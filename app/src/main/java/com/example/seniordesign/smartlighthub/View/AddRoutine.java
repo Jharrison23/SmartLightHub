@@ -301,7 +301,7 @@ public class AddRoutine extends AppCompatActivity implements View.OnClickListene
             @Override
             public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
 
-                Toast.makeText(AddRoutine.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddRoutine.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
             }
         });
         ambilWarnaDialog.show();

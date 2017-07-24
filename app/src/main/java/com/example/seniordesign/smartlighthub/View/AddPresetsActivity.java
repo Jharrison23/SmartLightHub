@@ -331,7 +331,7 @@ public class AddPresetsActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
 
-                Toast.makeText(AddPresetsActivity.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AddPresetsActivity.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
             }
         });
 

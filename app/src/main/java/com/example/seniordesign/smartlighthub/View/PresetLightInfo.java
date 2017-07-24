@@ -240,7 +240,7 @@ public class PresetLightInfo extends AppCompatActivity {
             @Override
             public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
 
-                Toast.makeText(PresetLightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PresetLightInfo.this, "Color Picker Closed", Toast.LENGTH_SHORT).show();
             }
         });
         ambilWarnaDialog.show();

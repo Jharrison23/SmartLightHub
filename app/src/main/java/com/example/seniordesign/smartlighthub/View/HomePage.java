@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.seniordesign.smartlighthub.Controller.HomePageAdapter;
@@ -64,6 +65,9 @@ public class HomePage extends Fragment {
 
     private Boolean isPublished;
 
+    private Switch masterSwitch;
+
+    private List<Light> masterLightList;
 
 
     @Override
@@ -119,6 +123,8 @@ public class HomePage extends Fragment {
 
         }
 
+        masterLightList = new ArrayList<>();
+
         view = inflater.inflate(R.layout.activity_home_page, container, false);
 
         pubnubObjects = new ArrayList<>();
@@ -127,10 +133,30 @@ public class HomePage extends Fragment {
         lightsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         homePageAdapter = new HomePageAdapter(createLightList(), getContext());
-//
-//        lightsRecyclerView.setHasFixedSize(true);
-//        lightsRecyclerView.setAdapter(homePageAdapter);
 
+        masterSwitch = (Switch) view.findViewById(R.id.masterSwitch);
+        masterSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                DatabaseReference light1Ref = userRef.child("Light 1");
+                light1Ref.child("State").setValue(masterSwitch.isChecked());
+
+
+                DatabaseReference light2Ref = userRef.child("Light 2");
+                light2Ref.child("State").setValue(masterSwitch.isChecked());
+
+
+                DatabaseReference light3Ref = userRef.child("Light 3");
+                light3Ref.child("State").setValue(masterSwitch.isChecked());
+
+                homePageAdapter = new HomePageAdapter(createLightList(), getContext());
+
+                masterSwitchPublish();
+
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -162,6 +188,69 @@ public class HomePage extends Fragment {
 
 
         mAuth.addAuthStateListener(mAuthListener);
+
+        onStartPubNub();
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.d("OnPause PubObject = ","" + pubnubObjects.toString());
+
+        pubnubObjects.clear();
+
+        Log.d("PauseClear PubObject = ","" + pubnubObjects.toString());
+
+
+    }
+
+    public List<Light> createLightList()
+    {
+
+
+        final List<Light> lightList = new ArrayList<>();
+
+        ValueEventListener lightEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                for (DataSnapshot child : children) {
+
+                    Light newLight = child.getValue(Light.class);
+
+                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
+
+                    lightList.add(newLight);
+
+
+
+                }
+
+                masterLightList = lightList;
+
+                lightsRecyclerView.setHasFixedSize(true);
+                lightsRecyclerView.setAdapter(homePageAdapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        userRef.addValueEventListener(lightEventListener);
+        return lightList;
+    }
+
+
+
+    public void onStartPubNub() {
 
         final List<Light> lightList = new ArrayList<>();
 
@@ -219,7 +308,9 @@ public class HomePage extends Fragment {
 
                 }
 
-                Log.d("OnResume PubObject = ","" + pubnubObjects.toString());
+                masterLightList = lightList;
+
+                Log.d("On Start PubObject = ","" + pubnubObjects.toString());
 
                 if (!isPublished)
                 {
@@ -240,59 +331,63 @@ public class HomePage extends Fragment {
 
 
 
-
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
 
-        Log.d("OnPause PubObject = ","" + pubnubObjects.toString());
-
-        pubnubObjects.clear();
-
-        Log.d("PauseClear PubObject = ","" + pubnubObjects.toString());
+    public boolean masterSwitchPublish() {
 
 
-    }
-
-    public List<Light> createLightList()
-    {
+        if (masterLightList != null) {
 
 
-        final List<Light> lightList = new ArrayList<>();
-
-        ValueEventListener lightEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-
-                for (DataSnapshot child : children) {
-
-                    Light newLight = child.getValue(Light.class);
-
-                    Log.d("LIGHT VALUE ", "i = " + child + " " + newLight);
-
-                    lightList.add(newLight);
+            List<JSONObject> masterSwitchPubNub = new ArrayList<>();
 
 
+            for (Light currentLight: masterLightList) {
 
+                JSONObject rbgObject = new JSONObject();
+
+
+                try {
+                    rbgObject.put("0", currentLight.getRed());
+                    rbgObject.put("1", currentLight.getGreen());
+                    rbgObject.put("2", currentLight.getBlue());
+                    rbgObject.put("3", 0);
+
+                    int stateFlag = 0;
+
+                    if (masterSwitch.isChecked()) {
+                        stateFlag = 1;
+                    }
+
+                    else if (!masterSwitch.isChecked()) {
+                        stateFlag = 0;
+                    }
+
+                    rbgObject.put("4", stateFlag);
+
+                    rbgObject.put("5", 0);
+
+                    if (masterSwitchPubNub.size() < 3) {
+
+                        masterSwitchPubNub.add(rbgObject);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-                lightsRecyclerView.setHasFixedSize(true);
-                lightsRecyclerView.setAdapter(homePageAdapter);
-
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+            pubnubConfig(masterSwitchPubNub);
 
-            }
-        };
 
-        userRef.addValueEventListener(lightEventListener);
-        return lightList;
+
+        }
+
+
+        return true;
+
     }
 
 

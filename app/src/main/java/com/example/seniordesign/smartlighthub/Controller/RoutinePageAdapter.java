@@ -66,7 +66,7 @@ public class RoutinePageAdapter extends RecyclerView.Adapter<RoutinePageAdapter.
 
         holder.routineName.setText(routine.getName());
 
-        holder.routineTime.setText(routine.getRoutineTime());
+        holder.routineTime.setText(routine.getRoutineHour() + " : " + routine.getRoutineMinute());
 
 
         holder.routineElementFirstLightColor.setBackgroundColor(routine.getLightsLight().get(0).getConvertedColor());
@@ -201,13 +201,13 @@ public class RoutinePageAdapter extends RecyclerView.Adapter<RoutinePageAdapter.
                     currentLightColor.setBackgroundColor(color);
 
                     //updateDatabaseLightColor(currentLightColor, lightPosition, getAdapterPosition());
-                    Toast.makeText(itemView.getContext(), "Light " + lightPosition + " updated", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(itemView.getContext(), "Light " + lightPosition + " updated", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onCancel(AmbilWarnaDialog ambilWarnaDialog) {
 
-                    Toast.makeText(itemView.getContext(), "Color Picker Closed", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(itemView.getContext(), "Color Picker Closed", Toast.LENGTH_SHORT).show();
                 }
             });
             ambilWarnaDialog.show();

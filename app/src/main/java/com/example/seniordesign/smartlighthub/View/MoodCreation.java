@@ -129,7 +129,7 @@ public class MoodCreation extends AppCompatActivity implements View.OnClickListe
         {
             presetName = extras.getString("Preset Name");
 
-            Toast.makeText(this, presetName, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, presetName, Toast.LENGTH_SHORT).show();
         }
 
 

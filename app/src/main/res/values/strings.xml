@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SmartLightHub</string>
+    <string name="app_name">Smart Lights</string>
     <string name="title_activity_bottom_navigation">BottomNavigation</string>
     <string name="title_home">Home</string>
     <string name="title_presets">Presets</string>
